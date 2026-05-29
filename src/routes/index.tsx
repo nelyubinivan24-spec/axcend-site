@@ -1414,6 +1414,53 @@ function getStoredLanguage() {
   }
 }
 
+function createLanguageScrollRestorer() {
+  const savedY = window.scrollY;
+  const headerHeight =
+    parseFloat(
+      getComputedStyle(document.documentElement).getPropertyValue("--axcend-header-height"),
+    ) || 76;
+  const viewportLine = Math.min(
+    window.innerHeight - 1,
+    headerHeight + Math.max(96, Math.min(220, (window.innerHeight - headerHeight) * 0.28)),
+  );
+  const sectionIds = [
+    "why",
+    "what",
+    "industries",
+    "proof",
+    "packages",
+    "funnel",
+    "calc",
+    "faq",
+    "contact",
+  ];
+  const visibleSection = sectionIds
+    .map((id) => document.getElementById(id))
+    .filter((section): section is HTMLElement => Boolean(section))
+    .map((section) => ({ section, rect: section.getBoundingClientRect() }))
+    .find(({ rect }) => rect.top <= viewportLine && rect.bottom >= viewportLine);
+
+  if (!visibleSection) {
+    return () => window.scrollTo({ top: savedY, behavior: "auto" });
+  }
+
+  const offsetFromSectionTop = viewportLine - visibleSection.rect.top;
+  return () => {
+    if (!visibleSection.section.isConnected) {
+      window.scrollTo({ top: savedY, behavior: "auto" });
+      return;
+    }
+
+    const nextTop =
+      visibleSection.section.getBoundingClientRect().top +
+      window.scrollY -
+      viewportLine +
+      offsetFromSectionTop;
+    window.scrollTo({ top: Math.max(0, nextTop), behavior: "auto" });
+  };
+}
+
 function LanguageSwitcher() {
   const ref = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState(false);
@@ -1449,6 +1496,7 @@ function LanguageSwitcher() {
   }, []);
 
   const selectLanguage = (language: string) => {
+    const restoreScroll = createLanguageScrollRestorer();
     if (window.AXCEND_I18N) {
       window.AXCEND_I18N.setLanguage(language);
     } else {
@@ -1460,6 +1508,9 @@ function LanguageSwitcher() {
       setCurrentLanguage(language);
     }
     setOpen(false);
+    requestAnimationFrame(() => requestAnimationFrame(restoreScroll));
+    window.setTimeout(restoreScroll, 120);
+    window.setTimeout(restoreScroll, 360);
   };
 
   return (
@@ -1603,7 +1654,6 @@ function Index() {
     window.addEventListener("hashchange", scheduleScrollToHash);
     window.addEventListener("popstate", scheduleScrollToHash);
     window.addEventListener("axcend-i18n-ready", scheduleScrollToHash);
-    window.addEventListener("axcend-language-change", scheduleScrollToHash);
     document.addEventListener("click", handleHashClick);
     window.addEventListener("wheel", cancelPendingOnUserIntent, { passive: true });
     window.addEventListener("touchstart", cancelPendingOnUserIntent, { passive: true });
@@ -1616,7 +1666,6 @@ function Index() {
       window.removeEventListener("hashchange", scheduleScrollToHash);
       window.removeEventListener("popstate", scheduleScrollToHash);
       window.removeEventListener("axcend-i18n-ready", scheduleScrollToHash);
-      window.removeEventListener("axcend-language-change", scheduleScrollToHash);
       document.removeEventListener("click", handleHashClick);
       window.removeEventListener("wheel", cancelPendingOnUserIntent);
       window.removeEventListener("touchstart", cancelPendingOnUserIntent);
