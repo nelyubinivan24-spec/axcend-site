@@ -708,12 +708,12 @@ const industriesData = [
 function WhatWeDoTabs() {
   return (
     <Tabs defaultValue="0" className="w-full">
-      <TabsList className="-mx-6 flex h-auto w-auto flex-nowrap justify-start gap-2 overflow-x-auto bg-transparent px-6 pb-1 [scrollbar-width:none] md:mx-0 md:w-full md:flex-wrap md:justify-center md:overflow-visible md:px-0 md:pb-0 [&::-webkit-scrollbar]:hidden">
+      <TabsList className="-mx-6 grid h-auto w-[calc(100%+3rem)] auto-cols-[minmax(180px,230px)] grid-flow-col grid-rows-2 items-stretch justify-start gap-2 overflow-x-auto bg-transparent px-6 pb-1 [scrollbar-width:none] md:mx-0 md:flex md:w-full md:flex-wrap md:items-center md:justify-center md:overflow-visible md:px-0 md:pb-0 [&::-webkit-scrollbar]:hidden">
         {whatWeDo.map((s, i) => (
           <TabsTrigger
             key={s.title}
             value={String(i)}
-            className="max-w-[280px] shrink-0 whitespace-normal rounded-full border border-border bg-card px-4 py-2 text-center text-sm leading-snug text-muted-foreground transition-colors hover:text-foreground data-[state=active]:border-axcend-action data-[state=active]:bg-axcend-action data-[state=active]:text-axcend-dark data-[state=active]:shadow-none md:max-w-full"
+            className="min-h-10 w-full max-w-[230px] whitespace-normal rounded-full border border-border bg-card px-3 py-2 text-center text-[13px] leading-tight text-muted-foreground transition-colors hover:text-foreground data-[state=active]:border-axcend-action data-[state=active]:bg-axcend-action data-[state=active]:text-axcend-dark data-[state=active]:shadow-none md:min-h-0 md:w-auto md:max-w-full md:px-4 md:text-sm md:leading-snug"
           >
             {s.title}
           </TabsTrigger>
