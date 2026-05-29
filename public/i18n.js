@@ -1,8 +1,11 @@
 (function () {
   const payload = window.AXCEND_I18N_PAYLOAD;
   if (!payload) return;
+  if (window.__AXCEND_I18N_BOOTSTRAPPED__) return;
+  window.__AXCEND_I18N_BOOTSTRAPPED__ = true;
 
   const STORAGE_KEY = "axcend-language";
+  const START_DELAY = 350;
   const originalText = new WeakMap();
   const originalAttrs = new WeakMap();
   const rtlLanguages = new Set(["ar"]);
@@ -479,10 +482,10 @@
   }
 
   if (document.readyState === "complete") {
-    setTimeout(startAfterHydration, 1200);
+    setTimeout(startAfterHydration, START_DELAY);
   } else if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", () => setTimeout(startAfterHydration, 1200), { once: true });
+    document.addEventListener("DOMContentLoaded", () => setTimeout(startAfterHydration, START_DELAY), { once: true });
   } else {
-    setTimeout(startAfterHydration, 1200);
+    setTimeout(startAfterHydration, START_DELAY);
   }
 })();

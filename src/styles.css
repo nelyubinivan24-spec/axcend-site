@@ -157,6 +157,7 @@
   html {
     min-height: 100%;
     overflow-y: auto;
+    scroll-padding-top: calc(var(--axcend-header-height, 76px) + 16px);
     scroll-behavior: smooth;
   }
 

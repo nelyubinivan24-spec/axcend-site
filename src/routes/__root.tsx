@@ -103,8 +103,8 @@ function RootShell({ children }: { children: React.ReactNode }) {
       <body>
         {children}
         <Scripts />
-        <script src="/i18n-data.js?v=source-20260526-7" defer />
-        <script src="/i18n.js?v=source-20260526-7" defer />
+        <script src="/i18n-data.js?v=source-20260529-runtime-1" defer />
+        <script src="/i18n.js?v=source-20260529-runtime-1" defer />
       </body>
     </html>
   );

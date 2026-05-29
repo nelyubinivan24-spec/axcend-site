@@ -1343,6 +1343,38 @@ function Index() {
   const headerRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
+    const getHashId = () => {
+      const raw = window.location.hash.slice(1);
+      if (!raw) return "";
+      try {
+        return decodeURIComponent(raw);
+      } catch {
+        return raw;
+      }
+    };
+
+    const scrollToHash = () => {
+      const id = getHashId();
+      if (!id) return;
+      const target = document.getElementById(id);
+      if (!target) return;
+      const headerHeight =
+        parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--axcend-header-height")) ||
+        76;
+      const top = target.getBoundingClientRect().top + window.scrollY - headerHeight - 16;
+      window.scrollTo({ top: Math.max(0, top), behavior: "auto" });
+    };
+
+    const scheduleScrollToHash = () => {
+      requestAnimationFrame(() => requestAnimationFrame(scrollToHash));
+    };
+
+    scheduleScrollToHash();
+    window.addEventListener("hashchange", scheduleScrollToHash);
+    return () => window.removeEventListener("hashchange", scheduleScrollToHash);
+  }, []);
+
+  useEffect(() => {
     const header = headerRef.current;
     if (!header) return;
 
