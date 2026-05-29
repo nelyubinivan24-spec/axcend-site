@@ -1794,7 +1794,7 @@ function Index() {
           aria-hidden="true"
           className="pointer-events-none absolute -right-72 bottom-[-22rem] h-[56rem] w-[64rem] rounded-full bg-[radial-gradient(ellipse_at_center,rgba(200,240,160,0.14)_0%,rgba(200,240,160,0.072)_30%,rgba(200,240,160,0.03)_52%,rgba(200,240,160,0.01)_70%,rgba(200,240,160,0)_88%)] blur-[104px]"
         />
-        <div className="relative z-10 mx-auto grid max-w-6xl gap-12 px-6 py-24 md:py-32 lg:grid-cols-[minmax(0,1fr)_420px] lg:items-center">
+        <div className="relative z-10 mx-auto grid max-w-6xl gap-10 px-6 py-20 md:gap-12 md:py-32 lg:grid-cols-[minmax(0,1fr)_420px] lg:items-center">
           <div>
             <h2 className="text-3xl font-semibold leading-[1.12] tracking-tight text-primary-foreground md:text-5xl">
                 Подключите AXEND для увеличения продаж
@@ -1803,21 +1803,21 @@ function Index() {
               Расскажите о продукте и целевом рынке — мы покажем, какой результат
               реалистично получить и как будет устроена работа.
             </p>
-            <div className="mt-10 flex flex-wrap gap-3">
+            <div className="mt-8 flex flex-wrap gap-3 md:mt-10">
               <a
                 href="mailto:axcend.kz@retrand.com"
-                className="inline-flex items-center gap-2 rounded-full bg-axcend-action px-6 py-3 text-sm font-medium text-axcend-dark shadow-[0_14px_34px_rgba(200,240,160,0.18)] transition-opacity hover:opacity-90"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-axcend-action px-6 py-3 text-sm font-medium text-axcend-dark shadow-[0_14px_34px_rgba(200,240,160,0.18)] transition-opacity hover:opacity-90 sm:w-auto"
               >
                 Написать в AXCEND <ArrowRight className="h-4 w-4" />
               </a>
             </div>
           </div>
 
-          <div className="border-t border-primary-foreground/15 pt-8 lg:border-l lg:border-t-0 lg:pl-10 lg:pt-0">
+          <div className="border-t border-primary-foreground/15 pt-7 md:pt-8 lg:border-l lg:border-t-0 lg:pl-10 lg:pt-0">
             <div className="text-xs font-medium uppercase tracking-[0.18em] text-primary-foreground/55">
               Контакты
             </div>
-            <div className="mt-6 grid gap-3 text-base font-medium text-primary-foreground" data-i18n-ignore="true">
+            <div className="mt-5 grid gap-2.5 text-[15px] font-medium text-primary-foreground md:mt-6 md:gap-3 md:text-base" data-i18n-ignore="true">
               <a className="transition-colors hover:text-axcend-action" href="mailto:axcend.kz@retrand.com">
                 axcend.kz@retrand.com
               </a>
@@ -1834,7 +1834,7 @@ function Index() {
                 +7 700 459 29 02
               </a>
             </div>
-            <div className="mt-8 flex items-center gap-3" data-i18n-ignore="true">
+            <div className="mt-7 flex items-center gap-3 md:mt-8" data-i18n-ignore="true">
               <a
                 href="https://wa.me/77085077371"
                 target="_blank"
