@@ -1242,18 +1242,18 @@ function FAQ() {
     <Accordion
       type="single"
       collapsible
-      className="mx-auto max-w-2xl space-y-1.5 rounded-[26px] border border-border bg-muted p-1.5"
+      className="mx-auto max-w-2xl space-y-1 rounded-[22px] border border-border bg-muted p-1 md:space-y-1.5 md:rounded-[26px] md:p-1.5"
     >
       {faqs.map((f, i) => (
         <AccordionItem
           key={i}
           value={String(i)}
-          className="rounded-[20px] border border-transparent bg-card px-5 transition-colors data-[state=open]:border-axcend-action/70 data-[state=open]:bg-axcend-soft"
+          className="rounded-[18px] border border-transparent bg-card px-4 transition-colors data-[state=open]:border-axcend-action/70 data-[state=open]:bg-axcend-soft md:rounded-[20px] md:px-5"
         >
-          <AccordionTrigger className="py-4 text-left text-base font-semibold text-foreground hover:no-underline [&>svg]:text-muted-foreground">
+          <AccordionTrigger className="py-3 text-left text-[15px] font-semibold leading-snug text-foreground hover:no-underline md:py-4 md:text-base [&>svg]:text-muted-foreground">
             {f.q}
           </AccordionTrigger>
-          <AccordionContent className="pb-4 pr-8 text-sm leading-relaxed text-muted-foreground">
+          <AccordionContent className="pb-3 pr-6 text-sm leading-relaxed text-muted-foreground md:pb-4 md:pr-8">
             {f.a}
           </AccordionContent>
         </AccordionItem>
