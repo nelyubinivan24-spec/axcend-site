@@ -269,11 +269,7 @@ function HeroCarousel() {
   }, []);
   return (
     <div className="relative isolate mx-auto w-full max-w-[420px] lg:ml-auto">
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute left-1/2 top-1/2 z-0 h-[126%] w-[142%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(ellipse_at_center,rgba(200,240,160,0.18)_0%,rgba(200,240,160,0.095)_34%,rgba(200,240,160,0.035)_58%,rgba(200,240,160,0)_78%)] blur-[48px]"
-      />
-      <div className="relative z-10 rounded-[34px] bg-white/[0.055] p-2 shadow-[0_42px_120px_rgba(0,0,0,0.40),0_18px_48px_rgba(0,0,0,0.32),0_0_0_1px_rgba(255,255,255,0.08)]">
+      <div className="relative z-10 rounded-[34px] bg-white/[0.055] p-2 shadow-[0_34px_92px_rgba(0,0,0,0.36),0_14px_36px_rgba(0,0,0,0.26),0_0_0_1px_rgba(255,255,255,0.08)]">
         <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[28px] bg-muted">
           {heroSlides.map((s, i) => (
             <img
@@ -811,7 +807,7 @@ function IndustriesShowcase() {
       {/* Right detail panel */}
       <div
         key={active}
-        className={`${DARK_SURFACE_BASE_CLASS} rounded-[30px] p-7 md:p-9`}
+        className={`${DARK_SURFACE_BASE_CLASS} rounded-[30px] p-5 sm:p-7 md:p-9`}
       >
         <div className={`${DARK_SURFACE_GLOW_CLASS} hidden md:block`} />
         <div className="relative z-10">
@@ -820,12 +816,12 @@ function IndustriesShowcase() {
               <div className="text-xs font-medium uppercase tracking-[0.18em] text-axcend-action/80">
                 Отрасль
               </div>
-              <h3 className="mt-2 truncate text-2xl font-semibold leading-tight text-primary-foreground md:text-[32px]">
+              <h3 className="mt-2 text-[22px] font-semibold leading-tight text-primary-foreground sm:text-2xl md:text-[32px]">
                 {current.name}
               </h3>
             </div>
             <div className="grid grid-cols-2 gap-2 sm:gap-3">
-              <div className="min-w-[136px] rounded-2xl border border-primary-foreground/10 bg-primary-foreground/[0.055] px-4 py-3">
+              <div className="rounded-2xl border border-primary-foreground/10 bg-primary-foreground/[0.055] px-3 py-3 sm:min-w-[136px] sm:px-4">
                 <div className="text-[10px] font-medium uppercase tracking-[0.18em] text-primary-foreground/55">
                   Средняя конверсия
                 </div>
@@ -833,7 +829,7 @@ function IndustriesShowcase() {
                   {avg.toFixed(1)}%
                 </div>
               </div>
-              <div className="min-w-[136px] rounded-2xl border border-axcend-action/30 bg-axcend-action/10 px-4 py-3">
+              <div className="rounded-2xl border border-axcend-action/30 bg-axcend-action/10 px-3 py-3 sm:min-w-[136px] sm:px-4">
                 <div className="text-[10px] font-medium uppercase tracking-[0.18em] text-primary-foreground/55">
                   Лучший результат
                 </div>
@@ -852,8 +848,8 @@ function IndustriesShowcase() {
                   key={c.client}
                   className="rounded-2xl border border-primary-foreground/10 bg-primary-foreground/[0.045] px-4 py-3.5 transition-colors hover:border-axcend-action/40 hover:bg-primary-foreground/[0.08]"
                 >
-                  <div className="flex items-center justify-between gap-4">
-                    <div className="min-w-0 flex-1 truncate text-sm font-medium text-primary-foreground">
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="min-w-0 flex-1 text-sm font-medium leading-snug text-primary-foreground">
                       {c.client}
                     </div>
                     <div className="shrink-0 text-base font-semibold tabular-nums text-axcend-action">
