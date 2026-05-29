@@ -1482,6 +1482,12 @@ function Index() {
   const headerRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
+    const previousScrollRestoration =
+      "scrollRestoration" in window.history ? window.history.scrollRestoration : undefined;
+    if (previousScrollRestoration !== undefined) {
+      window.history.scrollRestoration = "manual";
+    }
+
     const getHashId = () => {
       const raw = window.location.hash.slice(1);
       if (!raw) return "";
@@ -1528,6 +1534,29 @@ function Index() {
       });
     };
 
+    const handleHashClick = (event: MouseEvent) => {
+      const target = event.target as Element | null;
+      const link = target?.closest<HTMLAnchorElement>('a[href^="#"]');
+      if (!link) return;
+
+      const href = link.getAttribute("href");
+      if (!href) return;
+
+      const nextHash = href === "#" ? "#top" : href;
+      const nextId = nextHash.slice(1);
+      if (nextId !== "top" && !document.getElementById(nextId)) return;
+
+      event.preventDefault();
+      const nextUrl = `${window.location.pathname}${window.location.search}${nextHash}`;
+      if (window.location.hash === nextHash) {
+        scheduleScrollToHash();
+        return;
+      }
+
+      window.history.pushState(null, "", nextUrl);
+      scheduleScrollToHash();
+    };
+
     const cancelPendingOnUserIntent = (event: Event) => {
       if (event.type === "keydown") {
         const key = (event as KeyboardEvent).key;
@@ -1538,14 +1567,21 @@ function Index() {
 
     scheduleScrollToHash();
     window.addEventListener("hashchange", scheduleScrollToHash);
+    window.addEventListener("popstate", scheduleScrollToHash);
     window.addEventListener("axcend-i18n-ready", scheduleScrollToHash);
+    document.addEventListener("click", handleHashClick);
     window.addEventListener("wheel", cancelPendingOnUserIntent, { passive: true });
     window.addEventListener("touchstart", cancelPendingOnUserIntent, { passive: true });
     window.addEventListener("keydown", cancelPendingOnUserIntent);
     return () => {
       clearPendingScrolls();
+      if (previousScrollRestoration !== undefined) {
+        window.history.scrollRestoration = previousScrollRestoration;
+      }
       window.removeEventListener("hashchange", scheduleScrollToHash);
+      window.removeEventListener("popstate", scheduleScrollToHash);
       window.removeEventListener("axcend-i18n-ready", scheduleScrollToHash);
+      document.removeEventListener("click", handleHashClick);
       window.removeEventListener("wheel", cancelPendingOnUserIntent);
       window.removeEventListener("touchstart", cancelPendingOnUserIntent);
       window.removeEventListener("keydown", cancelPendingOnUserIntent);
