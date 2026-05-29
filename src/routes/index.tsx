@@ -182,7 +182,9 @@ function ProofGrid({ items }: { items: typeof proofs }) {
               </div>
 
               <div className="min-w-0 flex-1">
-                <div className="text-base font-semibold leading-snug text-foreground">{p.title}</div>
+                <div className="text-base font-semibold leading-snug text-foreground">
+                  {p.title}
+                </div>
                 <div className="mt-4 h-px w-full bg-border/70" />
                 <div className="mt-4 text-sm leading-relaxed text-muted-foreground">{p.text}</div>
               </div>
@@ -252,13 +254,34 @@ function SideNav() {
 }
 
 const heroSlides = [
-  { country: "Казахстан", src: "https://upload.wikimedia.org/wikipedia/en/thumb/6/66/Central_Downtown_Astana_2.jpg/1280px-Central_Downtown_Astana_2.jpg" },
-  { country: "Узбекистан", src: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Registan_square_Samarkand.jpg/1280px-Registan_square_Samarkand.jpg" },
-  { country: "Южная Корея", src: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/%EA%B4%91%ED%99%94%EB%AC%B8_%EC%9B%94%EB%8C%80.jpg/1280px-%EA%B4%91%ED%99%94%EB%AC%B8_%EC%9B%94%EB%8C%80.jpg" },
-  { country: "Турция", src: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Hagia_Sophia_%28228968325%29.jpeg/1280px-Hagia_Sophia_%28228968325%29.jpeg" },
-  { country: "Армения", src: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Mount_Ararat_and_the_Yerevan_skyline_in_spring_%2850mm%29.jpg/1280px-Mount_Ararat_and_the_Yerevan_skyline_in_spring_%2850mm%29.jpg" },
-  { country: "Кыргызстан", src: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Issykkul_plyag.jpg/1280px-Issykkul_plyag.jpg" },
-  { country: "Азербайджан", src: "https://upload.wikimedia.org/wikipedia/en/thumb/0/08/Flame_towers_baku.jpg/1280px-Flame_towers_baku.jpg" },
+  {
+    country: "Казахстан",
+    src: "https://upload.wikimedia.org/wikipedia/en/thumb/6/66/Central_Downtown_Astana_2.jpg/1280px-Central_Downtown_Astana_2.jpg",
+  },
+  {
+    country: "Узбекистан",
+    src: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Registan_square_Samarkand.jpg/1280px-Registan_square_Samarkand.jpg",
+  },
+  {
+    country: "Южная Корея",
+    src: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/%EA%B4%91%ED%99%94%EB%AC%B8_%EC%9B%94%EB%8C%80.jpg/1280px-%EA%B4%91%ED%99%94%EB%AC%B8_%EC%9B%94%EB%8C%80.jpg",
+  },
+  {
+    country: "Турция",
+    src: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Hagia_Sophia_%28228968325%29.jpeg/1280px-Hagia_Sophia_%28228968325%29.jpeg",
+  },
+  {
+    country: "Армения",
+    src: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Mount_Ararat_and_the_Yerevan_skyline_in_spring_%2850mm%29.jpg/1280px-Mount_Ararat_and_the_Yerevan_skyline_in_spring_%2850mm%29.jpg",
+  },
+  {
+    country: "Кыргызстан",
+    src: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Issykkul_plyag.jpg/1280px-Issykkul_plyag.jpg",
+  },
+  {
+    country: "Азербайджан",
+    src: "https://upload.wikimedia.org/wikipedia/en/thumb/0/08/Flame_towers_baku.jpg/1280px-Flame_towers_baku.jpg",
+  },
 ];
 
 function HeroCarousel() {
@@ -420,8 +443,14 @@ const conversionReasons = [
 
 const guarantees = [
   { title: "Фиксируем критерии результата", text: "Не «активность», а конкретный измеримый этап." },
-  { title: "Определяем релевантность клиента", text: "Компания должна соответствовать согласованному профилю." },
-  { title: "Считаем только предметные встречи", text: "Встреча засчитывается, если клиент понял предложение и согласился на обсуждение." },
+  {
+    title: "Определяем релевантность клиента",
+    text: "Компания должна соответствовать согласованному профилю.",
+  },
+  {
+    title: "Считаем только предметные встречи",
+    text: "Встреча засчитывается, если клиент понял предложение и согласился на обсуждение.",
+  },
 ];
 
 const cases = [
@@ -699,9 +728,7 @@ const industriesData = [
   },
   {
     name: "Энергетика",
-    cases: [
-      { client: "Нефтяная компания «Квант Актив»", pct: 4.9, hits: 97, total: 2000 },
-    ],
+    cases: [{ client: "Нефтяная компания «Квант Актив»", pct: 4.9, hits: 97, total: 2000 }],
   },
 ];
 
@@ -724,9 +751,7 @@ function WhatWeDoTabs() {
           <div className="relative overflow-hidden rounded-[28px] border border-axcend-action bg-axcend-soft p-8 md:p-10">
             <div className="pointer-events-none absolute bottom-0 left-0 top-0 w-1 rounded-full bg-axcend-action" />
             <div className="relative">
-              <h3 className="text-2xl font-semibold text-foreground md:text-3xl">
-                {s.title}
-              </h3>
+              <h3 className="text-2xl font-semibold text-foreground md:text-3xl">{s.title}</h3>
               <p className="mt-5 max-w-3xl text-base leading-relaxed text-muted-foreground">
                 {s.text}
               </p>
@@ -786,7 +811,9 @@ function IndustriesShowcase() {
                         isActive ? "bg-axcend-action opacity-100" : "bg-transparent opacity-0"
                       }`}
                     />
-                    <span className="min-w-0 flex-1 truncate text-sm font-medium leading-snug">{ind.name}</span>
+                    <span className="min-w-0 flex-1 truncate text-sm font-medium leading-snug">
+                      {ind.name}
+                    </span>
                     <span
                       className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full border transition-all duration-200 ${
                         isActive
@@ -805,10 +832,7 @@ function IndustriesShowcase() {
       </div>
 
       {/* Right detail panel */}
-      <div
-        key={active}
-        className={`${DARK_SURFACE_BASE_CLASS} rounded-[30px] p-5 sm:p-7 md:p-9`}
-      >
+      <div key={active} className={`${DARK_SURFACE_BASE_CLASS} rounded-[30px] p-5 sm:p-7 md:p-9`}>
         <div className={`${DARK_SURFACE_GLOW_CLASS} hidden md:block`} />
         <div className="relative z-10">
           <div className="grid gap-5 border-b border-primary-foreground/15 pb-6 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
@@ -955,7 +979,10 @@ function PackagesSelector() {
           </blockquote>
           <ul className="mt-6 grid gap-2.5 md:mt-8 md:gap-3">
             {current.bullets.map((b) => (
-              <li key={b} className="flex items-start gap-3 rounded-2xl border border-primary-foreground/10 bg-primary-foreground/[0.04] px-3 py-2.5 text-sm leading-relaxed text-primary-foreground md:px-4 md:py-3">
+              <li
+                key={b}
+                className="flex items-start gap-3 rounded-2xl border border-primary-foreground/10 bg-primary-foreground/[0.04] px-3 py-2.5 text-sm leading-relaxed text-primary-foreground md:px-4 md:py-3"
+              >
                 <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-axcend-action/15 text-axcend-action">
                   <Check className="h-3 w-3" />
                 </span>
@@ -966,7 +993,9 @@ function PackagesSelector() {
           <div className="mt-auto flex flex-col items-start gap-4 border-t border-primary-foreground/15 pt-6 sm:flex-row sm:items-center sm:justify-between">
             <div className="font-mono text-xs tabular-nums text-primary-foreground/60">
               {String(active + 1).padStart(2, "0")}{" "}
-              <span className="text-primary-foreground/40">/ {String(packages.length).padStart(2, "0")}</span>
+              <span className="text-primary-foreground/40">
+                / {String(packages.length).padStart(2, "0")}
+              </span>
             </div>
             <a
               href="#contact"
@@ -1027,11 +1056,13 @@ function Funnel() {
               onMouseEnter={() => setHover(idx)}
               onMouseLeave={() => setHover(null)}
               className="relative mx-auto flex min-h-[76px] w-full items-center justify-between gap-4 overflow-hidden rounded-[22px] border border-primary-foreground/10 bg-primary-foreground/[0.045] px-5 py-4 transition-all duration-300 hover:border-axcend-action/40 hover:bg-primary-foreground/[0.08] md:w-[var(--funnel-width)] md:px-6"
-              style={{
-                "--funnel-width": `${width}%`,
-                borderColor: active ? "rgba(200,240,160,0.45)" : undefined,
-                transitionDelay: `${idx * 80}ms`,
-              } as React.CSSProperties}
+              style={
+                {
+                  "--funnel-width": `${width}%`,
+                  borderColor: active ? "rgba(200,240,160,0.45)" : undefined,
+                  transitionDelay: `${idx * 80}ms`,
+                } as React.CSSProperties
+              }
             >
               <div
                 aria-hidden
@@ -1103,13 +1134,7 @@ function Compare() {
         </div>
       </div>
       <div className="mx-auto mt-10 max-w-md">
-        <Slider
-          value={[pos]}
-          onValueChange={(v) => setPos(v[0])}
-          min={0}
-          max={100}
-          step={1}
-        />
+        <Slider value={[pos]} onValueChange={(v) => setPos(v[0])} min={0} max={100} step={1} />
         <div className="mt-2 flex justify-between text-xs text-muted-foreground">
           <span>Без AXCEND</span>
           <span>С AXCEND</span>
@@ -1164,13 +1189,7 @@ function CalcRow({
           </button>
         </div>
       </div>
-      <Slider
-        value={[value]}
-        min={min}
-        max={max}
-        step={step}
-        onValueChange={(v) => set(v[0])}
-      />
+      <Slider value={[value]} min={min} max={max} step={step} onValueChange={(v) => set(v[0])} />
     </div>
   );
 }
@@ -1214,22 +1233,29 @@ function Calculator() {
           fmt={fmt}
         />
       </div>
-      <div className={`${DARK_SURFACE_BASE_CLASS} self-start rounded-[30px] p-7 md:p-8 lg:sticky lg:top-28`}>
+      <div
+        className={`${DARK_SURFACE_BASE_CLASS} self-start rounded-[30px] p-7 md:p-8 lg:sticky lg:top-28`}
+      >
         <div className={`${DARK_SURFACE_GLOW_CLASS} hidden md:block`} />
         <div className="relative z-10 space-y-4">
           <div className="rounded-2xl border border-primary-foreground/10 bg-primary-foreground/[0.055] p-5">
-            <div className="text-xs font-medium uppercase tracking-[0.18em] text-primary-foreground/60">Конверсия</div>
-            <div className="mt-3 text-5xl font-semibold leading-none tabular-nums text-primary-foreground">{fmt(meetings)}</div>
+            <div className="text-xs font-medium uppercase tracking-[0.18em] text-primary-foreground/60">
+              Конверсия
+            </div>
+            <div className="mt-3 text-5xl font-semibold leading-none tabular-nums text-primary-foreground">
+              {fmt(meetings)}
+            </div>
           </div>
           <div className="rounded-2xl border border-axcend-action/30 bg-axcend-action/10 p-5">
             <div className="text-xs font-medium uppercase tracking-[0.18em] text-primary-foreground/60">
               Выручка
             </div>
-            <div className="mt-3 text-4xl font-semibold leading-none tabular-nums text-axcend-action">${fmt(revenue)}</div>
+            <div className="mt-3 text-4xl font-semibold leading-none tabular-nums text-axcend-action">
+              ${fmt(revenue)}
+            </div>
           </div>
           <p className="rounded-2xl border border-primary-foreground/10 bg-primary-foreground/[0.04] p-4 text-xs leading-relaxed text-primary-foreground/70">
-            Оценка ориентировочная. Точная модель строится после диагностики продукта
-            и сегмента.
+            Оценка ориентировочная. Точная модель строится после диагностики продукта и сегмента.
           </p>
         </div>
       </div>
@@ -1326,7 +1352,9 @@ function ConversionSystem({ items }: { items: typeof conversionReasons }) {
               <div className="flex gap-5">
                 <ConversionGlyph index={index} active={isActive} />
                 <div className="min-w-0 flex-1">
-                  <h3 className="text-base font-semibold leading-snug text-foreground">{item.title}</h3>
+                  <h3 className="text-base font-semibold leading-snug text-foreground">
+                    {item.title}
+                  </h3>
                   <div className="mt-4 h-px w-full bg-border/70" />
                   <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{item.text}</p>
                 </div>
@@ -1394,7 +1422,11 @@ function LanguageSwitcher() {
 
   useEffect(() => {
     const syncLanguageState = () => {
-      setLanguages(window.AXCEND_I18N?.languages || window.AXCEND_I18N_PAYLOAD?.languages || FALLBACK_LANGUAGES);
+      setLanguages(
+        window.AXCEND_I18N?.languages ||
+          window.AXCEND_I18N_PAYLOAD?.languages ||
+          FALLBACK_LANGUAGES,
+      );
       setCurrentLanguage(window.AXCEND_I18N?.getLanguage() || getStoredLanguage());
     };
 
@@ -1508,8 +1540,9 @@ function Index() {
       const target = document.getElementById(id);
       if (!target) return;
       const headerHeight =
-        parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--axcend-header-height")) ||
-        76;
+        parseFloat(
+          getComputedStyle(document.documentElement).getPropertyValue("--axcend-header-height"),
+        ) || 76;
       const top = target.getBoundingClientRect().top + window.scrollY - headerHeight - 16;
       window.scrollTo({ top: Math.max(0, top), behavior: "auto" });
     };
@@ -1560,7 +1593,8 @@ function Index() {
     const cancelPendingOnUserIntent = (event: Event) => {
       if (event.type === "keydown") {
         const key = (event as KeyboardEvent).key;
-        if (!["ArrowDown", "ArrowUp", "PageDown", "PageUp", "Home", "End", " "].includes(key)) return;
+        if (!["ArrowDown", "ArrowUp", "PageDown", "PageUp", "Home", "End", " "].includes(key))
+          return;
       }
       clearPendingScrolls();
     };
@@ -1681,7 +1715,11 @@ function Index() {
               { flag: "/flags/ae.svg", name: "ОАЭ" },
             ].map((c) => (
               <div key={c.name} className="flex shrink-0 items-center gap-1.5">
-                <img src={c.flag} alt={c.name} className="h-3.5 w-5 rounded-[2px] object-contain shadow-sm" />
+                <img
+                  src={c.flag}
+                  alt={c.name}
+                  className="h-3.5 w-5 rounded-[2px] object-contain shadow-sm"
+                />
                 <span className="text-xs font-medium text-foreground">{c.name}</span>
               </div>
             ))}
@@ -1695,12 +1733,12 @@ function Index() {
           <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-16">
             <div className="lg:col-span-7">
               <h1 className="max-w-4xl text-balance text-4xl font-semibold leading-[1.06] tracking-tight text-white md:text-6xl">
-                Внешний отдел B2B&#8209;продаж<br className="hidden md:block" /> Центральная Азия
+                Внешний отдел B2B&#8209;продаж
+                <br className="hidden md:block" /> Центральная Азия
               </h1>
               <p className="mt-7 max-w-2xl text-pretty text-base leading-relaxed text-white/70 md:text-lg">
-                AXCEND выстраивает полный цикл B2B-продаж. Находим потенциальных клиентов,
-                выходим на профильных руководителей, ведём переговоры и передаём готовых к
-                сделке клиентов.
+                AXCEND выстраивает полный цикл B2B-продаж. Находим потенциальных клиентов, выходим
+                на профильных руководителей, ведём переговоры и передаём готовых к сделке клиентов.
               </p>
               <div className="mt-10 flex flex-wrap gap-3">
                 <a
@@ -1711,7 +1749,7 @@ function Index() {
                 </a>
               </div>
               <div className="mt-8 grid grid-cols-2 items-start gap-4 py-4 sm:grid-cols-4">
-                {[ 
+                {[
                   { value: "170+", label: "компаниям помогли", Icon: Briefcase },
                   { value: "50 000+", label: "B2B-диалогов в месяц", Icon: MessagesSquare },
                   { value: "11+", label: "языков продаж", Icon: Languages },
@@ -1733,7 +1771,6 @@ function Index() {
               <HeroCarousel />
             </div>
           </div>
-
         </div>
       </section>
 
@@ -1764,22 +1801,12 @@ function Index() {
       </div>
 
       {/* What we do */}
-      <Section
-        id="what"
-        eyebrow="Что вы получаете"
-        title="Работая с AXCEND"
-        center
-      >
+      <Section id="what" eyebrow="Что вы получаете" title="Работая с AXCEND" center>
         <WhatWeDoTabs />
       </Section>
 
       {/* Industries & conversion */}
-      <Section
-        id="industries"
-        eyebrow="Отрасли и конверсии"
-        title="Результаты AXEND"
-        center
-      >
+      <Section id="industries" eyebrow="Отрасли и конверсии" title="Результаты AXEND" center>
         <IndustriesShowcase />
       </Section>
 
@@ -1799,17 +1826,9 @@ function Index() {
       </Section>
 
       {/* Funnel */}
-      <Section
-        id="funnel"
-        eyebrow="Воронка продаж"
-        title="Как клиенты движутся по воронке"
-        center
-      >
+      <Section id="funnel" eyebrow="Воронка продаж" title="Как клиенты движутся по воронке" center>
         <Funnel />
       </Section>
-
-
-
 
       {/* Calculator */}
       <Section
@@ -1827,7 +1846,10 @@ function Index() {
       </Section>
 
       {/* CTA */}
-      <section id="contact" className="relative overflow-hidden border-t border-primary-foreground/10 bg-axcend-dark text-primary-foreground">
+      <section
+        id="contact"
+        className="relative overflow-hidden border-t border-primary-foreground/10 bg-axcend-dark text-primary-foreground"
+      >
         <div
           aria-hidden="true"
           className="pointer-events-none absolute -right-72 bottom-[-22rem] h-[56rem] w-[64rem] rounded-full bg-[radial-gradient(ellipse_at_center,rgba(200,240,160,0.14)_0%,rgba(200,240,160,0.072)_30%,rgba(200,240,160,0.03)_52%,rgba(200,240,160,0.01)_70%,rgba(200,240,160,0)_88%)] blur-[104px]"
@@ -1835,11 +1857,11 @@ function Index() {
         <div className="relative z-10 mx-auto grid max-w-6xl gap-10 px-6 py-20 md:gap-12 md:py-32 lg:grid-cols-[minmax(0,1fr)_420px] lg:items-center">
           <div>
             <h2 className="text-3xl font-semibold leading-[1.12] tracking-tight text-primary-foreground md:text-5xl">
-                Подключите AXEND для увеличения продаж
+              Подключите AXEND для увеличения продаж
             </h2>
             <p className="mt-6 max-w-xl text-pretty text-base leading-relaxed text-primary-foreground/70 md:text-lg">
-              Расскажите о продукте и целевом рынке — мы покажем, какой результат
-              реалистично получить и как будет устроена работа.
+              Расскажите о продукте и целевом рынке — мы покажем, какой результат реалистично
+              получить и как будет устроена работа.
             </p>
             <div className="mt-8 flex flex-wrap gap-3 md:mt-10">
               <a
@@ -1855,11 +1877,20 @@ function Index() {
             <div className="text-xs font-medium uppercase tracking-[0.18em] text-primary-foreground/55">
               Контакты
             </div>
-            <div className="mt-5 grid gap-2.5 text-[15px] font-medium text-primary-foreground md:mt-6 md:gap-3 md:text-base" data-i18n-ignore="true">
-              <a className="transition-colors hover:text-axcend-action" href="mailto:axcend.kz@retrand.com">
+            <div
+              className="mt-5 grid gap-2.5 text-[15px] font-medium text-primary-foreground md:mt-6 md:gap-3 md:text-base"
+              data-i18n-ignore="true"
+            >
+              <a
+                className="transition-colors hover:text-axcend-action"
+                href="mailto:axcend.kz@retrand.com"
+              >
                 axcend.kz@retrand.com
               </a>
-              <a className="transition-colors hover:text-axcend-action" href="mailto:retrand.plus@gmail.com">
+              <a
+                className="transition-colors hover:text-axcend-action"
+                href="mailto:retrand.plus@gmail.com"
+              >
                 retrand.plus@gmail.com
               </a>
               <a className="transition-colors hover:text-axcend-action" href="tel:+77085077371">

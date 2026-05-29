@@ -83,7 +83,11 @@
     const currentTrimmed = normalizedText(currentValue);
     const expectedTrimmed = normalizedText(expectedValue);
 
-    if (currentTrimmed && currentTrimmed !== expectedTrimmed && !isKnownTranslatedOutput(currentTrimmed)) {
+    if (
+      currentTrimmed &&
+      currentTrimmed !== expectedTrimmed &&
+      !isKnownTranslatedOutput(currentTrimmed)
+    ) {
       originalText.set(node, currentValue);
       original = currentValue;
       trimmed = normalizedText(original);
@@ -134,16 +138,18 @@
     });
     while (walker.nextNode()) {
       if (walker.currentNode.nodeType === Node.TEXT_NODE) translateTextNode(walker.currentNode);
-      if (walker.currentNode.nodeType === Node.ELEMENT_NODE) translateAttributes(walker.currentNode);
+      if (walker.currentNode.nodeType === Node.ELEMENT_NODE)
+        translateAttributes(walker.currentNode);
     }
   }
 
   function syncDocumentMeta() {
     document.documentElement.lang = currentLanguage === "kk" ? "kk" : currentLanguage;
     document.documentElement.dir = rtlLanguages.has(currentLanguage) ? "rtl" : "ltr";
-    const titleBase = currentLanguage === "ru"
-      ? "AXCEND — Внешний отдел B2B продаж Центральная Азия"
-      : `AXCEND — ${translateValue("Внешний отдел B2B‑продаж")} ${translateValue("Центральная Азия")}`;
+    const titleBase =
+      currentLanguage === "ru"
+        ? "AXCEND — Внешний отдел B2B продаж Центральная Азия"
+        : `AXCEND — ${translateValue("Внешний отдел B2B‑продаж")} ${translateValue("Центральная Азия")}`;
     document.title = titleBase;
     const description = document.querySelector('meta[name="description"]');
     if (description) {
@@ -151,7 +157,9 @@
         "content",
         currentLanguage === "ru"
           ? "AXCEND выстраивает полный цикл B2B-продаж. Находим потенциальных клиентов, выходим на профильных руководителей, ведём переговоры и передаём готовых к сделке клиентов."
-          : translateValue("AXCEND выстраивает полный цикл B2B-продаж. Находим потенциальных клиентов, выходим на профильных руководителей, ведём переговоры и передаём готовых к сделке клиентов."),
+          : translateValue(
+              "AXCEND выстраивает полный цикл B2B-продаж. Находим потенциальных клиентов, выходим на профильных руководителей, ведём переговоры и передаём готовых к сделке клиентов.",
+            ),
       );
     }
   }
@@ -173,7 +181,9 @@
     currentLanguage = lang;
     saveLanguage(lang);
     applyLanguage();
-    window.dispatchEvent(new CustomEvent("axcend-language-change", { detail: { language: currentLanguage } }));
+    window.dispatchEvent(
+      new CustomEvent("axcend-language-change", { detail: { language: currentLanguage } }),
+    );
   }
 
   function publishApi() {
@@ -182,7 +192,9 @@
       getLanguage: () => currentLanguage,
       setLanguage,
     };
-    window.dispatchEvent(new CustomEvent("axcend-i18n-ready", { detail: { language: currentLanguage } }));
+    window.dispatchEvent(
+      new CustomEvent("axcend-i18n-ready", { detail: { language: currentLanguage } }),
+    );
   }
 
   function start() {
@@ -204,7 +216,11 @@
   if (document.readyState === "complete") {
     setTimeout(startAfterHydration, START_DELAY);
   } else if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", () => setTimeout(startAfterHydration, START_DELAY), { once: true });
+    document.addEventListener(
+      "DOMContentLoaded",
+      () => setTimeout(startAfterHydration, START_DELAY),
+      { once: true },
+    );
   } else {
     setTimeout(startAfterHydration, START_DELAY);
   }

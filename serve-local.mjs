@@ -78,7 +78,11 @@ createServer(async (req, res) => {
       body: req.method === "GET" || req.method === "HEAD" ? undefined : req,
       duplex: req.method === "GET" || req.method === "HEAD" ? undefined : "half",
     });
-    const response = await worker.fetch(request, {}, { waitUntil() {}, passThroughOnException() {} });
+    const response = await worker.fetch(
+      request,
+      {},
+      { waitUntil() {}, passThroughOnException() {} },
+    );
     await sendResponse(response, res);
   } catch (error) {
     console.error(error);
