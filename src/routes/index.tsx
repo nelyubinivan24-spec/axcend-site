@@ -1518,6 +1518,7 @@ function Index() {
     const scheduleScrollToHash = () => {
       clearPendingScrolls();
       requestAnimationFrame(() => requestAnimationFrame(scrollToHash));
+      if (getHashId() === "top") return;
       [120, 450, 1100, 1900].forEach((delay) => {
         const timeoutId = window.setTimeout(() => {
           pendingTimeouts.delete(timeoutId);
@@ -1527,15 +1528,29 @@ function Index() {
       });
     };
 
+    const cancelPendingOnUserIntent = (event: Event) => {
+      if (event.type === "keydown") {
+        const key = (event as KeyboardEvent).key;
+        if (!["ArrowDown", "ArrowUp", "PageDown", "PageUp", "Home", "End", " "].includes(key)) return;
+      }
+      clearPendingScrolls();
+    };
+
     scheduleScrollToHash();
     window.addEventListener("hashchange", scheduleScrollToHash);
     window.addEventListener("axcend-i18n-ready", scheduleScrollToHash);
     window.addEventListener("axcend-language-change", scheduleScrollToHash);
+    window.addEventListener("wheel", cancelPendingOnUserIntent, { passive: true });
+    window.addEventListener("touchstart", cancelPendingOnUserIntent, { passive: true });
+    window.addEventListener("keydown", cancelPendingOnUserIntent);
     return () => {
       clearPendingScrolls();
       window.removeEventListener("hashchange", scheduleScrollToHash);
       window.removeEventListener("axcend-i18n-ready", scheduleScrollToHash);
       window.removeEventListener("axcend-language-change", scheduleScrollToHash);
+      window.removeEventListener("wheel", cancelPendingOnUserIntent);
+      window.removeEventListener("touchstart", cancelPendingOnUserIntent);
+      window.removeEventListener("keydown", cancelPendingOnUserIntent);
     };
   }, []);
 

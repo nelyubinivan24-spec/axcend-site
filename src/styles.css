@@ -156,6 +156,7 @@
 
   html {
     min-height: 100%;
+    overflow-x: clip;
     overflow-y: auto;
     scroll-padding-top: calc(var(--axcend-header-height, 76px) + 16px);
     scroll-behavior: smooth;
@@ -163,7 +164,8 @@
 
   body {
     min-height: 100%;
-    overflow-x: hidden;
+    overflow-x: clip;
+    overflow-y: visible;
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
@@ -174,6 +176,13 @@
 
   h1, h2, h3, h4 {
     letter-spacing: -0.02em;
+  }
+
+  @supports not (overflow: clip) {
+    html,
+    body {
+      overflow-x: hidden;
+    }
   }
 }
 
