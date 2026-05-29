@@ -1581,6 +1581,7 @@ function Index() {
 
   return (
     <div
+      id="top"
       className="min-h-screen bg-background text-foreground"
       style={{ paddingTop: "var(--axcend-header-height, 76px)" }}
     >
@@ -1655,7 +1656,7 @@ function Index() {
       </section>
 
       {/* Hero */}
-      <section id="top" className="relative isolate overflow-hidden bg-axcend-dark text-white">
+      <section className="relative isolate overflow-hidden bg-axcend-dark text-white">
         <div className="mx-auto max-w-6xl px-6 pb-20 pt-20 md:pb-28 md:pt-28">
           <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-16">
             <div className="lg:col-span-7">
