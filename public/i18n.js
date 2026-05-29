@@ -960,55 +960,7 @@
   function start() {
     applyLanguage();
     watchLanguageSwitcher();
-    startRemovedPackageGuard();
     document.addEventListener("click", () => setTimeout(applyLanguage, 80), true);
-  }
-
-  function startRemovedPackageGuard() {
-    if (window.__AXCEND_REMOVED_PACKAGE_GUARD__) return;
-    window.__AXCEND_REMOVED_PACKAGE_GUARD__ = true;
-
-    const removedMarkers = [
-      "\u0434\u0438\u0441\u0442\u0440\u0438\u0431\u0443\u0446\u0438\u044f",
-      "\u041d\u0430\u0439\u0442\u0438 \u0434\u0438\u0441\u0442\u0440\u0438\u0431\u044c\u044e\u0442\u043e\u0440\u0430",
-      "\u041d\u0430\u0439\u0442\u0438 \u0434\u0438\u0441\u0442\u0440\u0438\u0431\u044c\u044e\u0442\u0435\u0440\u0430",
-    ];
-
-    function patchPackageCounters(root) {
-      const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
-      while (walker.nextNode()) {
-        const node = walker.currentNode;
-        const text = node.textContent || "";
-        const next = text.replace(/(\b0?[1-6])\s*\/\s*0?6\b/g, (_, current) => {
-          const value = Math.min(Number(current), 5);
-          return `${String(value).padStart(2, "0")} / 05`;
-        });
-        if (next !== text) node.textContent = next;
-      }
-    }
-
-    function removePackage() {
-      const packages = document.querySelector("#packages");
-      if (!packages) return;
-
-      packages.querySelectorAll("li, button").forEach((element) => {
-        const text = (element.textContent || "").replace(/\s+/g, " ").trim();
-        if (!removedMarkers.some((marker) => text.includes(marker))) return;
-        const row = element.closest("li") || element;
-        row.remove();
-      });
-
-      patchPackageCounters(packages);
-    }
-
-    removePackage();
-    new MutationObserver(removePackage).observe(document.body, {
-      childList: true,
-      subtree: true,
-      characterData: true,
-    });
-    window.addEventListener("load", () => setTimeout(removePackage, 500), { once: true });
-    setInterval(removePackage, 1000);
   }
 
   let started = false;
