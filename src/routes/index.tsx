@@ -1569,6 +1569,7 @@ function Index() {
     window.addEventListener("hashchange", scheduleScrollToHash);
     window.addEventListener("popstate", scheduleScrollToHash);
     window.addEventListener("axcend-i18n-ready", scheduleScrollToHash);
+    window.addEventListener("axcend-language-change", scheduleScrollToHash);
     document.addEventListener("click", handleHashClick);
     window.addEventListener("wheel", cancelPendingOnUserIntent, { passive: true });
     window.addEventListener("touchstart", cancelPendingOnUserIntent, { passive: true });
@@ -1581,6 +1582,7 @@ function Index() {
       window.removeEventListener("hashchange", scheduleScrollToHash);
       window.removeEventListener("popstate", scheduleScrollToHash);
       window.removeEventListener("axcend-i18n-ready", scheduleScrollToHash);
+      window.removeEventListener("axcend-language-change", scheduleScrollToHash);
       document.removeEventListener("click", handleHashClick);
       window.removeEventListener("wheel", cancelPendingOnUserIntent);
       window.removeEventListener("touchstart", cancelPendingOnUserIntent);
