@@ -884,16 +884,16 @@ function PackagesSelector() {
   return (
     <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,340px)_1fr] lg:gap-12">
       {/* Left rail — selector */}
-      <div className="relative self-start rounded-[30px] border border-border bg-card p-2 shadow-none lg:sticky lg:top-28">
-        <ul className="flex gap-2 overflow-x-auto pb-1 [scrollbar-width:none] lg:flex-col lg:overflow-visible lg:pb-0 [&::-webkit-scrollbar]:hidden">
+      <div className="relative self-start rounded-[26px] border border-border bg-card p-2 shadow-none lg:sticky lg:top-28 lg:rounded-[30px]">
+        <ul className="grid auto-cols-[minmax(184px,220px)] grid-flow-col grid-rows-2 gap-2 overflow-x-auto pb-1 [scrollbar-width:none] lg:flex lg:flex-col lg:overflow-visible lg:pb-0 [&::-webkit-scrollbar]:hidden">
           {packages.map((p, i) => {
             const isActive = i === active;
             return (
-              <li key={p.title} className="relative shrink-0 lg:shrink">
+              <li key={p.title} className="relative">
                 <button
                   type="button"
                   onClick={() => setActive(i)}
-                  className={`group relative flex min-w-[260px] items-center gap-4 overflow-hidden rounded-[22px] border px-4 py-4 text-left transition-all duration-200 lg:min-h-[82px] lg:w-full lg:min-w-0 ${
+                  className={`group relative flex min-h-[72px] w-full max-w-[220px] items-center gap-3 overflow-hidden rounded-[20px] border px-3 py-3 text-left transition-all duration-200 lg:min-h-[82px] lg:max-w-full lg:gap-4 lg:rounded-[22px] lg:px-4 lg:py-4 ${
                     isActive
                       ? "border-axcend-action/70 bg-axcend-soft text-axcend-dark"
                       : "border-transparent text-muted-foreground hover:border-border hover:bg-muted/70 hover:text-foreground"
@@ -906,13 +906,13 @@ function PackagesSelector() {
                   />
                   <span className="flex-1">
                     <span
-                      className={`block text-xs font-medium uppercase tracking-[0.18em] ${
+                      className={`block text-[10px] font-medium uppercase tracking-[0.18em] lg:text-xs ${
                         isActive ? "text-axcend-dark/60" : "text-muted-foreground/80"
                       }`}
                     >
                       {p.tag}
                     </span>
-                    <span className="mt-1 block text-base font-semibold leading-snug">
+                    <span className="mt-1 block text-sm font-semibold leading-snug lg:text-base">
                       {p.title}
                     </span>
                   </span>
@@ -935,27 +935,27 @@ function PackagesSelector() {
       {/* Right detail panel */}
       <div
         key={active}
-        className={`${DARK_SURFACE_BASE_CLASS} flex min-h-[480px] rounded-[30px] p-7 md:p-9`}
+        className={`${DARK_SURFACE_BASE_CLASS} flex min-h-[420px] rounded-[26px] p-6 md:p-9 lg:min-h-[480px] lg:rounded-[30px]`}
       >
         <div className={`${DARK_SURFACE_GLOW_CLASS} hidden md:block`} />
         <div className="relative z-10 flex w-full flex-col">
           <div className="flex items-center gap-4">
-            <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-axcend-action/25 bg-axcend-action/10 text-axcend-action">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-axcend-action/25 bg-axcend-action/10 text-axcend-action md:h-14 md:w-14">
               <Icon className="h-5 w-5" />
             </div>
             <div className="text-xs font-medium uppercase tracking-[0.18em] text-axcend-action/80">
               {current.tag}
             </div>
           </div>
-          <h3 className="mt-8 text-2xl font-semibold leading-tight text-primary-foreground md:text-[32px]">
+          <h3 className="mt-6 text-2xl font-semibold leading-tight text-primary-foreground md:mt-8 md:text-[32px]">
             {current.title}
           </h3>
-          <blockquote className="mt-6 rounded-2xl border border-primary-foreground/10 bg-primary-foreground/[0.055] px-5 py-4 text-base italic leading-relaxed text-primary-foreground/80 md:text-lg">
+          <blockquote className="mt-5 rounded-2xl border border-primary-foreground/10 bg-primary-foreground/[0.055] px-4 py-3 text-[15px] italic leading-relaxed text-primary-foreground/80 md:mt-6 md:px-5 md:py-4 md:text-lg">
             «{current.quote}»
           </blockquote>
-          <ul className="mt-8 grid gap-3">
+          <ul className="mt-6 grid gap-2.5 md:mt-8 md:gap-3">
             {current.bullets.map((b) => (
-              <li key={b} className="flex items-start gap-3 rounded-2xl border border-primary-foreground/10 bg-primary-foreground/[0.04] px-4 py-3 text-sm leading-relaxed text-primary-foreground">
+              <li key={b} className="flex items-start gap-3 rounded-2xl border border-primary-foreground/10 bg-primary-foreground/[0.04] px-3 py-2.5 text-sm leading-relaxed text-primary-foreground md:px-4 md:py-3">
                 <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-axcend-action/15 text-axcend-action">
                   <Check className="h-3 w-3" />
                 </span>
@@ -963,14 +963,14 @@ function PackagesSelector() {
               </li>
             ))}
           </ul>
-          <div className="mt-auto flex items-center justify-between border-t border-primary-foreground/15 pt-6">
+          <div className="mt-auto flex flex-col items-start gap-4 border-t border-primary-foreground/15 pt-6 sm:flex-row sm:items-center sm:justify-between">
             <div className="font-mono text-xs tabular-nums text-primary-foreground/60">
               {String(active + 1).padStart(2, "0")}{" "}
               <span className="text-primary-foreground/40">/ {String(packages.length).padStart(2, "0")}</span>
             </div>
             <a
               href="#contact"
-              className="group inline-flex items-center gap-2 rounded-full bg-axcend-action px-4 py-2 text-sm font-medium text-axcend-dark transition-opacity hover:opacity-90"
+              className="group inline-flex w-full items-center justify-center gap-2 rounded-full bg-axcend-action px-4 py-2 text-sm font-medium text-axcend-dark transition-opacity hover:opacity-90 sm:w-auto"
             >
               Обсудить пакет
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
