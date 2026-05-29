@@ -1322,6 +1322,71 @@ function Section({
 
 function ConversionSystem({ items }: { items: typeof conversionReasons }) {
   const [active, setActive] = useState(0);
+  const cardRefs = useRef<Array<HTMLButtonElement | null>>([]);
+
+  useEffect(() => {
+    let frame = 0;
+
+    const updateActiveCard = () => {
+      frame = 0;
+      const headerHeight =
+        parseFloat(
+          getComputedStyle(document.documentElement).getPropertyValue("--axcend-header-height"),
+        ) || 76;
+      const readingLine = Math.min(
+        window.innerHeight - 1,
+        headerHeight + Math.max(120, Math.min(180, (window.innerHeight - headerHeight) * 0.32)),
+      );
+      let nextActive: number | null = null;
+      let nextDistance = Number.POSITIVE_INFINITY;
+
+      cardRefs.current.forEach((card, index) => {
+        if (!card) return;
+        const rect = card.getBoundingClientRect();
+        if (rect.bottom < headerHeight || rect.top > window.innerHeight) return;
+
+        const containsReadingLine = rect.top <= readingLine && rect.bottom >= readingLine;
+        const distance = containsReadingLine
+          ? 0
+          : Math.min(Math.abs(rect.top - readingLine), Math.abs(rect.bottom - readingLine));
+
+        if (distance < nextDistance) {
+          nextDistance = distance;
+          nextActive = index;
+        }
+      });
+
+      if (nextActive !== null) {
+        setActive((current) => (current === nextActive ? current : nextActive));
+      }
+    };
+
+    const scheduleUpdate = () => {
+      if (frame) return;
+      frame = window.requestAnimationFrame(updateActiveCard);
+    };
+
+    scheduleUpdate();
+    window.addEventListener("scroll", scheduleUpdate, { passive: true });
+    window.addEventListener("resize", scheduleUpdate);
+
+    return () => {
+      if (frame) window.cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", scheduleUpdate);
+      window.removeEventListener("resize", scheduleUpdate);
+    };
+  }, [items.length]);
+
+  useEffect(() => {
+    const language = window.AXCEND_I18N?.getLanguage();
+    if (!language || language === "ru") return;
+
+    const timeoutId = window.setTimeout(() => {
+      window.AXCEND_I18N?.setLanguage(language);
+    }, 40);
+
+    return () => window.clearTimeout(timeoutId);
+  }, [active]);
 
   return (
     <div className="mx-auto grid w-full max-w-3xl gap-4">
@@ -1331,17 +1396,16 @@ function ConversionSystem({ items }: { items: typeof conversionReasons }) {
           return (
             <button
               key={item.title}
+              ref={(node) => {
+                cardRefs.current[index] = node;
+              }}
               type="button"
               aria-pressed={isActive}
               data-conversion-card={index}
               onClick={() => setActive(index)}
               onFocus={() => setActive(index)}
-              onMouseEnter={() => setActive(index)}
-              onPointerEnter={() => setActive(index)}
-              className={`group relative overflow-hidden rounded-[28px] border p-6 text-left transition-all duration-300 ${
-                isActive
-                  ? "border-axcend-action bg-axcend-soft"
-                  : "border-border bg-card hover:border-axcend-action/80 hover:bg-axcend-soft/50"
+              className={`group relative overflow-hidden rounded-[28px] border p-6 text-left transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-axcend-action/40 ${
+                isActive ? "border-axcend-action bg-axcend-soft" : "border-border bg-card"
               }`}
             >
               <div
