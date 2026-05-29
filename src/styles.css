@@ -177,6 +177,205 @@
   }
 }
 
+.axcend-lang-switcher {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: 12px;
+  margin-right: 12px;
+  z-index: 70;
+}
+
+header nav {
+  max-width: 80rem !important;
+}
+
+header nav a {
+  white-space: nowrap;
+}
+
+header nav .hidden.gap-8 > a[href="#when"],
+header nav .hidden.gap-8 > a[href="#what"] {
+  display: none !important;
+}
+
+.axcend-lang-label {
+  color: var(--muted-foreground);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.axcend-lang-quick {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--card);
+  padding: 2px;
+}
+
+.axcend-lang-quick-option {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  height: 30px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted-foreground);
+  padding: 0 10px;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.18s ease, color 0.18s ease;
+}
+
+.axcend-lang-quick-option:hover {
+  background: var(--accent);
+  color: var(--foreground);
+}
+
+.axcend-lang-quick-option[aria-current="true"] {
+  background: #c8f0a0;
+  color: #1a2e2a;
+}
+
+.axcend-lang-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 42px;
+  height: 34px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--foreground);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  transition: border-color 0.18s ease, background-color 0.18s ease, color 0.18s ease;
+}
+
+.axcend-lang-button:hover {
+  border-color: color-mix(in oklab, var(--primary) 40%, var(--border));
+  background: var(--accent);
+}
+
+.axcend-lang-menu {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: calc(100% + 8px);
+  width: 220px;
+  max-height: min(420px, calc(100vh - 96px));
+  overflow: auto;
+  padding: 6px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--card);
+  box-shadow: none;
+  opacity: 0;
+  transform: translateY(-4px);
+  pointer-events: none;
+  transition: opacity 0.16s ease, transform 0.16s ease;
+}
+
+.axcend-lang-switcher[data-open="true"] .axcend-lang-menu {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.axcend-lang-option {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--foreground);
+  padding: 9px 10px;
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  text-align: left;
+}
+
+.axcend-lang-option:hover,
+.axcend-lang-option[aria-current="true"] {
+  background: var(--accent);
+  color: var(--foreground);
+}
+
+.axcend-lang-code {
+  color: var(--muted-foreground);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+@media (max-width: 767px) {
+  header nav {
+    flex-wrap: wrap;
+    row-gap: 8px;
+  }
+
+  .axcend-lang-switcher {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+    gap: 5px;
+    margin: 0;
+  }
+
+  .axcend-lang-label {
+    display: none;
+  }
+
+  .axcend-lang-quick {
+    max-width: calc(100vw - 104px);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .axcend-lang-quick::-webkit-scrollbar {
+    display: none;
+  }
+
+  .axcend-lang-quick-option {
+    height: 26px;
+    padding: 0 7px;
+    font-size: 11px;
+  }
+
+  .axcend-lang-button {
+    height: 30px;
+    min-width: 38px;
+  }
+
+  .axcend-lang-menu {
+    left: 50%;
+    right: auto;
+    width: min(220px, calc(100vw - 32px));
+    transform: translate(-50%, -4px);
+  }
+
+  .axcend-lang-switcher[data-open="true"] .axcend-lang-menu {
+    transform: translate(-50%, 0);
+  }
+}
+
 @keyframes axcend-pulse {
   0% {
     transform: scale(1);

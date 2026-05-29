@@ -29,11 +29,53 @@ import {
 } from "@/components/ui/accordion";
 import { Slider } from "@/components/ui/slider";
 
+type LanguageOption = [code: string, name: string, short: string];
+
+type AxcendI18nApi = {
+  languages: LanguageOption[];
+  getLanguage: () => string;
+  setLanguage: (language: string) => void;
+};
+
+declare global {
+  interface Window {
+    AXCEND_I18N?: AxcendI18nApi;
+    AXCEND_I18N_PAYLOAD?: {
+      languages: LanguageOption[];
+      dictionaries: Record<string, Record<string, string>>;
+    };
+  }
+}
+
 const DARK_SURFACE_BASE_CLASS =
   "relative overflow-hidden border border-primary-foreground/10 bg-axcend-dark bg-[linear-gradient(145deg,#1a2e2a_0%,#142722_100%)] text-primary-foreground";
 
 const DARK_SURFACE_GLOW_CLASS =
   "pointer-events-none absolute -right-32 -top-28 h-[28rem] w-[44rem] rounded-full bg-[radial-gradient(ellipse_at_70%_30%,rgba(200,240,160,0.20)_0%,rgba(200,240,160,0.085)_42%,rgba(200,240,160,0.025)_66%,rgba(200,240,160,0)_84%)] blur-[72px]";
+
+const FALLBACK_LANGUAGES: LanguageOption[] = [
+  ["ru", "Русский", "RU"],
+  ["en", "English", "EN"],
+  ["de", "Deutsch", "DE"],
+  ["it", "Italiano", "IT"],
+  ["es", "Español", "ES"],
+  ["kk", "Қазақша", "KZ"],
+  ["uz", "O'zbekcha", "UZ"],
+  ["ky", "Кыргызча", "KG"],
+  ["hy", "Հայերեն", "AM"],
+  ["ka", "ქართული", "GE"],
+  ["az", "Azərbaycanca", "AZ"],
+  ["ar", "العربية", "AE"],
+  ["tr", "Türkçe", "TR"],
+  ["ko", "한국어", "KR"],
+];
+
+const QUICK_LANGUAGES: Array<[code: string, label: string]> = [
+  ["ru", "Русский"],
+  ["kk", "Қазақша"],
+  ["uz", "O'zbekcha"],
+  ["en", "English"],
+];
 
 function Reveal({
   children,
@@ -1339,6 +1381,107 @@ function TelegramIcon({ className = "" }: { className?: string }) {
   );
 }
 
+function getStoredLanguage() {
+  if (typeof window === "undefined") return "ru";
+  try {
+    return localStorage.getItem("axcend-language") || "ru";
+  } catch {
+    return "ru";
+  }
+}
+
+function LanguageSwitcher() {
+  const ref = useRef<HTMLDivElement>(null);
+  const [open, setOpen] = useState(false);
+  const [currentLanguage, setCurrentLanguage] = useState("ru");
+  const [languages, setLanguages] = useState<LanguageOption[]>(FALLBACK_LANGUAGES);
+
+  useEffect(() => {
+    const syncLanguageState = () => {
+      setLanguages(window.AXCEND_I18N?.languages || window.AXCEND_I18N_PAYLOAD?.languages || FALLBACK_LANGUAGES);
+      setCurrentLanguage(window.AXCEND_I18N?.getLanguage() || getStoredLanguage());
+    };
+
+    const handlePointerDown = (event: PointerEvent) => {
+      if (!ref.current?.contains(event.target as Node)) {
+        setOpen(false);
+      }
+    };
+
+    syncLanguageState();
+    window.addEventListener("axcend-i18n-ready", syncLanguageState);
+    window.addEventListener("axcend-language-change", syncLanguageState);
+    document.addEventListener("pointerdown", handlePointerDown);
+
+    return () => {
+      window.removeEventListener("axcend-i18n-ready", syncLanguageState);
+      window.removeEventListener("axcend-language-change", syncLanguageState);
+      document.removeEventListener("pointerdown", handlePointerDown);
+    };
+  }, []);
+
+  const selectLanguage = (language: string) => {
+    if (window.AXCEND_I18N) {
+      window.AXCEND_I18N.setLanguage(language);
+    } else {
+      try {
+        localStorage.setItem("axcend-language", language);
+      } catch {
+        /* ignored */
+      }
+      setCurrentLanguage(language);
+    }
+    setOpen(false);
+  };
+
+  return (
+    <div
+      ref={ref}
+      className="axcend-lang-switcher"
+      data-i18n-ignore="true"
+      data-open={open ? "true" : "false"}
+    >
+      <div className="axcend-lang-quick" role="group" aria-label="Выбрать язык">
+        {QUICK_LANGUAGES.map(([code, label]) => (
+          <button
+            key={code}
+            type="button"
+            className="axcend-lang-quick-option"
+            aria-current={code === currentLanguage ? "true" : "false"}
+            onClick={() => selectLanguage(code)}
+          >
+            {label}
+          </button>
+        ))}
+      </div>
+      <button
+        className="axcend-lang-button"
+        type="button"
+        aria-haspopup="listbox"
+        aria-expanded={open ? "true" : "false"}
+        onClick={() => setOpen((value) => !value)}
+      >
+        Все
+      </button>
+      <div className="axcend-lang-menu" role="listbox">
+        {languages.map(([code, name, short]) => (
+          <button
+            key={code}
+            type="button"
+            className="axcend-lang-option"
+            role="option"
+            aria-current={code === currentLanguage ? "true" : "false"}
+            onClick={() => selectLanguage(code)}
+          >
+            <span>{name}</span>
+            <span className="axcend-lang-code">{short}</span>
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function Index() {
   const headerRef = useRef<HTMLElement>(null);
 
@@ -1365,13 +1508,35 @@ function Index() {
       window.scrollTo({ top: Math.max(0, top), behavior: "auto" });
     };
 
+    const pendingTimeouts = new Set<number>();
+
+    const clearPendingScrolls = () => {
+      pendingTimeouts.forEach((timeoutId) => window.clearTimeout(timeoutId));
+      pendingTimeouts.clear();
+    };
+
     const scheduleScrollToHash = () => {
+      clearPendingScrolls();
       requestAnimationFrame(() => requestAnimationFrame(scrollToHash));
+      [120, 450, 1100, 1900].forEach((delay) => {
+        const timeoutId = window.setTimeout(() => {
+          pendingTimeouts.delete(timeoutId);
+          scrollToHash();
+        }, delay);
+        pendingTimeouts.add(timeoutId);
+      });
     };
 
     scheduleScrollToHash();
     window.addEventListener("hashchange", scheduleScrollToHash);
-    return () => window.removeEventListener("hashchange", scheduleScrollToHash);
+    window.addEventListener("axcend-i18n-ready", scheduleScrollToHash);
+    window.addEventListener("axcend-language-change", scheduleScrollToHash);
+    return () => {
+      clearPendingScrolls();
+      window.removeEventListener("hashchange", scheduleScrollToHash);
+      window.removeEventListener("axcend-i18n-ready", scheduleScrollToHash);
+      window.removeEventListener("axcend-language-change", scheduleScrollToHash);
+    };
   }, []);
 
   useEffect(() => {
@@ -1435,6 +1600,7 @@ function Index() {
               </a>
             </span>
           </div>
+          <LanguageSwitcher />
           <a
             href="#contact"
             className="inline-flex items-center gap-1.5 rounded-full bg-axcend-action px-4 py-2 text-sm font-medium text-axcend-dark transition-opacity hover:opacity-90"
