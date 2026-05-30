@@ -18,6 +18,7 @@ import {
   RefreshCw,
   Handshake,
   Globe,
+  X,
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -908,6 +909,9 @@ function PackagesSelector() {
   const [active, setActive] = useState(0);
   const current = packages[active];
   const Icon = current.icon;
+  const packageWhatsAppUrl = `${CONTACT_WHATSAPP_URL}?text=${encodeURIComponent(
+    `Добрый день. Хочу узнать подробнее про пакет услуг «${current.title}».`,
+  )}`;
   return (
     <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,340px)_1fr] lg:gap-12">
       {/* Left rail — selector */}
@@ -1001,7 +1005,9 @@ function PackagesSelector() {
               </span>
             </div>
             <a
-              href="#contact"
+              href={packageWhatsAppUrl}
+              target="_blank"
+              rel="noreferrer"
               className="group inline-flex w-full items-center justify-center gap-2 rounded-full bg-axcend-action px-4 py-2 text-sm font-medium text-axcend-dark transition-opacity hover:opacity-90 sm:w-auto"
             >
               Обсудить пакет
@@ -1481,9 +1487,17 @@ function ContactChoiceDialog({
 }) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="overflow-hidden rounded-[28px] border-border p-0 shadow-[0_32px_90px_rgba(26,46,42,0.22)] sm:max-w-[540px]">
+      <DialogContent className="overflow-hidden rounded-[28px] border-border p-0 shadow-[0_32px_90px_rgba(26,46,42,0.22)] [&>button]:hidden sm:max-w-[540px]">
         <div className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-axcend-soft blur-3xl" />
         <div className="relative z-10 p-6 md:p-7">
+          <button
+            type="button"
+            onClick={() => onOpenChange(false)}
+            aria-label="Закрыть"
+            className="absolute right-4 top-4 inline-flex h-9 w-9 items-center justify-center rounded-full border border-border bg-background/90 text-muted-foreground transition-colors hover:border-axcend-action hover:bg-axcend-soft hover:text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+          >
+            <X className="h-4 w-4" />
+          </button>
           <DialogHeader className="pr-8 text-left">
             <DialogTitle className="text-2xl font-semibold leading-tight text-foreground">
               Выберите удобный способ связи
