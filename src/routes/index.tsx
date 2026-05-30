@@ -1042,7 +1042,7 @@ function Funnel() {
   const topValue = Number(funnelStages[0].value);
   return (
     <div ref={ref} className="mx-auto w-full max-w-5xl">
-      <div className="space-y-3">
+      <div className="space-y-0">
         {funnelStages.map((f, idx) => {
           const width = 100 - idx * 14;
           const active = hover === idx;
@@ -1050,41 +1050,61 @@ function Funnel() {
           const share = Number(f.value) / topValue;
           const fillWidth = progress * share * 100;
           return (
-            <div
-              key={f.label}
-              onMouseEnter={() => setHover(idx)}
-              onMouseLeave={() => setHover(null)}
-              className="relative mx-auto flex min-h-[76px] w-full items-center justify-between gap-4 overflow-hidden rounded-[22px] border border-border bg-background px-5 py-4 transition-all duration-300 hover:border-axcend-action/45 hover:bg-axcend-action/[0.035] md:w-[var(--funnel-width)] md:px-6"
-              style={
-                {
-                  "--funnel-width": `${width}%`,
-                  borderColor: active ? "rgba(200,240,160,0.45)" : undefined,
-                  transitionDelay: `${idx * 80}ms`,
-                } as React.CSSProperties
-              }
-            >
+            <div key={f.label} className="relative">
               <div
-                aria-hidden
-                className="pointer-events-none absolute inset-y-0 left-0 transition-all duration-[1200ms] ease-out"
-                style={{
-                  width: `${fillWidth}%`,
-                  background:
-                    "linear-gradient(90deg, rgba(200, 240, 160, 0.2), rgba(200, 240, 160, 0.06))",
-                  transitionDelay: `${idx * 120}ms`,
-                }}
-              />
-              <div
-                aria-hidden
-                className="pointer-events-none absolute inset-y-4 left-0 w-[3px] rounded-full"
-                style={{ background: color }}
-              />
-              <div className="relative min-w-0">
-                <div className="text-sm font-semibold text-foreground">{f.label}</div>
-                <div className="mt-0.5 text-xs text-muted-foreground">{f.note}</div>
+                onMouseEnter={() => setHover(idx)}
+                onMouseLeave={() => setHover(null)}
+                className="group relative isolate mx-auto grid min-h-[88px] w-full grid-cols-1 gap-4 overflow-hidden rounded-[26px] border border-border bg-background px-5 py-5 transition-all duration-300 hover:border-axcend-action/70 hover:bg-[#f8fcf4] md:w-[var(--funnel-width)] md:grid-cols-[1fr_auto] md:items-center md:px-6"
+                style={
+                  {
+                    "--funnel-width": `${width}%`,
+                    borderColor: active ? "rgba(200,240,160,0.72)" : undefined,
+                    boxShadow: active
+                      ? "0 22px 70px rgba(26, 46, 42, 0.08)"
+                      : "0 14px 40px rgba(26, 46, 42, 0.04)",
+                    transitionDelay: `${idx * 80}ms`,
+                  } as React.CSSProperties
+                }
+              >
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute inset-y-0 left-0 transition-all duration-[1200ms] ease-out"
+                  style={{
+                    width: `${fillWidth}%`,
+                    background:
+                      "linear-gradient(90deg, rgba(200, 240, 160, 0.32), rgba(200, 240, 160, 0.09))",
+                    transitionDelay: `${idx * 120}ms`,
+                  }}
+                />
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute inset-y-4 left-0 w-[4px] rounded-full"
+                  style={{ background: color }}
+                />
+                <div className="relative flex min-w-0 items-center gap-4">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-axcend-action/35 bg-axcend-action/20 text-axcend-dark transition-colors duration-300 group-hover:bg-axcend-action">
+                    <Check className="h-4 w-4" />
+                  </div>
+                  <div className="min-w-0 text-left">
+                    <div className="text-sm font-semibold text-foreground">{f.label}</div>
+                    <div className="mt-1 text-xs leading-relaxed text-muted-foreground">
+                      {f.note}
+                    </div>
+                  </div>
+                </div>
+                <div className="relative flex items-center justify-between gap-4 md:justify-end">
+                  <div className="h-px flex-1 bg-border md:hidden" />
+                  <div className="rounded-2xl border border-axcend-action/35 bg-axcend-action/20 px-5 py-2.5 text-2xl font-semibold tabular-nums text-foreground transition-colors duration-300 group-hover:bg-axcend-action">
+                    {f.value}
+                  </div>
+                </div>
               </div>
-              <div className="relative shrink-0 rounded-2xl border border-axcend-action/30 bg-axcend-action/20 px-4 py-2 text-xl font-semibold tabular-nums text-foreground">
-                {f.value}
-              </div>
+              {idx < funnelStages.length - 1 && (
+                <div
+                  aria-hidden
+                  className="mx-auto h-5 w-px bg-gradient-to-b from-border via-axcend-action/50 to-border"
+                />
+              )}
             </div>
           );
         })}
