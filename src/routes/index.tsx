@@ -1774,7 +1774,9 @@ function Index() {
             <span className="truncate">ТОО «RETRAND» · БИН 241140036858.</span>
             <span className="flex shrink-0 items-center gap-2">
               <a
-                href="#contact"
+                href="https://wa.me/77085077371"
+                target="_blank"
+                rel="noreferrer"
                 aria-label="WhatsApp"
                 title="WhatsApp"
                 className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-border bg-card text-muted-foreground transition-colors hover:border-axcend-action hover:bg-axcend-soft hover:text-axcend-dark"
@@ -1782,7 +1784,9 @@ function Index() {
                 <WhatsAppIcon className="h-4 w-4" />
               </a>
               <a
-                href="#contact"
+                href="https://t.me/otdel_svyazi"
+                target="_blank"
+                rel="noreferrer"
                 aria-label="Telegram"
                 title="Telegram"
                 className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-border bg-card text-muted-foreground transition-colors hover:border-axcend-action hover:bg-axcend-soft hover:text-axcend-dark"
@@ -2014,13 +2018,16 @@ function Index() {
               >
                 <WhatsAppIcon className="h-5 w-5" />
               </a>
-              <span
+              <a
+                href="https://t.me/otdel_svyazi"
+                target="_blank"
+                rel="noreferrer"
                 aria-label="Telegram"
                 title="Telegram"
                 className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-primary-foreground/15 bg-primary-foreground/[0.06] text-primary-foreground transition-colors hover:border-axcend-action hover:bg-axcend-action hover:text-axcend-dark"
               >
                 <TelegramIcon className="h-5 w-5" />
-              </span>
+              </a>
             </div>
           </div>
         </div>
