@@ -63,7 +63,6 @@ const DARK_SURFACE_GLOW_CLASS =
 const CONTACT_WHATSAPP_URL = "https://wa.me/77085077371";
 const CONTACT_TELEGRAM_URL = "https://t.me/otdel_svyazi";
 const CONTACT_PHONE_PRIMARY = "+77085077371";
-const CONTACT_PHONE_SECONDARY = "+77004592902";
 
 const FALLBACK_LANGUAGES: LanguageOption[] = [
   ["ru", "Русский", "RU"],
@@ -1506,18 +1505,12 @@ function ContactChoiceDialog({
                   <div className="text-xs text-muted-foreground">Выберите номер для звонка</div>
                 </div>
               </div>
-              <div className="grid gap-2 sm:grid-cols-2" data-i18n-ignore="true">
+              <div className="grid gap-2" data-i18n-ignore="true">
                 <a
                   href={`tel:${CONTACT_PHONE_PRIMARY}`}
                   className="rounded-full border border-border bg-muted px-4 py-2.5 text-center text-sm font-semibold text-foreground transition-colors hover:border-axcend-action hover:bg-axcend-soft"
                 >
                   +7 708 507 73 71
-                </a>
-                <a
-                  href={`tel:${CONTACT_PHONE_SECONDARY}`}
-                  className="rounded-full border border-border bg-muted px-4 py-2.5 text-center text-sm font-semibold text-foreground transition-colors hover:border-axcend-action hover:bg-axcend-soft"
-                >
-                  +7 700 459 29 02
                 </a>
               </div>
             </div>
