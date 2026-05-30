@@ -1522,7 +1522,7 @@ function ContactChoiceDialog({
               <div className="grid gap-2" data-i18n-ignore="true">
                 <a
                   href={`tel:${CONTACT_PHONE_PRIMARY}`}
-                  className="rounded-full border border-border bg-muted px-4 py-2.5 text-center text-sm font-semibold text-foreground transition-colors hover:border-axcend-action hover:bg-axcend-soft"
+                  className="rounded-full border border-border bg-muted py-2.5 pl-[52px] pr-4 text-left text-sm font-semibold text-foreground transition-colors hover:border-axcend-action hover:bg-axcend-soft"
                 >
                   +7 708 507 73 71
                 </a>
