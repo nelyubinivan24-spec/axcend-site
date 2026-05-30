@@ -291,7 +291,7 @@ const heroSlides = [
   },
   {
     country: "Кыргызстан",
-    src: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Issykkul_plyag.jpg/1280px-Issykkul_plyag.jpg",
+    src: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Bishkek_City%27s_business_center.jpg/1280px-Bishkek_City%27s_business_center.jpg",
   },
   {
     country: "Азербайджан",
