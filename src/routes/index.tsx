@@ -1040,12 +1040,15 @@ function Funnel() {
     "var(--axcend-action)",
   ];
   const topValue = Number(funnelStages[0].value);
+  const stageIcons = [Layers, Target, MessagesSquare, Users, Handshake];
   return (
     <div ref={ref} className="mx-auto w-full max-w-5xl">
-      <div className="space-y-0">
+      <div className="relative space-y-0">
         {funnelStages.map((f, idx) => {
-          const width = 100 - idx * 14;
+          const width = Math.max(58, 100 - idx * 10);
           const active = hover === idx;
+          const isFinal = idx === funnelStages.length - 1;
+          const Icon = stageIcons[idx] ?? Check;
           const color = stageColors[idx] ?? stageColors[stageColors.length - 1];
           const share = Number(f.value) / topValue;
           const fillWidth = progress * share * 100;
@@ -1054,14 +1057,20 @@ function Funnel() {
               <div
                 onMouseEnter={() => setHover(idx)}
                 onMouseLeave={() => setHover(null)}
-                className="group relative isolate mx-auto grid min-h-[88px] w-full grid-cols-1 gap-4 overflow-hidden rounded-[26px] border border-border bg-background px-5 py-5 transition-all duration-300 hover:border-axcend-action/70 hover:bg-[#f8fcf4] md:w-[var(--funnel-width)] md:grid-cols-[1fr_auto] md:items-center md:px-6"
+                className={`group relative isolate mx-auto grid min-h-[92px] w-full grid-cols-1 gap-4 overflow-hidden rounded-[28px] border px-5 py-5 transition-all duration-300 md:w-[var(--funnel-width)] md:grid-cols-[1fr_auto] md:items-center md:px-6 ${
+                  isFinal
+                    ? "border-axcend-dark bg-axcend-dark text-primary-foreground shadow-[0_28px_90px_rgba(26,46,42,0.18)]"
+                    : "border-border bg-background text-foreground shadow-[0_14px_42px_rgba(26,46,42,0.045)] hover:border-axcend-action/70 hover:bg-[#f8fcf4]"
+                }`}
                 style={
                   {
                     "--funnel-width": `${width}%`,
-                    borderColor: active ? "rgba(200,240,160,0.72)" : undefined,
+                    borderColor: active && !isFinal ? "rgba(200,240,160,0.72)" : undefined,
                     boxShadow: active
-                      ? "0 22px 70px rgba(26, 46, 42, 0.08)"
-                      : "0 14px 40px rgba(26, 46, 42, 0.04)",
+                      ? isFinal
+                        ? "0 30px 96px rgba(26, 46, 42, 0.24)"
+                        : "0 22px 70px rgba(26, 46, 42, 0.08)"
+                      : undefined,
                     transitionDelay: `${idx * 80}ms`,
                   } as React.CSSProperties
                 }
@@ -1071,30 +1080,55 @@ function Funnel() {
                   className="pointer-events-none absolute inset-y-0 left-0 transition-all duration-[1200ms] ease-out"
                   style={{
                     width: `${fillWidth}%`,
-                    background:
-                      "linear-gradient(90deg, rgba(200, 240, 160, 0.32), rgba(200, 240, 160, 0.09))",
+                    background: isFinal
+                      ? "linear-gradient(90deg, rgba(200, 240, 160, 0.34), rgba(200, 240, 160, 0.11))"
+                      : "linear-gradient(90deg, rgba(200, 240, 160, 0.32), rgba(200, 240, 160, 0.09))",
                     transitionDelay: `${idx * 120}ms`,
                   }}
                 />
                 <div
                   aria-hidden
-                  className="pointer-events-none absolute inset-y-4 left-0 w-[4px] rounded-full"
+                  className="pointer-events-none absolute inset-y-4 left-0 w-[5px] rounded-full"
                   style={{ background: color }}
                 />
                 <div className="relative flex min-w-0 items-center gap-4">
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-axcend-action/35 bg-axcend-action/20 text-axcend-dark transition-colors duration-300 group-hover:bg-axcend-action">
-                    <Check className="h-4 w-4" />
+                  <div
+                    className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border transition-colors duration-300 ${
+                      isFinal
+                        ? "border-axcend-action/45 bg-axcend-action text-axcend-dark"
+                        : "border-axcend-action/35 bg-axcend-action/20 text-axcend-dark group-hover:bg-axcend-action"
+                    }`}
+                  >
+                    <Icon className="h-4 w-4" />
                   </div>
                   <div className="min-w-0 text-left">
-                    <div className="text-sm font-semibold text-foreground">{f.label}</div>
-                    <div className="mt-1 text-xs leading-relaxed text-muted-foreground">
+                    <div
+                      className={`text-sm font-semibold ${
+                        isFinal ? "text-primary-foreground" : "text-foreground"
+                      }`}
+                    >
+                      {f.label}
+                    </div>
+                    <div
+                      className={`mt-1 text-xs leading-relaxed ${
+                        isFinal ? "text-primary-foreground/70" : "text-muted-foreground"
+                      }`}
+                    >
                       {f.note}
                     </div>
                   </div>
                 </div>
                 <div className="relative flex items-center justify-between gap-4 md:justify-end">
-                  <div className="h-px flex-1 bg-border md:hidden" />
-                  <div className="rounded-2xl border border-axcend-action/35 bg-axcend-action/20 px-5 py-2.5 text-2xl font-semibold tabular-nums text-foreground transition-colors duration-300 group-hover:bg-axcend-action">
+                  <div
+                    className={`h-px flex-1 md:hidden ${isFinal ? "bg-primary-foreground/20" : "bg-border"}`}
+                  />
+                  <div
+                    className={`rounded-2xl border px-5 py-2.5 text-2xl font-semibold tabular-nums transition-colors duration-300 ${
+                      isFinal
+                        ? "border-transparent bg-axcend-action text-axcend-dark"
+                        : "border-axcend-action/35 bg-axcend-action/20 text-foreground group-hover:bg-axcend-action"
+                    }`}
+                  >
                     {f.value}
                   </div>
                 </div>
