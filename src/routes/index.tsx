@@ -1335,7 +1335,7 @@ function ConversionSystem({ items }: { items: typeof conversionReasons }) {
         ) || 76;
       const readingLine = Math.min(
         window.innerHeight - 1,
-        headerHeight + Math.max(120, Math.min(180, (window.innerHeight - headerHeight) * 0.32)),
+        headerHeight + Math.max(150, Math.min(225, (window.innerHeight - headerHeight) * 0.35)),
       );
       let nextActive: number | null = null;
       let nextDistance = Number.POSITIVE_INFINITY;
