@@ -62,6 +62,9 @@ const DARK_SURFACE_GLOW_CLASS =
   "pointer-events-none absolute -right-32 -top-28 h-[28rem] w-[44rem] rounded-full bg-[radial-gradient(ellipse_at_70%_30%,rgba(200,240,160,0.20)_0%,rgba(200,240,160,0.085)_42%,rgba(200,240,160,0.025)_66%,rgba(200,240,160,0)_84%)] blur-[72px]";
 
 const CONTACT_WHATSAPP_URL = "https://wa.me/77085077371";
+const CONTACT_WHATSAPP_FOOTER_URL = `${CONTACT_WHATSAPP_URL}?text=${encodeURIComponent(
+  "Добрый день. Мне нужны B2B продажи для моего бизнеса.",
+)}`;
 const CONTACT_TELEGRAM_URL = "https://t.me/otdel_svyazi";
 const CONTACT_PHONE_PRIMARY = "+77085077371";
 
@@ -2092,7 +2095,9 @@ function Index() {
             </p>
             <div className="mt-8 flex flex-wrap gap-3 md:mt-10">
               <a
-                href="mailto:axcend.kz@retrand.com"
+                href={CONTACT_WHATSAPP_FOOTER_URL}
+                target="_blank"
+                rel="noreferrer"
                 className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-axcend-action px-6 py-3 text-sm font-medium text-axcend-dark shadow-[0_14px_34px_rgba(200,240,160,0.18)] transition-opacity hover:opacity-90 sm:w-auto"
               >
                 Написать в AXCEND <ArrowRight className="h-4 w-4" />
