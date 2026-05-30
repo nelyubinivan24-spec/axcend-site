@@ -1109,64 +1109,148 @@ function Calculator() {
   const [conversion, setConversion] = useState(20);
   const [avgDeal, setAvgDeal] = useState(5000);
   const fmt = (n: number) => new Intl.NumberFormat("ru-RU").format(n);
+  const guaranteeRate = 5;
+  const guaranteeMeetings = Math.round((companies * guaranteeRate) / 100);
   const meetings = Math.round((companies * conversion) / 100);
   const revenue = meetings * avgDeal;
   return (
-    <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_380px]">
-      <div className="space-y-4 rounded-[30px] border border-border bg-muted p-3 md:p-4">
-        <CalcRow
-          label="Размер базы целевых компаний"
-          value={companies}
-          set={setCompanies}
-          min={100}
-          max={3000}
-          step={50}
-          fmt={fmt}
-        />
-        <CalcRow
-          label="Конверсия"
-          value={conversion}
-          set={setConversion}
-          min={5}
-          max={30}
-          step={1}
-          unit="%"
-          fmt={fmt}
-        />
-        <CalcRow
-          label="Цена продаваемого продукта/услуги, $"
-          value={avgDeal}
-          set={setAvgDeal}
-          min={500}
-          max={50000}
-          step={500}
-          fmt={fmt}
-        />
+    <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_420px] lg:items-start">
+      <div className="rounded-[30px] border border-border bg-background p-4 md:p-5">
+        <div className="mb-5 flex flex-col gap-2 text-left sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <div className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
+              Исходные параметры
+            </div>
+            <div className="mt-2 text-xl font-semibold text-foreground">
+              Гарантия отдельно, прогноз отдельно
+            </div>
+          </div>
+          <div className="rounded-full border border-axcend-action/35 bg-axcend-soft px-4 py-2 text-sm font-semibold text-axcend-dark">
+            5% в договоре
+          </div>
+        </div>
+        <div className="space-y-4 rounded-[26px] bg-muted p-3 md:p-4">
+          <CalcRow
+            label="Размер базы целевых компаний"
+            value={companies}
+            set={setCompanies}
+            min={100}
+            max={3000}
+            step={50}
+            fmt={fmt}
+          />
+          <CalcRow
+            label="Конверсия прогноза"
+            value={conversion}
+            set={setConversion}
+            min={5}
+            max={30}
+            step={1}
+            unit="%"
+            fmt={fmt}
+          />
+          <CalcRow
+            label="Цена продаваемого продукта/услуги, $"
+            value={avgDeal}
+            set={setAvgDeal}
+            min={500}
+            max={50000}
+            step={500}
+            fmt={fmt}
+          />
+        </div>
+
+        <div className="mt-4 grid grid-cols-1 overflow-hidden rounded-[24px] border border-border bg-card text-left sm:grid-cols-3">
+          <div className="border-b border-border p-4 sm:border-b-0 sm:border-r">
+            <div className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
+              База
+            </div>
+            <div className="mt-2 text-2xl font-semibold tabular-nums text-foreground">
+              {fmt(companies)}
+            </div>
+          </div>
+          <div className="border-b border-border p-4 sm:border-b-0 sm:border-r">
+            <div className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
+              Гарантия
+            </div>
+            <div className="mt-2 text-2xl font-semibold tabular-nums text-foreground">
+              {guaranteeRate}%
+            </div>
+          </div>
+          <div className="p-4">
+            <div className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
+              Минимум
+            </div>
+            <div className="mt-2 text-2xl font-semibold tabular-nums text-foreground">
+              {fmt(guaranteeMeetings)}
+            </div>
+          </div>
+        </div>
       </div>
+
       <div
         className={`${DARK_SURFACE_BASE_CLASS} self-start rounded-[30px] p-7 md:p-8 lg:sticky lg:top-28`}
       >
         <div className={`${DARK_SURFACE_GLOW_CLASS} hidden md:block`} />
-        <div className="relative z-10 space-y-4">
-          <div className="rounded-2xl border border-primary-foreground/10 bg-primary-foreground/[0.055] p-5">
-            <div className="text-xs font-medium uppercase tracking-[0.18em] text-primary-foreground/60">
-              Конверсия
+        <div className="relative z-10">
+          <div className="text-xs font-medium uppercase tracking-[0.18em] text-primary-foreground/60">
+            Расчёт результата
+          </div>
+          <div className="mt-4 text-2xl font-semibold leading-tight text-primary-foreground">
+            Сначала фиксируем минимум, затем считаем потенциал
+          </div>
+
+          <div className="mt-7 space-y-4">
+            <div className="rounded-2xl border border-axcend-action/35 bg-axcend-action/12 p-5">
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <div className="text-xs font-medium uppercase tracking-[0.18em] text-primary-foreground/60">
+                    Договорный минимум
+                  </div>
+                  <div className="mt-3 flex items-end gap-2">
+                    <span className="text-5xl font-semibold leading-none tabular-nums text-axcend-action">
+                      {fmt(guaranteeMeetings)}
+                    </span>
+                    <span className="pb-1 text-sm font-medium text-primary-foreground/70">
+                      встреч
+                    </span>
+                  </div>
+                </div>
+                <ShieldCheck className="h-5 w-5 shrink-0 text-axcend-action" />
+              </div>
+              <p className="mt-4 text-xs leading-relaxed text-primary-foreground/70">
+                Минимум 5% выбранной базы должны перейти в предметный разговор с заказчиком. Это
+                договорная планка, а не прогноз.
+              </p>
             </div>
-            <div className="mt-3 text-5xl font-semibold leading-none tabular-nums text-primary-foreground">
-              {fmt(meetings)}
+
+            <div className="rounded-2xl border border-primary-foreground/10 bg-primary-foreground/[0.055] p-5">
+              <div className="text-xs font-medium uppercase tracking-[0.18em] text-primary-foreground/60">
+                Потенциал при выбранной конверсии
+              </div>
+              <div className="mt-3 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-1">
+                <div>
+                  <div className="text-4xl font-semibold leading-none tabular-nums text-primary-foreground">
+                    {fmt(meetings)}
+                  </div>
+                  <div className="mt-1 text-xs text-primary-foreground/60">предметных встреч</div>
+                </div>
+                <div>
+                  <div className="text-4xl font-semibold leading-none tabular-nums text-axcend-action">
+                    ${fmt(revenue)}
+                  </div>
+                  <div className="mt-1 text-xs text-primary-foreground/60">
+                    потенциальная выручка
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="rounded-2xl border border-primary-foreground/10 bg-primary-foreground/[0.04] p-4 text-xs leading-relaxed text-primary-foreground/70">
+              Оценка ориентировочная. Точная модель строится после диагностики продукта и сегмента,
+              но договорный минимум 5% отделён от прогноза и понятен заранее.
             </div>
           </div>
-          <div className="rounded-2xl border border-axcend-action/30 bg-axcend-action/10 p-5">
-            <div className="text-xs font-medium uppercase tracking-[0.18em] text-primary-foreground/60">
-              Выручка
-            </div>
-            <div className="mt-3 text-4xl font-semibold leading-none tabular-nums text-axcend-action">
-              ${fmt(revenue)}
-            </div>
-          </div>
-          <p className="rounded-2xl border border-primary-foreground/10 bg-primary-foreground/[0.04] p-4 text-xs leading-relaxed text-primary-foreground/70">
-            Оценка ориентировочная. Точная модель строится после диагностики продукта и сегмента.
-          </p>
         </div>
       </div>
     </div>
