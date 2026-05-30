@@ -1032,116 +1032,123 @@ function Funnel() {
     io.observe(el);
     return () => io.disconnect();
   }, []);
-  const stageColors = [
-    "var(--axcend-action)",
-    "var(--axcend-action)",
-    "var(--axcend-action)",
-    "var(--axcend-action)",
-    "var(--axcend-action)",
-  ];
   const topValue = Number(funnelStages[0].value);
   const stageIcons = [Layers, Target, MessagesSquare, Users, Handshake];
-  return (
-    <div ref={ref} className="mx-auto w-full max-w-5xl">
-      <div className="relative space-y-0">
-        {funnelStages.map((f, idx) => {
-          const width = Math.max(58, 100 - idx * 10);
-          const active = hover === idx;
-          const isFinal = idx === funnelStages.length - 1;
-          const Icon = stageIcons[idx] ?? Check;
-          const color = stageColors[idx] ?? stageColors[stageColors.length - 1];
-          const share = Number(f.value) / topValue;
-          const fillWidth = progress * share * 100;
-          return (
-            <div key={f.label} className="relative">
-              <div
-                onMouseEnter={() => setHover(idx)}
-                onMouseLeave={() => setHover(null)}
-                className={`group relative isolate mx-auto grid min-h-[92px] w-full grid-cols-1 gap-4 overflow-hidden rounded-[28px] border px-5 py-5 transition-all duration-300 md:w-[var(--funnel-width)] md:grid-cols-[1fr_auto] md:items-center md:px-6 ${
-                  isFinal
-                    ? "border-axcend-dark bg-axcend-dark text-primary-foreground shadow-[0_28px_90px_rgba(26,46,42,0.18)]"
-                    : "border-border bg-background text-foreground shadow-[0_14px_42px_rgba(26,46,42,0.045)] hover:border-axcend-action/70 hover:bg-[#f8fcf4]"
-                }`}
-                style={
-                  {
-                    "--funnel-width": `${width}%`,
-                    borderColor: active && !isFinal ? "rgba(200,240,160,0.72)" : undefined,
-                    boxShadow: active
-                      ? isFinal
-                        ? "0 30px 96px rgba(26, 46, 42, 0.24)"
-                        : "0 22px 70px rgba(26, 46, 42, 0.08)"
-                      : undefined,
-                    transitionDelay: `${idx * 80}ms`,
-                  } as React.CSSProperties
-                }
-              >
-                <div
-                  aria-hidden
-                  className="pointer-events-none absolute inset-y-0 left-0 transition-all duration-[1200ms] ease-out"
-                  style={{
-                    width: `${fillWidth}%`,
-                    background: isFinal
-                      ? "linear-gradient(90deg, rgba(200, 240, 160, 0.34), rgba(200, 240, 160, 0.11))"
-                      : "linear-gradient(90deg, rgba(200, 240, 160, 0.32), rgba(200, 240, 160, 0.09))",
-                    transitionDelay: `${idx * 120}ms`,
-                  }}
-                />
-                <div
-                  aria-hidden
-                  className="pointer-events-none absolute inset-y-4 left-0 w-[5px] rounded-full"
-                  style={{ background: color }}
-                />
-                <div className="relative flex min-w-0 items-center gap-4">
-                  <div
-                    className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border transition-colors duration-300 ${
-                      isFinal
-                        ? "border-axcend-action/45 bg-axcend-action text-axcend-dark"
-                        : "border-axcend-action/35 bg-axcend-action/20 text-axcend-dark group-hover:bg-axcend-action"
-                    }`}
-                  >
-                    <Icon className="h-4 w-4" />
-                  </div>
-                  <div className="min-w-0 text-left">
-                    <div
-                      className={`text-sm font-semibold ${
-                        isFinal ? "text-primary-foreground" : "text-foreground"
-                      }`}
-                    >
-                      {f.label}
-                    </div>
-                    <div
-                      className={`mt-1 text-xs leading-relaxed ${
-                        isFinal ? "text-primary-foreground/70" : "text-muted-foreground"
-                      }`}
-                    >
-                      {f.note}
-                    </div>
-                  </div>
-                </div>
-                <div className="relative flex items-center justify-between gap-4 md:justify-end">
-                  <div
-                    className={`h-px flex-1 md:hidden ${isFinal ? "bg-primary-foreground/20" : "bg-border"}`}
-                  />
-                  <div
-                    className={`rounded-2xl border px-5 py-2.5 text-2xl font-semibold tabular-nums transition-colors duration-300 ${
-                      isFinal
-                        ? "border-transparent bg-axcend-action text-axcend-dark"
-                        : "border-axcend-action/35 bg-axcend-action/20 text-foreground group-hover:bg-axcend-action"
-                    }`}
-                  >
-                    {f.value}
-                  </div>
-                </div>
-              </div>
-              {idx < funnelStages.length - 1 && (
-                <div
-                  aria-hidden
-                  className="mx-auto h-5 w-px bg-gradient-to-b from-border via-axcend-action/50 to-border"
-                />
-              )}
+  const inputStage = funnelStages[0];
+  const filterStages = funnelStages.slice(1, -1);
+  const resultStage = funnelStages[funnelStages.length - 1];
+
+  const renderStage = (
+    f: (typeof funnelStages)[number],
+    idx: number,
+    variant: "input" | "filter" | "result",
+  ) => {
+    const active = hover === idx;
+    const isInput = variant === "input";
+    const isResult = variant === "result";
+    const Icon = stageIcons[idx] ?? Check;
+    const share = Number(f.value) / topValue;
+    const fillWidth = isResult ? progress * 100 : progress * share * 100;
+    const wrapperClass = isResult
+      ? "border-axcend-dark bg-axcend-dark text-primary-foreground shadow-[0_30px_100px_rgba(26,46,42,0.20)]"
+      : isInput
+        ? "border-axcend-action/45 bg-[#f8fcf4] text-foreground shadow-[0_18px_60px_rgba(26,46,42,0.07)]"
+        : "border-border bg-background text-foreground shadow-[0_12px_36px_rgba(26,46,42,0.045)] hover:border-axcend-action/60 hover:bg-[#fbfef7]";
+
+    return (
+      <div
+        onMouseEnter={() => setHover(idx)}
+        onMouseLeave={() => setHover(null)}
+        className={`group relative isolate overflow-hidden rounded-[30px] border p-5 transition-all duration-300 ${
+          isInput || isResult ? "min-h-[260px] md:p-6" : "min-h-[106px]"
+        } ${wrapperClass}`}
+        style={
+          {
+            borderColor: active && !isResult ? "rgba(200,240,160,0.72)" : undefined,
+            boxShadow: active
+              ? isResult
+                ? "0 34px 110px rgba(26, 46, 42, 0.26)"
+                : "0 24px 76px rgba(26, 46, 42, 0.09)"
+              : undefined,
+          } as React.CSSProperties
+        }
+      >
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-y-0 left-0 transition-all duration-[1200ms] ease-out"
+          style={{
+            width: `${fillWidth}%`,
+            background: isResult
+              ? "linear-gradient(90deg, rgba(200, 240, 160, 0.35), rgba(200, 240, 160, 0.09))"
+              : "linear-gradient(90deg, rgba(200, 240, 160, 0.34), rgba(200, 240, 160, 0.08))",
+            transitionDelay: `${idx * 120}ms`,
+          }}
+        />
+        <div className="relative flex min-w-0 items-start gap-4">
+          <div
+            className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border transition-colors duration-300 ${
+              isResult
+                ? "border-axcend-action/45 bg-axcend-action text-axcend-dark"
+                : "border-axcend-action/35 bg-axcend-action/20 text-axcend-dark group-hover:bg-axcend-action"
+            }`}
+          >
+            <Icon className="h-4 w-4" />
+          </div>
+          <div className="min-w-0 text-left">
+            <div
+              className={`text-sm font-semibold ${
+                isResult ? "text-primary-foreground" : "text-foreground"
+              }`}
+            >
+              {f.label}
             </div>
-          );
-        })}
+            <div
+              className={`mt-1 text-xs leading-relaxed ${
+                isResult ? "text-primary-foreground/70" : "text-muted-foreground"
+              }`}
+            >
+              {f.note}
+            </div>
+          </div>
+        </div>
+        <div
+          className={`relative mt-5 flex items-end justify-between gap-4 ${
+            isInput || isResult ? "md:absolute md:inset-x-6 md:bottom-6" : ""
+          }`}
+        >
+          <div className={`h-px flex-1 ${isResult ? "bg-primary-foreground/20" : "bg-border"}`} />
+          <div
+            className={`font-semibold tabular-nums ${
+              isInput || isResult
+                ? "text-5xl tracking-normal md:text-6xl"
+                : "rounded-2xl border border-axcend-action/35 bg-axcend-action/20 px-4 py-2 text-2xl text-foreground group-hover:bg-axcend-action"
+            } ${isResult ? "text-axcend-action" : ""}`}
+          >
+            {f.value}
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  const connector = (
+    <div className="hidden items-center justify-center md:flex">
+      <div className="relative h-px w-full bg-border">
+        <ArrowRight className="absolute left-1/2 top-1/2 h-4 w-4 -translate-x-1/2 -translate-y-1/2 rounded-full bg-background text-muted-foreground" />
+      </div>
+    </div>
+  );
+
+  return (
+    <div ref={ref} className="mx-auto w-full max-w-6xl">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-[minmax(0,0.95fr)_56px_minmax(0,1.15fr)_56px_minmax(0,0.95fr)] md:items-center">
+        {renderStage(inputStage, 0, "input")}
+        {connector}
+        <div className="space-y-3">
+          {filterStages.map((stage, index) => renderStage(stage, index + 1, "filter"))}
+        </div>
+        {connector}
+        {renderStage(resultStage, funnelStages.length - 1, "result")}
       </div>
     </div>
   );
