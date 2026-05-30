@@ -1118,12 +1118,7 @@ function Calculator() {
       <div className="rounded-[30px] border border-border bg-background p-4 md:p-5">
         <div className="mb-5 flex flex-col gap-2 text-left sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <div className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
-              Исходные параметры
-            </div>
-            <div className="mt-2 text-xl font-semibold text-foreground">
-              Гарантия отдельно, прогноз отдельно
-            </div>
+            <div className="text-xl font-semibold text-foreground">Параметры</div>
           </div>
           <div className="rounded-full border border-axcend-action/35 bg-axcend-soft px-4 py-2 text-sm font-semibold text-axcend-dark">
             5% в договоре
@@ -1140,7 +1135,7 @@ function Calculator() {
             fmt={fmt}
           />
           <CalcRow
-            label="Конверсия прогноза"
+            label="Конверсия"
             value={conversion}
             set={setConversion}
             min={5}
@@ -1196,17 +1191,11 @@ function Calculator() {
           <div className="text-xs font-medium uppercase tracking-[0.18em] text-primary-foreground/60">
             Расчёт результата
           </div>
-          <div className="mt-4 text-2xl font-semibold leading-tight text-primary-foreground">
-            Сначала фиксируем минимум, затем считаем потенциал
-          </div>
 
           <div className="mt-7 space-y-4">
             <div className="rounded-2xl border border-axcend-action/35 bg-axcend-action/12 p-5">
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <div className="text-xs font-medium uppercase tracking-[0.18em] text-primary-foreground/60">
-                    Договорный минимум
-                  </div>
                   <div className="mt-3 flex items-end gap-2">
                     <span className="text-5xl font-semibold leading-none tabular-nums text-axcend-action">
                       {fmt(guaranteeMeetings)}
@@ -1219,8 +1208,7 @@ function Calculator() {
                 <ShieldCheck className="h-5 w-5 shrink-0 text-axcend-action" />
               </div>
               <p className="mt-4 text-xs leading-relaxed text-primary-foreground/70">
-                Минимум 5% выбранной базы должны перейти в предметный разговор с заказчиком. Это
-                договорная планка, а не прогноз.
+                Минимум 5% выбранной базы должны перейти в предметный разговор с заказчиком.
               </p>
             </div>
 
@@ -1248,7 +1236,7 @@ function Calculator() {
 
             <div className="rounded-2xl border border-primary-foreground/10 bg-primary-foreground/[0.04] p-4 text-xs leading-relaxed text-primary-foreground/70">
               Оценка ориентировочная. Точная модель строится после диагностики продукта и сегмента,
-              но договорный минимум 5% отделён от прогноза и понятен заранее.
+              но договорный минимум 5% гарантирован.
             </div>
           </div>
         </div>
