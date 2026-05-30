@@ -1074,8 +1074,8 @@ function CalcRow({
   fmt: (n: number) => string;
 }) {
   return (
-    <div className="group border-t border-border/80 py-5 first:border-t-0 first:pt-4 last:pb-4">
-      <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+    <div className="rounded-[24px] border border-border bg-background/95 p-4 shadow-[0_14px_34px_rgba(26,46,42,0.035)] transition-colors hover:border-axcend-action/45 md:p-5">
+      <div className="mb-4 grid gap-3 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center sm:gap-5">
         <label className="max-w-[340px] text-sm font-semibold leading-snug text-foreground">
           {label}
         </label>
@@ -1102,7 +1102,7 @@ function CalcRow({
         </div>
       </div>
       <Slider
-        className="px-0.5"
+        className="px-1"
         value={[value]}
         min={min}
         max={max}
@@ -1124,8 +1124,9 @@ function Calculator() {
   const revenue = meetings * avgDeal;
   return (
     <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_420px] lg:items-start">
-      <div className="rounded-[32px] border border-border bg-card p-5 shadow-[0_24px_70px_rgba(26,46,42,0.05)] md:p-6">
-        <div className="mb-5 flex flex-col gap-2 text-left sm:flex-row sm:items-end sm:justify-between">
+      <div className="relative overflow-hidden rounded-[32px] border border-border bg-card p-5 shadow-[0_26px_80px_rgba(26,46,42,0.06)] md:p-6">
+        <div className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-axcend-soft blur-3xl" />
+        <div className="relative z-10 mb-5 flex flex-col gap-2 text-left sm:flex-row sm:items-end sm:justify-between">
           <div>
             <div className="text-xl font-semibold text-foreground">Параметры</div>
           </div>
@@ -1133,7 +1134,7 @@ function Calculator() {
             5% в договоре
           </div>
         </div>
-        <div className="overflow-hidden rounded-[28px] border border-border bg-axcend-soft/45 px-4 md:px-5">
+        <div className="relative z-10 space-y-3 rounded-[28px] border border-border bg-muted/55 p-3 md:p-4">
           <CalcRow
             label="Размер базы целевых компаний"
             value={companies}
@@ -1164,8 +1165,8 @@ function Calculator() {
           />
         </div>
 
-        <div className="mt-4 grid grid-cols-1 gap-3 text-left sm:grid-cols-3">
-          <div className="rounded-[22px] border border-border bg-background p-4">
+        <div className="relative z-10 mt-4 grid grid-cols-1 overflow-hidden rounded-[26px] border border-border bg-background text-left shadow-[0_16px_36px_rgba(26,46,42,0.035)] sm:grid-cols-3">
+          <div className="border-b border-border p-4 sm:border-b-0 sm:border-r">
             <div className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
               База
             </div>
@@ -1173,7 +1174,7 @@ function Calculator() {
               {fmt(companies)}
             </div>
           </div>
-          <div className="rounded-[22px] border border-border bg-background p-4">
+          <div className="border-b border-border p-4 sm:border-b-0 sm:border-r">
             <div className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
               Гарантия
             </div>
@@ -1181,7 +1182,7 @@ function Calculator() {
               {guaranteeRate}%
             </div>
           </div>
-          <div className="rounded-[22px] border border-axcend-action/45 bg-axcend-soft p-4">
+          <div className="bg-axcend-soft p-4">
             <div className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
               Минимум
             </div>
