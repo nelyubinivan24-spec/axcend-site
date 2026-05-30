@@ -1041,9 +1041,8 @@ function Funnel() {
   ];
   const topValue = Number(funnelStages[0].value);
   return (
-    <div ref={ref} className={`${DARK_SURFACE_BASE_CLASS} rounded-[30px] p-5 md:p-8`}>
-      <div className={`${DARK_SURFACE_GLOW_CLASS} hidden md:block`} />
-      <div className="relative z-10 space-y-3">
+    <div ref={ref} className="mx-auto w-full max-w-5xl">
+      <div className="space-y-3">
         {funnelStages.map((f, idx) => {
           const width = 100 - idx * 14;
           const active = hover === idx;
@@ -1055,7 +1054,7 @@ function Funnel() {
               key={f.label}
               onMouseEnter={() => setHover(idx)}
               onMouseLeave={() => setHover(null)}
-              className="relative mx-auto flex min-h-[76px] w-full items-center justify-between gap-4 overflow-hidden rounded-[22px] border border-primary-foreground/10 bg-primary-foreground/[0.045] px-5 py-4 transition-all duration-300 hover:border-axcend-action/40 hover:bg-primary-foreground/[0.08] md:w-[var(--funnel-width)] md:px-6"
+              className="relative mx-auto flex min-h-[76px] w-full items-center justify-between gap-4 overflow-hidden rounded-[22px] border border-border bg-background px-5 py-4 transition-all duration-300 hover:border-axcend-action/45 hover:bg-axcend-action/[0.035] md:w-[var(--funnel-width)] md:px-6"
               style={
                 {
                   "--funnel-width": `${width}%`,
@@ -1069,7 +1068,8 @@ function Funnel() {
                 className="pointer-events-none absolute inset-y-0 left-0 transition-all duration-[1200ms] ease-out"
                 style={{
                   width: `${fillWidth}%`,
-                  background: `linear-gradient(90deg, ${color}24, ${color}08)`,
+                  background:
+                    "linear-gradient(90deg, rgba(200, 240, 160, 0.2), rgba(200, 240, 160, 0.06))",
                   transitionDelay: `${idx * 120}ms`,
                 }}
               />
@@ -1079,10 +1079,10 @@ function Funnel() {
                 style={{ background: color }}
               />
               <div className="relative min-w-0">
-                <div className="text-sm font-semibold text-primary-foreground">{f.label}</div>
-                <div className="mt-0.5 text-xs text-primary-foreground/60">{f.note}</div>
+                <div className="text-sm font-semibold text-foreground">{f.label}</div>
+                <div className="mt-0.5 text-xs text-muted-foreground">{f.note}</div>
               </div>
-              <div className="relative shrink-0 rounded-2xl border border-axcend-action/25 bg-axcend-action/10 px-4 py-2 text-xl font-semibold tabular-nums text-axcend-action">
+              <div className="relative shrink-0 rounded-2xl border border-axcend-action/30 bg-axcend-action/20 px-4 py-2 text-xl font-semibold tabular-nums text-foreground">
                 {f.value}
               </div>
             </div>
