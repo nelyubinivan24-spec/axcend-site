@@ -1885,7 +1885,7 @@ function Index() {
         className="fixed inset-x-0 top-0 z-50 border-b border-border/70 bg-background/80 backdrop-blur"
       >
         <nav className="mx-auto flex max-w-6xl items-center justify-between gap-x-4 gap-y-2 px-6 py-4 md:py-5">
-          <a href="#" className="text-base font-semibold tracking-tight">
+          <a href="#top" className="text-base font-semibold tracking-tight">
             AXCEND
           </a>
           <div
