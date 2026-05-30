@@ -27,6 +27,13 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { Slider } from "@/components/ui/slider";
 
 type LanguageOption = [code: string, name: string, short: string];
@@ -52,6 +59,11 @@ const DARK_SURFACE_BASE_CLASS =
 
 const DARK_SURFACE_GLOW_CLASS =
   "pointer-events-none absolute -right-32 -top-28 h-[28rem] w-[44rem] rounded-full bg-[radial-gradient(ellipse_at_70%_30%,rgba(200,240,160,0.20)_0%,rgba(200,240,160,0.085)_42%,rgba(200,240,160,0.025)_66%,rgba(200,240,160,0)_84%)] blur-[72px]";
+
+const CONTACT_WHATSAPP_URL = "https://wa.me/77085077371";
+const CONTACT_TELEGRAM_URL = "https://t.me/otdel_svyazi";
+const CONTACT_PHONE_PRIMARY = "+77085077371";
+const CONTACT_PHONE_SECONDARY = "+77004592902";
 
 const FALLBACK_LANGUAGES: LanguageOption[] = [
   ["ru", "Русский", "RU"],
@@ -1461,6 +1473,105 @@ function TelegramIcon({ className = "" }: { className?: string }) {
   );
 }
 
+function ContactChoiceDialog({
+  open,
+  onOpenChange,
+}: {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+}) {
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="overflow-hidden rounded-[28px] border-border p-0 shadow-[0_32px_90px_rgba(26,46,42,0.22)] sm:max-w-[540px]">
+        <div className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-axcend-soft blur-3xl" />
+        <div className="relative z-10 p-6 md:p-7">
+          <DialogHeader className="pr-8 text-left">
+            <DialogTitle className="text-2xl font-semibold leading-tight text-foreground">
+              Выберите удобный способ связи
+            </DialogTitle>
+            <DialogDescription className="mt-2 text-sm leading-relaxed text-muted-foreground">
+              Позвоните нам или напишите в WhatsApp / Telegram. Вы сразу перейдёте в выбранный
+              канал.
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="mt-6 space-y-3">
+            <div className="rounded-[22px] border border-border bg-background p-4">
+              <div className="mb-3 flex items-center gap-3">
+                <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-axcend-soft text-axcend-dark">
+                  <PhoneOutgoing className="h-4 w-4" />
+                </span>
+                <div>
+                  <div className="text-sm font-semibold text-foreground">Позвонить</div>
+                  <div className="text-xs text-muted-foreground">Выберите номер для звонка</div>
+                </div>
+              </div>
+              <div className="grid gap-2 sm:grid-cols-2" data-i18n-ignore="true">
+                <a
+                  href={`tel:${CONTACT_PHONE_PRIMARY}`}
+                  className="rounded-full border border-border bg-muted px-4 py-2.5 text-center text-sm font-semibold text-foreground transition-colors hover:border-axcend-action hover:bg-axcend-soft"
+                >
+                  +7 708 507 73 71
+                </a>
+                <a
+                  href={`tel:${CONTACT_PHONE_SECONDARY}`}
+                  className="rounded-full border border-border bg-muted px-4 py-2.5 text-center text-sm font-semibold text-foreground transition-colors hover:border-axcend-action hover:bg-axcend-soft"
+                >
+                  +7 700 459 29 02
+                </a>
+              </div>
+            </div>
+
+            <a
+              href={CONTACT_WHATSAPP_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="flex items-center justify-between gap-4 rounded-[22px] border border-border bg-background p-4 text-left transition-colors hover:border-axcend-action hover:bg-axcend-soft"
+            >
+              <span className="flex min-w-0 items-center gap-3">
+                <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-axcend-soft text-axcend-dark">
+                  <WhatsAppIcon className="h-5 w-5" />
+                </span>
+                <span>
+                  <span className="block text-sm font-semibold text-foreground">
+                    Написать в WhatsApp
+                  </span>
+                  <span className="block text-xs text-muted-foreground" data-i18n-ignore="true">
+                    +7 708 507 7371
+                  </span>
+                </span>
+              </span>
+              <ArrowRight className="h-4 w-4 shrink-0 text-muted-foreground" />
+            </a>
+
+            <a
+              href={CONTACT_TELEGRAM_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="flex items-center justify-between gap-4 rounded-[22px] border border-border bg-background p-4 text-left transition-colors hover:border-axcend-action hover:bg-axcend-soft"
+            >
+              <span className="flex min-w-0 items-center gap-3">
+                <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-axcend-soft text-axcend-dark">
+                  <TelegramIcon className="h-5 w-5" />
+                </span>
+                <span>
+                  <span className="block text-sm font-semibold text-foreground">
+                    Написать в Telegram
+                  </span>
+                  <span className="block text-xs text-muted-foreground" data-i18n-ignore="true">
+                    @otdel_svyazi
+                  </span>
+                </span>
+              </span>
+              <ArrowRight className="h-4 w-4 shrink-0 text-muted-foreground" />
+            </a>
+          </div>
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
 function getStoredLanguage() {
   if (typeof window === "undefined") return "ru";
   try {
@@ -1619,6 +1730,7 @@ function LanguageSwitcher() {
 
 function Index() {
   const headerRef = useRef<HTMLElement>(null);
+  const [contactDialogOpen, setContactDialogOpen] = useState(false);
 
   useEffect(() => {
     const previousScrollRestoration =
@@ -1758,6 +1870,8 @@ function Index() {
       className="min-h-screen bg-background text-foreground"
       style={{ paddingTop: "var(--axcend-header-height, 76px)" }}
     >
+      <ContactChoiceDialog open={contactDialogOpen} onOpenChange={setContactDialogOpen} />
+
       {/* Nav */}
       <header
         ref={headerRef}
@@ -1796,12 +1910,13 @@ function Index() {
             </span>
           </div>
           <LanguageSwitcher />
-          <a
-            href="#contact"
+          <button
+            type="button"
+            onClick={() => setContactDialogOpen(true)}
             className="inline-flex items-center gap-1.5 rounded-full bg-axcend-action px-4 py-2 text-sm font-medium text-axcend-dark transition-opacity hover:opacity-90"
           >
             Обсудить задачу
-          </a>
+          </button>
         </nav>
       </header>
 
@@ -1850,12 +1965,13 @@ function Index() {
                 на профильных руководителей, ведём переговоры и передаём готовых к сделке клиентов.
               </p>
               <div className="mt-10 flex flex-wrap gap-3">
-                <a
-                  href="#contact"
+                <button
+                  type="button"
+                  onClick={() => setContactDialogOpen(true)}
                   className="inline-flex items-center gap-2 rounded-full bg-axcend-action px-6 py-3 text-sm font-medium text-axcend-dark shadow-[0_14px_34px_rgba(200,240,160,0.20)] transition-opacity hover:opacity-90"
                 >
                   Обсудить задачу <ArrowRight className="h-4 w-4" />
-                </a>
+                </button>
               </div>
               <div className="mt-8 grid grid-cols-2 items-start gap-4 py-4 sm:grid-cols-4">
                 {[
