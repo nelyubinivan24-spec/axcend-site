@@ -1074,32 +1074,41 @@ function CalcRow({
   fmt: (n: number) => string;
 }) {
   return (
-    <div className="rounded-[22px] border border-border bg-card p-4">
-      <div className="mb-4 grid gap-3 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center sm:gap-4">
-        <label className="text-sm font-medium leading-snug text-foreground">{label}</label>
-        <div className="flex items-center justify-between gap-2 sm:justify-end">
+    <div className="group border-t border-border/80 py-5 first:border-t-0 first:pt-4 last:pb-4">
+      <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <label className="max-w-[340px] text-sm font-semibold leading-snug text-foreground">
+          {label}
+        </label>
+        <div className="flex shrink-0 items-center gap-2">
           <button
             type="button"
             onClick={() => set(Math.max(min, value - step))}
-            className="flex h-8 w-8 items-center justify-center rounded-full border border-border bg-card text-muted-foreground transition-colors hover:border-axcend-action hover:bg-axcend-soft hover:text-foreground"
+            className="flex h-9 w-9 items-center justify-center rounded-full border border-border bg-background/90 text-muted-foreground transition-colors hover:border-axcend-action hover:bg-axcend-soft hover:text-foreground"
             aria-label="Уменьшить"
           >
             <Minus className="h-3 w-3" />
           </button>
-          <span className="min-w-28 rounded-full border border-border bg-muted px-3 py-1.5 text-center text-sm font-semibold tabular-nums text-foreground">
+          <span className="min-w-[108px] rounded-full border border-border bg-background px-3 py-2 text-center text-sm font-semibold tabular-nums text-foreground">
             {fmt(value)} {unit}
           </span>
           <button
             type="button"
             onClick={() => set(Math.min(max, value + step))}
-            className="flex h-8 w-8 items-center justify-center rounded-full border border-border bg-card text-muted-foreground transition-colors hover:border-axcend-action hover:bg-axcend-soft hover:text-foreground"
+            className="flex h-9 w-9 items-center justify-center rounded-full border border-border bg-background/90 text-muted-foreground transition-colors hover:border-axcend-action hover:bg-axcend-soft hover:text-foreground"
             aria-label="Увеличить"
           >
             <Plus className="h-3 w-3" />
           </button>
         </div>
       </div>
-      <Slider value={[value]} min={min} max={max} step={step} onValueChange={(v) => set(v[0])} />
+      <Slider
+        className="px-0.5"
+        value={[value]}
+        min={min}
+        max={max}
+        step={step}
+        onValueChange={(v) => set(v[0])}
+      />
     </div>
   );
 }
@@ -1115,16 +1124,16 @@ function Calculator() {
   const revenue = meetings * avgDeal;
   return (
     <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_420px] lg:items-start">
-      <div className="rounded-[30px] border border-border bg-background p-4 md:p-5">
+      <div className="rounded-[32px] border border-border bg-card p-5 shadow-[0_24px_70px_rgba(26,46,42,0.05)] md:p-6">
         <div className="mb-5 flex flex-col gap-2 text-left sm:flex-row sm:items-end sm:justify-between">
           <div>
             <div className="text-xl font-semibold text-foreground">Параметры</div>
           </div>
-          <div className="rounded-full border border-axcend-action/35 bg-axcend-soft px-4 py-2 text-sm font-semibold text-axcend-dark">
+          <div className="rounded-full border border-axcend-action/40 bg-axcend-soft px-4 py-2 text-sm font-semibold text-axcend-dark">
             5% в договоре
           </div>
         </div>
-        <div className="space-y-4 rounded-[26px] bg-muted p-3 md:p-4">
+        <div className="overflow-hidden rounded-[28px] border border-border bg-axcend-soft/45 px-4 md:px-5">
           <CalcRow
             label="Размер базы целевых компаний"
             value={companies}
@@ -1155,8 +1164,8 @@ function Calculator() {
           />
         </div>
 
-        <div className="mt-4 grid grid-cols-1 overflow-hidden rounded-[24px] border border-border bg-card text-left sm:grid-cols-3">
-          <div className="border-b border-border p-4 sm:border-b-0 sm:border-r">
+        <div className="mt-4 grid grid-cols-1 gap-3 text-left sm:grid-cols-3">
+          <div className="rounded-[22px] border border-border bg-background p-4">
             <div className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
               База
             </div>
@@ -1164,7 +1173,7 @@ function Calculator() {
               {fmt(companies)}
             </div>
           </div>
-          <div className="border-b border-border p-4 sm:border-b-0 sm:border-r">
+          <div className="rounded-[22px] border border-border bg-background p-4">
             <div className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
               Гарантия
             </div>
@@ -1172,7 +1181,7 @@ function Calculator() {
               {guaranteeRate}%
             </div>
           </div>
-          <div className="p-4">
+          <div className="rounded-[22px] border border-axcend-action/45 bg-axcend-soft p-4">
             <div className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
               Минимум
             </div>
