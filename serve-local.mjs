@@ -21,6 +21,7 @@ function isStaticPath(pathname) {
   return (
     pathname.startsWith("/assets/") ||
     pathname.startsWith("/flags/") ||
+    pathname.startsWith("/hero/") ||
     pathname === "/i18n-data.js" ||
     pathname === "/i18n.js" ||
     pathname === "/favicon.ico"

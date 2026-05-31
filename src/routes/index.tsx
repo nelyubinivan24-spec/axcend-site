@@ -273,15 +273,15 @@ function SideNav() {
 const heroSlides = [
   {
     country: "Казахстан",
-    src: "https://upload.wikimedia.org/wikipedia/en/thumb/6/66/Central_Downtown_Astana_2.jpg/1280px-Central_Downtown_Astana_2.jpg",
+    src: "/hero/kazakhstan.webp",
   },
   {
     country: "Узбекистан",
-    src: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Registan_square_Samarkand.jpg/1280px-Registan_square_Samarkand.jpg",
+    src: "/hero/uzbekistan.webp",
   },
   {
     country: "Южная Корея",
-    src: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/%EA%B4%91%ED%99%94%EB%AC%B8_%EC%9B%94%EB%8C%80.jpg/1280px-%EA%B4%91%ED%99%94%EB%AC%B8_%EC%9B%94%EB%8C%80.jpg",
+    src: "/hero/south-korea.webp",
   },
   {
     country: "Турция",
@@ -293,7 +293,7 @@ const heroSlides = [
   },
   {
     country: "Кыргызстан",
-    src: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Bishkek_City%27s_business_center.jpg/1280px-Bishkek_City%27s_business_center.jpg",
+    src: "/hero/kyrgyzstan.webp",
   },
   {
     country: "Азербайджан",
