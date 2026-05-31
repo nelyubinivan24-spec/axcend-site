@@ -744,12 +744,12 @@ const industriesData = [
 function WhatWeDoTabs() {
   return (
     <Tabs defaultValue="0" className="w-full">
-      <TabsList className="-mx-6 grid h-auto w-[calc(100%+3rem)] auto-cols-[minmax(145px,190px)] grid-flow-col grid-rows-2 items-stretch justify-start gap-1.5 overflow-x-auto bg-transparent px-6 pb-1 [scrollbar-width:none] md:mx-0 md:flex md:w-full md:flex-wrap md:items-center md:justify-center md:gap-2 md:overflow-visible md:px-0 md:pb-0 [&::-webkit-scrollbar]:hidden">
+      <TabsList className="mx-auto grid h-auto w-full grid-cols-2 items-stretch gap-1.5 bg-transparent px-0 pb-0 md:flex md:w-full md:flex-wrap md:items-center md:justify-center md:gap-2">
         {whatWeDo.map((s, i) => (
           <TabsTrigger
             key={s.title}
             value={String(i)}
-            className="min-h-8 w-full max-w-[190px] whitespace-normal rounded-full border border-border bg-card px-2.5 py-1.5 text-center text-[11px] leading-[1.15] text-muted-foreground transition-colors hover:text-foreground data-[state=active]:border-axcend-action data-[state=active]:bg-axcend-action data-[state=active]:text-axcend-dark data-[state=active]:shadow-none md:min-h-0 md:w-auto md:max-w-full md:px-4 md:py-2 md:text-sm md:leading-snug"
+            className="min-h-[34px] w-full whitespace-normal rounded-full border border-border bg-card px-2 py-1 text-center text-[10px] leading-[1.12] text-muted-foreground transition-colors hover:text-foreground data-[state=active]:border-axcend-action data-[state=active]:bg-axcend-action data-[state=active]:text-axcend-dark data-[state=active]:shadow-none md:min-h-0 md:w-auto md:max-w-full md:px-4 md:py-2 md:text-sm md:leading-snug"
           >
             {s.title}
           </TabsTrigger>
@@ -1216,57 +1216,59 @@ function Calculator() {
       </div>
 
       <div
-        className={`${DARK_SURFACE_BASE_CLASS} self-start rounded-[30px] p-7 md:p-8 lg:sticky lg:top-28`}
+        className={`${DARK_SURFACE_BASE_CLASS} self-start rounded-[26px] p-4 md:rounded-[30px] md:p-8 lg:sticky lg:top-28`}
       >
         <div className={`${DARK_SURFACE_GLOW_CLASS} hidden md:block`} />
         <div className="relative z-10">
-          <div className="text-xs font-medium uppercase tracking-[0.18em] text-primary-foreground/60">
+          <div className="text-[10px] font-medium uppercase tracking-[0.16em] text-primary-foreground/60 md:text-xs md:tracking-[0.18em]">
             Расчёт результата
           </div>
 
-          <div className="mt-7 space-y-4">
-            <div className="rounded-2xl border border-axcend-action/35 bg-axcend-action/12 p-5">
+          <div className="mt-4 space-y-3 md:mt-7 md:space-y-4">
+            <div className="rounded-2xl border border-axcend-action/35 bg-axcend-action/12 p-4 md:p-5">
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <div className="mt-3 flex items-end gap-2">
-                    <span className="text-5xl font-semibold leading-none tabular-nums text-axcend-action">
+                  <div className="mt-1 flex items-end gap-1.5 md:mt-3 md:gap-2">
+                    <span className="text-3xl font-semibold leading-none tabular-nums text-axcend-action md:text-5xl">
                       {fmt(guaranteeMeetings)}
                     </span>
-                    <span className="pb-1 text-sm font-medium text-primary-foreground/70">
+                    <span className="pb-0.5 text-xs font-medium text-primary-foreground/70 md:pb-1 md:text-sm">
                       встреч
                     </span>
                   </div>
                 </div>
-                <ShieldCheck className="h-5 w-5 shrink-0 text-axcend-action" />
+                <ShieldCheck className="h-4 w-4 shrink-0 text-axcend-action md:h-5 md:w-5" />
               </div>
-              <p className="mt-4 text-xs leading-relaxed text-primary-foreground/70">
+              <p className="mt-3 text-[11px] leading-relaxed text-primary-foreground/70 md:mt-4 md:text-xs">
                 Минимум 5% выбранной базы должны перейти в предметный разговор с заказчиком.
               </p>
             </div>
 
-            <div className="rounded-2xl border border-primary-foreground/10 bg-primary-foreground/[0.055] p-5">
-              <div className="text-xs font-medium uppercase tracking-[0.18em] text-primary-foreground/60">
+            <div className="rounded-2xl border border-primary-foreground/10 bg-primary-foreground/[0.055] p-4 md:p-5">
+              <div className="text-[10px] font-medium uppercase tracking-[0.16em] text-primary-foreground/60 md:text-xs md:tracking-[0.18em]">
                 Потенциал при выбранной конверсии
               </div>
-              <div className="mt-3 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-1">
+              <div className="mt-3 grid grid-cols-2 gap-3 lg:grid-cols-1 lg:gap-4">
                 <div>
-                  <div className="text-4xl font-semibold leading-none tabular-nums text-primary-foreground">
+                  <div className="text-2xl font-semibold leading-none tabular-nums text-primary-foreground md:text-4xl">
                     {fmt(meetings)}
                   </div>
-                  <div className="mt-1 text-xs text-primary-foreground/60">предметных встреч</div>
+                  <div className="mt-1 text-[10px] leading-tight text-primary-foreground/60 md:text-xs">
+                    предметных встреч
+                  </div>
                 </div>
                 <div>
-                  <div className="text-4xl font-semibold leading-none tabular-nums text-axcend-action">
+                  <div className="text-2xl font-semibold leading-none tabular-nums text-axcend-action md:text-4xl">
                     ${fmt(revenue)}
                   </div>
-                  <div className="mt-1 text-xs text-primary-foreground/60">
+                  <div className="mt-1 text-[10px] leading-tight text-primary-foreground/60 md:text-xs">
                     потенциальная выручка
                   </div>
                 </div>
               </div>
             </div>
 
-            <div className="rounded-2xl border border-primary-foreground/10 bg-primary-foreground/[0.04] p-4 text-xs leading-relaxed text-primary-foreground/70">
+            <div className="rounded-2xl border border-primary-foreground/10 bg-primary-foreground/[0.04] p-3 text-[11px] leading-relaxed text-primary-foreground/70 md:p-4 md:text-xs">
               Оценка ориентировочная. Точная модель строится после диагностики продукта и сегмента,
               но договорный минимум 5% гарантирован.
             </div>
@@ -1282,18 +1284,18 @@ function FAQ() {
     <Accordion
       type="single"
       collapsible
-      className="mx-auto max-w-2xl space-y-1 rounded-[22px] border border-border bg-muted p-1 md:space-y-1.5 md:rounded-[26px] md:p-1.5"
+      className="mx-auto max-w-2xl space-y-0.5 rounded-[20px] border border-border bg-muted p-1 md:space-y-1.5 md:rounded-[26px] md:p-1.5"
     >
       {faqs.map((f, i) => (
         <AccordionItem
           key={i}
           value={String(i)}
-          className="rounded-[18px] border border-transparent bg-card px-4 transition-colors data-[state=open]:border-axcend-action/70 data-[state=open]:bg-axcend-soft md:rounded-[20px] md:px-5"
+          className="rounded-[16px] border border-transparent bg-card px-3 transition-colors data-[state=open]:border-axcend-action/70 data-[state=open]:bg-axcend-soft md:rounded-[20px] md:px-5"
         >
-          <AccordionTrigger className="py-3 text-left text-[15px] font-semibold leading-snug text-foreground hover:no-underline md:py-4 md:text-base [&>svg]:text-muted-foreground">
+          <AccordionTrigger className="py-2 text-left text-[11px] font-semibold leading-[1.2] text-foreground hover:no-underline md:py-4 md:text-base md:leading-snug [&>svg]:text-muted-foreground">
             {f.q}
           </AccordionTrigger>
-          <AccordionContent className="pb-3 pr-6 text-sm leading-relaxed text-muted-foreground md:pb-4 md:pr-8">
+          <AccordionContent className="pb-2 pr-5 text-[11px] leading-relaxed text-muted-foreground md:pb-4 md:pr-8 md:text-sm">
             {f.a}
           </AccordionContent>
         </AccordionItem>
@@ -1937,8 +1939,29 @@ function Index() {
       {/* Countries Banner */}
       <section className="border-b border-axcend-soft bg-axcend-soft">
         <div className="mx-auto max-w-6xl px-6 py-2.5 md:py-4">
-          <div className="flex w-full min-w-0 flex-nowrap items-center justify-start gap-x-2 overflow-x-auto overflow-y-hidden md:justify-center md:overflow-hidden md:gap-x-4">
+          <div className="flex w-full min-w-0 flex-nowrap items-center justify-start gap-x-2 overflow-x-auto overflow-y-hidden md:hidden">
             <span className="shrink-0 text-[10px] font-medium uppercase tracking-[0.14em] text-foreground md:text-xs md:tracking-[0.18em]">
+              Рынки присутствия
+            </span>
+            {[
+              { flag: "/flags/kz.svg", name: "Казахстан" },
+              { flag: "/flags/uz.svg", name: "Узбекистан" },
+              { flag: "/flags/kg.svg", name: "Кыргызстан" },
+              { flag: "/flags/ae.svg", name: "Дубай" },
+              { flag: "/flags/tr.svg", name: "Турция" },
+              { flag: "/flags/kr.svg", name: "Южная Корея" },
+            ].map((c) => (
+              <div key={c.name} className="flex shrink-0 items-center">
+                <img
+                  src={c.flag}
+                  alt={c.name}
+                  className="h-3.5 w-5 rounded-[2px] object-contain shadow-sm"
+                />
+              </div>
+            ))}
+          </div>
+          <div className="hidden w-full min-w-0 flex-nowrap items-center justify-center gap-x-4 overflow-hidden md:flex">
+            <span className="shrink-0 text-xs font-medium uppercase tracking-[0.18em] text-foreground">
               Рынки присутствия
             </span>
             {[
@@ -1952,15 +1975,13 @@ function Index() {
               { flag: "/flags/az.svg", name: "Азербайджан" },
               { flag: "/flags/ae.svg", name: "ОАЭ" },
             ].map((c) => (
-              <div key={c.name} className="flex shrink-0 items-center md:gap-1.5">
+              <div key={c.name} className="flex shrink-0 items-center gap-1.5">
                 <img
                   src={c.flag}
                   alt={c.name}
                   className="h-3.5 w-5 rounded-[2px] object-contain shadow-sm"
                 />
-                <span className="hidden text-xs font-medium text-foreground md:inline">
-                  {c.name}
-                </span>
+                <span className="text-xs font-medium text-foreground">{c.name}</span>
               </div>
             ))}
           </div>
@@ -2034,7 +2055,7 @@ function Index() {
       </section>
 
       {/* Guarantee */}
-      <div className="relative overflow-hidden bg-axcend-dark [&_h2]:!font-sans [&_h2]:!text-[28px] [&_h2]:!font-semibold [&_h2]:!leading-[1.15] [&_h2]:!tracking-normal [&_h2]:!text-primary-foreground md:[&_h2]:!text-5xl [&_.text-muted-foreground]:!text-primary-foreground [&_section>div]:!py-12 md:[&_section>div]:!py-16 [&_.mt-14]:!mt-0 md:[&_.md\:mt-20]:!mt-0">
+      <div className="relative overflow-hidden bg-axcend-dark [&_h2]:!font-sans [&_h2]:!text-[24px] [&_h2]:!font-semibold [&_h2]:!leading-[1.12] [&_h2]:!tracking-normal [&_h2]:!text-primary-foreground md:[&_h2]:!text-5xl md:[&_h2]:!leading-[1.15] [&_.text-muted-foreground]:!text-primary-foreground [&_section>div]:!py-12 md:[&_section>div]:!py-16 [&_.mt-14]:!mt-0 md:[&_.md\:mt-20]:!mt-0">
         <div className="pointer-events-none absolute -right-[18%] -top-40 hidden h-[30rem] w-[70rem] rounded-full bg-[radial-gradient(ellipse_at_62%_32%,rgba(200,240,160,0.22)_0%,rgba(200,240,160,0.12)_36%,rgba(200,240,160,0.05)_62%,rgba(200,240,160,0)_84%)] blur-[72px] md:block" />
         <Section eyebrow="Гарантия" title="Гарантия от 5% закрепляется в договоре" center>
           <></>
