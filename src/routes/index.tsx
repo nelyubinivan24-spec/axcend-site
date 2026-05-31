@@ -169,7 +169,7 @@ function ProofGrid({ items }: { items: typeof proofs }) {
             onMouseEnter={() => setHover(i)}
             onMouseLeave={() => setHover(null)}
             style={{ transitionDelay: `${i * 60}ms` }}
-            className={`group relative flex min-h-[260px] flex-col overflow-hidden rounded-[28px] border p-7 text-left transition-all duration-300 md:p-8 ${
+            className={`group relative flex min-h-[240px] flex-col overflow-hidden rounded-[26px] border p-6 text-left transition-all duration-300 md:min-h-[260px] md:rounded-[28px] md:p-8 ${
               lifted
                 ? "border-axcend-action bg-axcend-soft"
                 : "border-border bg-card hover:border-axcend-action/70 hover:bg-axcend-soft/40"
@@ -185,7 +185,7 @@ function ProofGrid({ items }: { items: typeof proofs }) {
                 lifted ? "bg-axcend-action opacity-100" : "opacity-0"
               }`}
             />
-            <div className="relative flex h-full gap-5">
+            <div className="relative flex h-full gap-4 md:gap-5">
               <div
                 className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border transition-all duration-300 ${
                   lifted
@@ -197,11 +197,13 @@ function ProofGrid({ items }: { items: typeof proofs }) {
               </div>
 
               <div className="min-w-0 flex-1">
-                <div className="text-base font-semibold leading-snug text-foreground">
+                <div className="text-[15px] font-semibold leading-snug text-foreground md:text-base">
                   {p.title}
                 </div>
                 <div className="mt-4 h-px w-full bg-border/70" />
-                <div className="mt-4 text-sm leading-relaxed text-muted-foreground">{p.text}</div>
+                <div className="mt-3 text-[11px] leading-relaxed text-muted-foreground md:mt-4 md:text-sm">
+                  {p.text}
+                </div>
               </div>
             </div>
           </button>
@@ -742,24 +744,24 @@ const industriesData = [
 function WhatWeDoTabs() {
   return (
     <Tabs defaultValue="0" className="w-full">
-      <TabsList className="-mx-6 grid h-auto w-[calc(100%+3rem)] auto-cols-[minmax(180px,230px)] grid-flow-col grid-rows-2 items-stretch justify-start gap-2 overflow-x-auto bg-transparent px-6 pb-1 [scrollbar-width:none] md:mx-0 md:flex md:w-full md:flex-wrap md:items-center md:justify-center md:overflow-visible md:px-0 md:pb-0 [&::-webkit-scrollbar]:hidden">
+      <TabsList className="-mx-6 grid h-auto w-[calc(100%+3rem)] auto-cols-[minmax(145px,190px)] grid-flow-col grid-rows-2 items-stretch justify-start gap-1.5 overflow-x-auto bg-transparent px-6 pb-1 [scrollbar-width:none] md:mx-0 md:flex md:w-full md:flex-wrap md:items-center md:justify-center md:gap-2 md:overflow-visible md:px-0 md:pb-0 [&::-webkit-scrollbar]:hidden">
         {whatWeDo.map((s, i) => (
           <TabsTrigger
             key={s.title}
             value={String(i)}
-            className="min-h-10 w-full max-w-[230px] whitespace-normal rounded-full border border-border bg-card px-3 py-2 text-center text-[13px] leading-tight text-muted-foreground transition-colors hover:text-foreground data-[state=active]:border-axcend-action data-[state=active]:bg-axcend-action data-[state=active]:text-axcend-dark data-[state=active]:shadow-none md:min-h-0 md:w-auto md:max-w-full md:px-4 md:text-sm md:leading-snug"
+            className="min-h-8 w-full max-w-[190px] whitespace-normal rounded-full border border-border bg-card px-2.5 py-1.5 text-center text-[11px] leading-[1.15] text-muted-foreground transition-colors hover:text-foreground data-[state=active]:border-axcend-action data-[state=active]:bg-axcend-action data-[state=active]:text-axcend-dark data-[state=active]:shadow-none md:min-h-0 md:w-auto md:max-w-full md:px-4 md:py-2 md:text-sm md:leading-snug"
           >
             {s.title}
           </TabsTrigger>
         ))}
       </TabsList>
       {whatWeDo.map((s, i) => (
-        <TabsContent key={s.title} value={String(i)} className="mt-8">
-          <div className="relative overflow-hidden rounded-[28px] border border-axcend-action bg-axcend-soft p-8 md:p-10">
+        <TabsContent key={s.title} value={String(i)} className="mt-6 md:mt-8">
+          <div className="relative overflow-hidden rounded-[24px] border border-axcend-action bg-axcend-soft p-6 md:rounded-[28px] md:p-10">
             <div className="pointer-events-none absolute bottom-0 left-0 top-0 w-1 rounded-full bg-axcend-action" />
             <div className="relative">
-              <h3 className="text-2xl font-semibold text-foreground md:text-3xl">{s.title}</h3>
-              <p className="mt-5 max-w-3xl text-base leading-relaxed text-muted-foreground">
+              <h3 className="text-xl font-semibold text-foreground md:text-3xl">{s.title}</h3>
+              <p className="mt-4 max-w-3xl text-sm leading-relaxed text-muted-foreground md:mt-5 md:text-base">
                 {s.text}
               </p>
             </div>
@@ -1094,27 +1096,27 @@ function CalcRow({
   fmt: (n: number) => string;
 }) {
   return (
-    <div className="rounded-[24px] border border-border bg-background/95 p-4 shadow-[0_14px_34px_rgba(26,46,42,0.035)] transition-colors hover:border-axcend-action/45 md:p-5">
-      <div className="mb-4 grid gap-3 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center sm:gap-5">
-        <label className="max-w-[340px] text-sm font-semibold leading-snug text-foreground">
+    <div className="rounded-[20px] border border-border bg-background/95 p-3 shadow-[0_14px_34px_rgba(26,46,42,0.035)] transition-colors hover:border-axcend-action/45 md:rounded-[24px] md:p-5">
+      <div className="mb-3 grid gap-2 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center sm:gap-5 md:mb-4">
+        <label className="min-w-0 whitespace-nowrap text-[12px] font-semibold leading-none text-foreground md:max-w-[340px] md:text-sm md:leading-snug">
           {label}
         </label>
-        <div className="flex shrink-0 items-center gap-2">
+        <div className="flex shrink-0 items-center gap-1.5 md:gap-2">
           <button
             type="button"
             onClick={() => set(Math.max(min, value - step))}
-            className="flex h-9 w-9 items-center justify-center rounded-full border border-border bg-background/90 text-muted-foreground transition-colors hover:border-axcend-action hover:bg-axcend-soft hover:text-foreground"
+            className="flex h-8 w-8 items-center justify-center rounded-full border border-border bg-background/90 text-muted-foreground transition-colors hover:border-axcend-action hover:bg-axcend-soft hover:text-foreground md:h-9 md:w-9"
             aria-label="Уменьшить"
           >
             <Minus className="h-3 w-3" />
           </button>
-          <span className="min-w-[108px] rounded-full border border-border bg-background px-3 py-2 text-center text-sm font-semibold tabular-nums text-foreground">
+          <span className="min-w-[92px] rounded-full border border-border bg-background px-3 py-1.5 text-center text-[13px] font-semibold tabular-nums text-foreground md:min-w-[108px] md:py-2 md:text-sm">
             {fmt(value)} {unit}
           </span>
           <button
             type="button"
             onClick={() => set(Math.min(max, value + step))}
-            className="flex h-9 w-9 items-center justify-center rounded-full border border-border bg-background/90 text-muted-foreground transition-colors hover:border-axcend-action hover:bg-axcend-soft hover:text-foreground"
+            className="flex h-8 w-8 items-center justify-center rounded-full border border-border bg-background/90 text-muted-foreground transition-colors hover:border-axcend-action hover:bg-axcend-soft hover:text-foreground md:h-9 md:w-9"
             aria-label="Увеличить"
           >
             <Plus className="h-3 w-3" />
@@ -1144,17 +1146,17 @@ function Calculator() {
   const revenue = meetings * avgDeal;
   return (
     <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_420px] lg:items-start">
-      <div className="relative overflow-hidden rounded-[32px] border border-border bg-card p-5 shadow-[0_26px_80px_rgba(26,46,42,0.06)] md:p-6">
+      <div className="relative overflow-hidden rounded-[28px] border border-border bg-card p-4 shadow-[0_26px_80px_rgba(26,46,42,0.06)] md:rounded-[32px] md:p-6">
         <div className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-axcend-soft blur-3xl" />
-        <div className="relative z-10 mb-5 flex flex-col gap-2 text-left sm:flex-row sm:items-end sm:justify-between">
+        <div className="relative z-10 mb-4 flex flex-col gap-2 text-left sm:flex-row sm:items-end sm:justify-between md:mb-5">
           <div>
-            <div className="text-xl font-semibold text-foreground">Параметры</div>
+            <div className="text-lg font-semibold text-foreground md:text-xl">Параметры</div>
           </div>
-          <div className="rounded-full border border-axcend-action/40 bg-axcend-soft px-4 py-2 text-sm font-semibold text-axcend-dark">
+          <div className="rounded-full border border-axcend-action/40 bg-axcend-soft px-3 py-1.5 text-xs font-semibold text-axcend-dark md:px-4 md:py-2 md:text-sm">
             5% в договоре
           </div>
         </div>
-        <div className="relative z-10 space-y-3 rounded-[28px] border border-border bg-muted/55 p-3 md:p-4">
+        <div className="relative z-10 space-y-2 rounded-[24px] border border-border bg-muted/55 p-2 md:space-y-3 md:rounded-[28px] md:p-4">
           <CalcRow
             label="Размер базы целевых компаний"
             value={companies}
@@ -1185,28 +1187,28 @@ function Calculator() {
           />
         </div>
 
-        <div className="relative z-10 mt-4 grid grid-cols-1 overflow-hidden rounded-[26px] border border-border bg-background text-left shadow-[0_16px_36px_rgba(26,46,42,0.035)] sm:grid-cols-3">
-          <div className="border-b border-border p-4 sm:border-b-0 sm:border-r">
-            <div className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
+        <div className="relative z-10 mt-3 grid grid-cols-3 overflow-hidden rounded-[22px] border border-border bg-background text-left shadow-[0_16px_36px_rgba(26,46,42,0.035)] md:mt-4 md:rounded-[26px]">
+          <div className="border-r border-border p-3 md:p-4">
+            <div className="text-[10px] font-medium uppercase tracking-[0.16em] text-muted-foreground md:text-xs md:tracking-[0.18em]">
               База
             </div>
-            <div className="mt-2 text-2xl font-semibold tabular-nums text-foreground">
+            <div className="mt-1.5 text-xl font-semibold tabular-nums text-foreground md:mt-2 md:text-2xl">
               {fmt(companies)}
             </div>
           </div>
-          <div className="border-b border-border p-4 sm:border-b-0 sm:border-r">
-            <div className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
+          <div className="border-r border-border p-3 md:p-4">
+            <div className="text-[10px] font-medium uppercase tracking-[0.16em] text-muted-foreground md:text-xs md:tracking-[0.18em]">
               Гарантия
             </div>
-            <div className="mt-2 text-2xl font-semibold tabular-nums text-foreground">
+            <div className="mt-1.5 text-xl font-semibold tabular-nums text-foreground md:mt-2 md:text-2xl">
               {guaranteeRate}%
             </div>
           </div>
-          <div className="bg-axcend-soft p-4">
-            <div className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
+          <div className="bg-axcend-soft p-3 md:p-4">
+            <div className="text-[10px] font-medium uppercase tracking-[0.16em] text-muted-foreground md:text-xs md:tracking-[0.18em]">
               Минимум
             </div>
-            <div className="mt-2 text-2xl font-semibold tabular-nums text-foreground">
+            <div className="mt-1.5 text-xl font-semibold tabular-nums text-foreground md:mt-2 md:text-2xl">
               {fmt(guaranteeMeetings)}
             </div>
           </div>
@@ -1318,11 +1320,11 @@ function Section({
       <div className="mx-auto max-w-6xl px-6 py-24 md:py-32">
         <div className={center ? "mx-auto max-w-3xl text-center" : "max-w-3xl"}>
           {eyebrow && (
-            <div className="mb-5 text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
+            <div className="mb-4 text-[11px] font-medium uppercase tracking-[0.16em] text-muted-foreground md:mb-5 md:text-xs md:tracking-[0.18em]">
               {eyebrow}
             </div>
           )}
-          <h2 className="text-3xl font-semibold leading-[1.15] text-foreground md:text-5xl">
+          <h2 className="text-[28px] font-semibold leading-[1.15] text-foreground md:text-5xl">
             {title}
           </h2>
         </div>
@@ -1428,11 +1430,13 @@ function ConversionSystem({ items }: { items: typeof conversionReasons }) {
               <div className="flex gap-5">
                 <ConversionGlyph index={index} active={isActive} />
                 <div className="min-w-0 flex-1">
-                  <h3 className="text-base font-semibold leading-snug text-foreground">
+                  <h3 className="text-[15px] font-semibold leading-snug text-foreground md:text-base">
                     {item.title}
                   </h3>
                   <div className="mt-4 h-px w-full bg-border/70" />
-                  <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{item.text}</p>
+                  <p className="mt-3 text-[11px] leading-relaxed text-muted-foreground md:mt-4 md:text-sm">
+                    {item.text}
+                  </p>
                 </div>
               </div>
             </button>
@@ -1933,8 +1937,8 @@ function Index() {
       {/* Countries Banner */}
       <section className="border-b border-axcend-soft bg-axcend-soft">
         <div className="mx-auto max-w-6xl px-6 py-2.5 md:py-4">
-          <div className="flex w-full min-w-0 flex-nowrap items-center justify-start gap-x-3 overflow-x-auto overflow-y-hidden md:justify-center md:overflow-hidden md:gap-x-4">
-            <span className="shrink-0 text-xs font-medium uppercase tracking-[0.18em] text-foreground">
+          <div className="flex w-full min-w-0 flex-nowrap items-center justify-start gap-x-2 overflow-x-auto overflow-y-hidden md:justify-center md:overflow-hidden md:gap-x-4">
+            <span className="shrink-0 text-[10px] font-medium uppercase tracking-[0.14em] text-foreground md:text-xs md:tracking-[0.18em]">
               Рынки присутствия
             </span>
             {[
@@ -1948,13 +1952,15 @@ function Index() {
               { flag: "/flags/az.svg", name: "Азербайджан" },
               { flag: "/flags/ae.svg", name: "ОАЭ" },
             ].map((c) => (
-              <div key={c.name} className="flex shrink-0 items-center gap-1.5">
+              <div key={c.name} className="flex shrink-0 items-center md:gap-1.5">
                 <img
                   src={c.flag}
                   alt={c.name}
                   className="h-3.5 w-5 rounded-[2px] object-contain shadow-sm"
                 />
-                <span className="text-xs font-medium text-foreground">{c.name}</span>
+                <span className="hidden text-xs font-medium text-foreground md:inline">
+                  {c.name}
+                </span>
               </div>
             ))}
           </div>
@@ -1966,11 +1972,11 @@ function Index() {
         <div className="mx-auto max-w-6xl px-6 pb-20 pt-20 md:pb-28 md:pt-28">
           <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-16">
             <div className="lg:col-span-7">
-              <h1 className="max-w-4xl text-balance text-4xl font-semibold leading-[1.06] tracking-tight text-white md:text-6xl">
+              <h1 className="max-w-4xl text-balance text-[34px] font-semibold leading-[1.06] tracking-tight text-white md:text-6xl">
                 Внешний отдел B2B&#8209;продаж
                 <br className="hidden md:block" /> Центральная Азия
               </h1>
-              <p className="mt-7 max-w-2xl text-pretty text-base leading-relaxed text-white/70 md:text-lg">
+              <p className="mt-6 max-w-2xl text-pretty text-sm leading-relaxed text-white/70 md:mt-7 md:text-lg">
                 AXCEND выстраивает полный цикл B2B-продаж. Находим потенциальных клиентов, выходим
                 на профильных руководителей, ведём переговоры и передаём готовых к сделке клиентов.
               </p>
@@ -2013,10 +2019,10 @@ function Index() {
       <section id="why" className="border-t border-border">
         <div className="mx-auto max-w-6xl px-6 py-28 md:py-36">
           <div className="mx-auto max-w-3xl text-center">
-            <div className="mb-5 text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
+            <div className="mb-4 text-[11px] font-medium uppercase tracking-[0.16em] text-muted-foreground md:mb-5 md:text-xs md:tracking-[0.18em]">
               Почему AXCEND
             </div>
-            <h2 className="text-3xl font-semibold leading-[1.12] md:text-5xl">
+            <h2 className="text-[28px] font-semibold leading-[1.12] md:text-5xl">
               <span>32%</span> средний процент конверсии
             </h2>
           </div>
@@ -2028,7 +2034,7 @@ function Index() {
       </section>
 
       {/* Guarantee */}
-      <div className="relative overflow-hidden bg-axcend-dark [&_h2]:!font-sans [&_h2]:!text-3xl [&_h2]:!font-semibold [&_h2]:!leading-[1.15] [&_h2]:!tracking-normal [&_h2]:!text-primary-foreground md:[&_h2]:!text-5xl [&_.text-muted-foreground]:!text-primary-foreground [&_section>div]:!py-12 md:[&_section>div]:!py-16 [&_.mt-14]:!mt-0 md:[&_.md\:mt-20]:!mt-0">
+      <div className="relative overflow-hidden bg-axcend-dark [&_h2]:!font-sans [&_h2]:!text-[28px] [&_h2]:!font-semibold [&_h2]:!leading-[1.15] [&_h2]:!tracking-normal [&_h2]:!text-primary-foreground md:[&_h2]:!text-5xl [&_.text-muted-foreground]:!text-primary-foreground [&_section>div]:!py-12 md:[&_section>div]:!py-16 [&_.mt-14]:!mt-0 md:[&_.md\:mt-20]:!mt-0">
         <div className="pointer-events-none absolute -right-[18%] -top-40 hidden h-[30rem] w-[70rem] rounded-full bg-[radial-gradient(ellipse_at_62%_32%,rgba(200,240,160,0.22)_0%,rgba(200,240,160,0.12)_36%,rgba(200,240,160,0.05)_62%,rgba(200,240,160,0)_84%)] blur-[72px] md:block" />
         <Section eyebrow="Гарантия" title="Гарантия от 5% закрепляется в договоре" center>
           <></>
@@ -2086,10 +2092,10 @@ function Index() {
         />
         <div className="relative z-10 mx-auto grid max-w-6xl gap-10 px-6 py-20 md:gap-12 md:py-32 lg:grid-cols-[minmax(0,1fr)_420px] lg:items-center">
           <div>
-            <h2 className="text-3xl font-semibold leading-[1.12] tracking-tight text-primary-foreground md:text-5xl">
+            <h2 className="text-[28px] font-semibold leading-[1.12] tracking-tight text-primary-foreground md:text-5xl">
               Подключите AXEND для увеличения продаж
             </h2>
-            <p className="mt-6 max-w-xl text-pretty text-base leading-relaxed text-primary-foreground/70 md:text-lg">
+            <p className="mt-5 max-w-xl text-pretty text-sm leading-relaxed text-primary-foreground/70 md:mt-6 md:text-lg">
               Расскажите о продукте и целевом рынке — мы покажем, какой результат реалистично
               получить и как будет устроена работа.
             </p>
