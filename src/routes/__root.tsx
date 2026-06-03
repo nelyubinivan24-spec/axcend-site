@@ -72,14 +72,21 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "AXCEND — Внешний отдел B2B продаж Центральная Азия" },
+      {
+        name: "description",
+        content:
+          "AXCEND выстраивает полный цикл B2B-продаж. Находим потенциальных клиентов, выходим на профильных руководителей, ведём переговоры и передаём готовых к сделке клиентов.",
+      },
+      { name: "author", content: "AXCEND" },
+      { property: "og:title", content: "AXCEND — Внешний отдел B2B продаж Центральная Азия" },
+      {
+        property: "og:description",
+        content:
+          "AXCEND выстраивает полный цикл B2B-продаж. Находим потенциальных клиентов, выходим на профильных руководителей, ведём переговоры и передаём готовых к сделке клиентов.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
     ],
     links: [
       {

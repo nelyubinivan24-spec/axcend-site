@@ -380,7 +380,7 @@ const proofs = [
   },
   {
     title: "Высокая конверсия",
-    text: "Мы не записываем в результат каждого, кто просто поднял трубку или сказал «интересно». Встречей считается только ситуация, где человек понял предложение и пожелал обсудить его с заказчиком по телефону, на видеозвонке или лично. Поэтому эта цифра показывает реальное желание стать вашим клиентом.",
+    text: "Мы не записываем в результат каждого, кто просто поднял трубку или сказал «интересно». Встречей считается только ситуация, где человек понял предложение и пожелал обсудить его с заказчиком по телефону, на видеозвонке или лично.",
     icon: PhoneOutgoing,
     accent: "from-primary/10 to-primary/0",
     ring: "ring-primary/30",
@@ -427,7 +427,7 @@ const whatWeDo = [
   },
   {
     title: "Предметные встречи с заинтересованными компаниями",
-    text: "AXCEND передаёт не просто контакты, а компании, которые поняли предложение, проявили интерес и согласились обсудить его с командой заказчика.",
+    text: "AXCEND передаёт не просто контакты, а компании, которые поняли предложение, проявили интерес и хотят обсудить его с вами.",
   },
   {
     title: "Контекст по каждой встрече",
@@ -438,8 +438,8 @@ const whatWeDo = [
     text: "Заказчик видит, как рынок реагирует на продукт: какие аргументы работают, какие сегменты откликаются, что мешает интересу и где требуется усилить предложение.",
   },
   {
-    title: "Снижение нагрузки на внутреннюю команду",
-    text: "Команда заказчика не тратит время на поиск, первичные контакты, проверку интереса и отсев нерелевантных компаний — она подключается уже на стадии предметного разговора.",
+    title: "Продажи без штатного отдела",
+    text: "AXCEND закрывает функцию отдела продаж без найма собственной команды. Заказчик не несёт постоянные расходы на зарплаты, обучение, управление, адаптацию и текучку, а получает готовый процесс и встречи с заинтересованными компаниями.",
   },
 ];
 
@@ -573,47 +573,47 @@ const packages = [
 const faqs = [
   {
     q: "Сможете ли вы разобраться в нашем продукте, если он сложный?",
-    a: "Да. Перед стартом мы разбираем продукт, рынок, бизнес-модель, конкурентов, альтернативы и причины покупки. После этого формируем логику разговора, чтобы менеджер объяснял продукт простым коммерческим языком.",
+    a: "Да. Мы начинаем с продукта, экономики сделки, рынка, конкурентов и причин покупки. Менеджер выходит в разговор уже не как оператор, а как человек, который понимает коммерческий смысл предложения и может объяснить его простым деловым языком.",
   },
   {
     q: "Что входит в гарантию 5%?",
-    a: "В гарантию входит минимальный результат: не менее 5% базы должны перейти в подтвержденный разговор с заказчиком. Критерии заинтересованного контакта, объем базы и формат подтверждения фиксируются в договоре.",
+    a: "В договоре фиксируется минимальный результат: не менее 5% базы должны перейти в подтверждённый разговор с вами. Встречей считается только контакт, который понял предложение, проявил интерес и хочет обсудить продукт с вашей командой.",
   },
   {
     q: "Вы сами собираете базу или работаете с нашей?",
-    a: "Можем работать в обоих форматах. Обычно мы сами собираем и проверяем базу под заданный сегмент; если у вас есть своя база, можем дополнить, очистить и использовать ее.",
+    a: "Мы собираем базу сами и можем усилить вашу. Наш основной формат это база под задачу, собранная по отрасли, масштабу, роли ЛПР, сигналам спроса и цифровому следу компаний. В работу попадают те, с кем есть деловая причина говорить.",
   },
   {
     q: "Как вы понимаете, кому вообще стоит звонить?",
-    a: "Перед прозвоном мы описываем ICP: отрасль, масштаб, роль ЛПР, географию, признаки спроса, закупочные сигналы и ситуации, в которых продукт может быть нужен компании.",
+    a: "Мы сначала описываем профиль компании, которой продукт реально нужен. Смотрим отрасль, масштаб, роль человека, признаки спроса, закупочные сигналы, активность компании и ситуацию на рынке. Поэтому звонок идёт не в случайный список, а в понятный сегмент.",
   },
   {
     q: "Можно ли работать только по одному сегменту?",
-    a: "Да. Часто лучше начать с одного сегмента, проверить реакцию рынка, аргументы и конверсию, а затем масштабировать подход на другие направления.",
+    a: "Да. Один сегмент даёт чистый старт: видно, как рынок реагирует на предложение, какие аргументы работают и где быстрее появляются встречи. После этого подход масштабируется без потери качества.",
   },
   {
     q: "Как мы будем видеть, что работа действительно идёт?",
-    a: "Вы получаете прозрачную отчетность: статусы по базе, историю касаний, комментарии менеджеров, записи или краткие резюме диалогов и список компаний, которые дошли до встречи.",
+    a: "Вы видите работу по фактам. Передаём статусы по базе, историю касаний, комментарии менеджеров, записи или резюме диалогов и список компаний, которые дошли до встречи. В CRM видно, что происходит с каждым контактом.",
   },
   {
     q: "Передаёте ли вы CRM, базу и историю диалогов?",
-    a: "Да. По итогам работы передаем базу, статусы, контакты, историю коммуникаций и контекст по каждому заинтересованному диалогу. Формат согласуем заранее.",
+    a: "Да. По итогам работы передаём CRM, базу, контакты, статусы, историю коммуникаций и контекст по каждому заинтересованному диалогу. Данные остаются у вас, а не у подрядчика.",
   },
   {
     q: "Не испортят ли звонки нашу репутацию?",
-    a: "Нет, если продукт и сегмент подходят для аккуратного B2B-диалога. Мы не давим, не читаем скрипт механически и не обещаем то, чего нет в предложении. Звонки строятся как деловой разговор.",
+    a: "Нет. Мы ведём разговор как деловые переговоры, без давления, механического скрипта и пустых обещаний. Менеджеры AXCEND объясняют предложение, проверяют интерес и завершают контакт корректно, даже когда компания не готова обсуждать покупку.",
   },
   {
     q: "Сколько времени занимает запуск и когда ждать первые встречи?",
-    a: "Обычно запуск занимает от 2 до 4 недель: диагностика продукта, сегментация, сбор базы и подготовка аргументации. Первые содержательные реакции появляются после старта прозвона; первые встречи зависят от объема базы и скорости согласований.",
+    a: "Запуск занимает от 2 до 4 недель. За это время мы разбираем продукт, собираем и проверяем базу, готовим аргументацию и запускаем прозвон. Первые реакции появляются сразу после старта, первые встречи формируются по мере подтверждения интереса у ЛПР.",
   },
   {
     q: "Чем вы отличаетесь от обычного колл-центра?",
-    a: "Колл-центр чаще работает по скрипту и количеству звонков. AXCEND работает на результат: понимает продукт, проверяет релевантность компании, ведет содержательный разговор и передает только тех, кто готов обсуждать предложение.",
+    a: "Обычный колл центр считает звонки. AXCEND отвечает за результат. Мы понимаем продукт, выбираем релевантные компании, ведём предметный разговор и передаём только тех, кто понял предложение и хочет обсуждать его с вами.",
   },
   {
     q: "Чем вы отличаетесь от найма менеджера в штат?",
-    a: "Штатного менеджера нужно нанять, обучить, контролировать и обеспечить базой. AXCEND уже закрывает весь цикл: анализ рынка, база, аргументация, звонки, фиксация данных и передача встреч вашей команде.",
+    a: "Штатного менеджера нужно найти, обучить, контролировать и обеспечить базой. AXCEND сразу даёт готовый цикл: анализ рынка, база, аргументация, звонки, фиксация данных и передача встреч вашей команде. Вы платите за работающую систему, а не за процесс найма.",
   },
 ];
 
@@ -1450,7 +1450,7 @@ function ConversionSystem({ items }: { items: typeof conversionReasons }) {
 }
 
 function ConversionGlyph({ index, active }: { index: number; active: boolean }) {
-  const Icon = [Target, TrendingUp, MessagesSquare][index] ?? Target;
+  const Icon = Check;
   return (
     <span
       className={`relative mt-0.5 flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border transition-all duration-300 ${
@@ -1496,8 +1496,9 @@ function ContactChoiceDialog({
 }) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="overflow-hidden rounded-[28px] border-border p-0 shadow-[0_32px_90px_rgba(26,46,42,0.22)] [&>button]:hidden sm:max-w-[540px]">
-        <div className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-axcend-soft blur-3xl" />
+      <DialogContent className="overflow-hidden rounded-[30px] border border-border/80 bg-[linear-gradient(145deg,#ffffff_0%,#fbfdf8_58%,#eef8e6_140%)] p-0 shadow-[0_34px_100px_rgba(26,46,42,0.24)] [&>button]:hidden sm:max-w-[540px]">
+        <div className="pointer-events-none absolute -right-28 -top-28 h-80 w-80 rounded-full bg-[radial-gradient(circle,rgba(200,240,160,0.45)_0%,rgba(200,240,160,0.16)_46%,rgba(200,240,160,0)_72%)] blur-2xl" />
+        <div className="pointer-events-none absolute left-0 top-0 h-1 w-full bg-[linear-gradient(90deg,rgba(200,240,160,0)_0%,rgba(200,240,160,0.95)_50%,rgba(200,240,160,0)_100%)]" />
         <div className="relative z-10 p-6 md:p-7">
           <button
             type="button"
@@ -1517,35 +1518,39 @@ function ContactChoiceDialog({
             </DialogDescription>
           </DialogHeader>
 
-          <div className="mt-6 space-y-3">
-            <div className="rounded-[22px] border border-border bg-background p-4">
-              <div className="mb-3 flex items-center gap-3">
-                <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-axcend-soft text-axcend-dark">
+          <div className="mt-6 grid gap-3">
+            <a
+              href={`tel:${CONTACT_PHONE_PRIMARY}`}
+              className="group flex items-center justify-between gap-4 rounded-[22px] border border-border/90 bg-background/88 p-4 text-left shadow-[0_12px_38px_rgba(26,46,42,0.06)] transition-all duration-200 hover:-translate-y-0.5 hover:border-axcend-action hover:bg-white hover:shadow-[0_18px_48px_rgba(26,46,42,0.12)]"
+            >
+              <span className="flex min-w-0 items-center gap-3">
+                <span className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-axcend-soft text-axcend-dark transition-colors group-hover:bg-axcend-action">
                   <PhoneOutgoing className="h-4 w-4" />
                 </span>
-                <div>
-                  <div className="text-sm font-semibold text-foreground">Позвонить</div>
-                  <div className="text-xs text-muted-foreground">Выберите номер для звонка</div>
-                </div>
-              </div>
-              <div className="grid gap-2" data-i18n-ignore="true">
-                <a
-                  href={`tel:${CONTACT_PHONE_PRIMARY}`}
-                  className="rounded-full border border-border bg-muted py-2.5 pl-[52px] pr-4 text-left text-sm font-semibold text-foreground transition-colors hover:border-axcend-action hover:bg-axcend-soft"
-                >
-                  +7 708 507 73 71
-                </a>
-              </div>
-            </div>
+                <span className="min-w-0">
+                  <span className="block text-sm font-semibold text-foreground">Позвонить</span>
+                  <span
+                    className="mt-0.5 block text-sm font-semibold text-foreground"
+                    data-i18n-ignore="true"
+                  >
+                    +7 708 507 73 71
+                  </span>
+                  <span className="mt-1 block text-xs text-muted-foreground">
+                    Выберите номер для звонка
+                  </span>
+                </span>
+              </span>
+              <ArrowRight className="h-4 w-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-1 group-hover:text-foreground" />
+            </a>
 
             <a
               href={CONTACT_WHATSAPP_URL}
               target="_blank"
               rel="noreferrer"
-              className="flex items-center justify-between gap-4 rounded-[22px] border border-border bg-background p-4 text-left transition-colors hover:border-axcend-action hover:bg-axcend-soft"
+              className="group flex items-center justify-between gap-4 rounded-[22px] border border-border/90 bg-background/88 p-4 text-left shadow-[0_12px_38px_rgba(26,46,42,0.06)] transition-all duration-200 hover:-translate-y-0.5 hover:border-axcend-action hover:bg-white hover:shadow-[0_18px_48px_rgba(26,46,42,0.12)]"
             >
               <span className="flex min-w-0 items-center gap-3">
-                <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-axcend-soft text-axcend-dark">
+                <span className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-axcend-soft text-axcend-dark transition-colors group-hover:bg-axcend-action">
                   <WhatsAppIcon className="h-5 w-5" />
                 </span>
                 <span>
@@ -1557,17 +1562,17 @@ function ContactChoiceDialog({
                   </span>
                 </span>
               </span>
-              <ArrowRight className="h-4 w-4 shrink-0 text-muted-foreground" />
+              <ArrowRight className="h-4 w-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-1 group-hover:text-foreground" />
             </a>
 
             <a
               href={CONTACT_TELEGRAM_URL}
               target="_blank"
               rel="noreferrer"
-              className="flex items-center justify-between gap-4 rounded-[22px] border border-border bg-background p-4 text-left transition-colors hover:border-axcend-action hover:bg-axcend-soft"
+              className="group flex items-center justify-between gap-4 rounded-[22px] border border-border/90 bg-background/88 p-4 text-left shadow-[0_12px_38px_rgba(26,46,42,0.06)] transition-all duration-200 hover:-translate-y-0.5 hover:border-axcend-action hover:bg-white hover:shadow-[0_18px_48px_rgba(26,46,42,0.12)]"
             >
               <span className="flex min-w-0 items-center gap-3">
-                <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-axcend-soft text-axcend-dark">
+                <span className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-axcend-soft text-axcend-dark transition-colors group-hover:bg-axcend-action">
                   <TelegramIcon className="h-5 w-5" />
                 </span>
                 <span>
@@ -1579,7 +1584,7 @@ function ContactChoiceDialog({
                   </span>
                 </span>
               </span>
-              <ArrowRight className="h-4 w-4 shrink-0 text-muted-foreground" />
+              <ArrowRight className="h-4 w-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-1 group-hover:text-foreground" />
             </a>
           </div>
         </div>
@@ -2057,7 +2062,7 @@ function Index() {
       {/* Guarantee */}
       <div className="relative overflow-hidden bg-axcend-dark [&_h2]:!font-sans [&_h2]:!text-[24px] [&_h2]:!font-semibold [&_h2]:!leading-[1.12] [&_h2]:!tracking-normal [&_h2]:!text-primary-foreground md:[&_h2]:!text-5xl md:[&_h2]:!leading-[1.15] [&_.text-muted-foreground]:!text-primary-foreground [&_section>div]:!py-12 md:[&_section>div]:!py-16 [&_.mt-14]:!mt-0 md:[&_.md\:mt-20]:!mt-0">
         <div className="pointer-events-none absolute -right-[18%] -top-40 hidden h-[30rem] w-[70rem] rounded-full bg-[radial-gradient(ellipse_at_62%_32%,rgba(200,240,160,0.22)_0%,rgba(200,240,160,0.12)_36%,rgba(200,240,160,0.05)_62%,rgba(200,240,160,0)_84%)] blur-[72px] md:block" />
-        <Section eyebrow="Гарантия" title="Гарантия от 5% закрепляется в договоре" center>
+        <Section eyebrow="Гарантия" title="Гарантия от 5% конверсии в договоре" center>
           <></>
         </Section>
       </div>
@@ -2068,7 +2073,7 @@ function Index() {
       </Section>
 
       {/* Industries & conversion */}
-      <Section id="industries" eyebrow="Отрасли и конверсии" title="Результаты AXEND" center>
+      <Section id="industries" eyebrow="Отрасли и конверсии" title="Результаты AXCEND" center>
         <IndustriesShowcase />
       </Section>
 
@@ -2114,11 +2119,11 @@ function Index() {
         <div className="relative z-10 mx-auto grid max-w-6xl gap-10 px-6 py-20 md:gap-12 md:py-32 lg:grid-cols-[minmax(0,1fr)_420px] lg:items-center">
           <div>
             <h2 className="text-[28px] font-semibold leading-[1.12] tracking-tight text-primary-foreground md:text-5xl">
-              Подключите AXEND для увеличения продаж
+              Подключите AXCEND для увеличения продаж
             </h2>
             <p className="mt-5 max-w-xl text-pretty text-sm leading-relaxed text-primary-foreground/70 md:mt-6 md:text-lg">
-              Расскажите о продукте и целевом рынке — мы покажем, какой результат реалистично
-              получить и как будет устроена работа.
+              Расскажите о продукте и мы покажем, какой результат реалистично получить и как будет
+              устроена работа.
             </p>
             <div className="mt-8 flex flex-wrap gap-3 md:mt-10">
               <a
@@ -2191,7 +2196,7 @@ function Index() {
       <footer className="border-t border-border">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 px-6 py-8 text-sm text-muted-foreground md:flex-row">
           <div>© {new Date().getFullYear()} AXCEND</div>
-          <div>Внешний отдел B2B-продаж · СНГ</div>
+          <div>Внешний отдел B2B-продаж · Центральная Азия</div>
         </div>
       </footer>
     </div>
