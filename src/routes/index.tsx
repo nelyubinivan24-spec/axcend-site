@@ -1612,17 +1612,7 @@ function createLanguageScrollRestorer() {
     window.innerHeight - 1,
     headerHeight + Math.max(96, Math.min(220, (window.innerHeight - headerHeight) * 0.28)),
   );
-  const sectionIds = [
-    "why",
-    "what",
-    "industries",
-    "proof",
-    "packages",
-    "funnel",
-    "calc",
-    "faq",
-    "contact",
-  ];
+  const sectionIds = ["why", "what", "industries", "proof", "funnel", "calc", "faq", "contact"];
   const visibleSection = sectionIds
     .map((id) => document.getElementById(id))
     .filter((section): section is HTMLElement => Boolean(section))
@@ -2080,16 +2070,6 @@ function Index() {
       {/* Proof block */}
       <Section id="proof" eyebrow="принципы работы" title="Что отличает AXCEND" center>
         <ProofGrid items={proofs} />
-      </Section>
-
-      {/* Packages — scenarios */}
-      <Section
-        id="packages"
-        eyebrow="Пакеты-сценарии"
-        title="Готовые сценарии под вашу задачу"
-        center
-      >
-        <PackagesSelector />
       </Section>
 
       {/* Calculator */}
