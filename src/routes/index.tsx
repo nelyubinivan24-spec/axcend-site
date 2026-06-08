@@ -443,6 +443,60 @@ const whatWeDo = [
   },
 ];
 
+const launchStages = [
+  {
+    number: "01",
+    eyebrow: "Этап 1",
+    title: "Досье и аудит продукта",
+    summary: "Анализ бизнеса, оффера и рынка до первого звонка.",
+    body: [
+      "Перед тем как сделать первый звонок, мы детально изучаем ваш бизнес. Собираем досье на компанию и проводим аудит вашего коммерческого предложения.",
+      "Проводим рыночное и маркетинговое исследование, при необходимости — SWOT-анализ: определяем вашего потребителя и ближайших конкурентов, оцениваем ёмкость рынка, проверяем, насколько корректно сформулирован оффер и есть ли у продукта реальный потенциал продаж. Для этого мы используем профессиональные системы анализа рынка и цифрового поведения компаний и проводим необходимый эконометрический анализ.",
+      "Нередко именно здесь выявляются ошибки в самом оффере: продукт хороший, но сформулирован не для того потребителя или не теми словами. Мы помогаем это исправить.",
+    ],
+    result:
+      "Чёткое понимание, кто ваш клиент, кто конкуренты, какие аргументы сильнее всего работают в переговорах и какое уникальное торговое предложение нужно нести в рынок.",
+    payment:
+      "За аналитику, которая превращает ваш продукт в понятное и продаваемое предложение ещё до первого звонка.",
+  },
+  {
+    number: "02",
+    eyebrow: "Этап 2",
+    title: "Формирование целевой базы",
+    summary: "Собираем базу вручную по закупочным сигналам — без «холодных» покупных списков.",
+    body: [
+      "Мы не покупаем готовые «холодные» базы. Базу мы собираем сами — на основе аудита из первого этапа.",
+      "Используя профессиональные системы анализа спроса, такие как 6sense и аналогичные сервисы, мы отслеживаем активность компаний и изменения внутри них: рост направлений, интерес к определённым решениям, закупочные сигналы и другие признаки реальной потребности.",
+      "Проще говоря, мы находим компании, которые уже сигналят рынку о том, что им нужен продукт вроде вашего. Именно из таких релевантных компаний формируется база.",
+    ],
+    payment:
+      "За выверенный пул компаний с подтверждённым интересом, а не за случайный список контактов.",
+  },
+  {
+    number: "03",
+    eyebrow: "Этап 3",
+    title: "Выход на лиц, принимающих решения",
+    summary: "Ежедневный дозвон вручную до людей с реальными полномочиями.",
+    body: [
+      "Наши менеджеры по продажам ежедневно работают по этой базе: вручную набирают номера, проходят секретарей и других привратников и выходят на владельцев бизнеса, лиц, принимающих решения, или тех, кто влияет на эти решения.",
+    ],
+    payment:
+      "За живую, ежедневную работу по дозвону до нужных людей. Без этого даже лучший продукт остаётся непроданным.",
+  },
+  {
+    number: "04",
+    eyebrow: "Этап 4",
+    title: "Презентация и переговоры",
+    summary: "Подготовленный бизнес-диалог с ЛПР — без заученных фраз.",
+    body: [
+      "Опираясь на проведённый аудит и выверенный оффер, менеджер представляет ваш продукт или услугу, выявляет потребность и ведёт полноценный бизнес-диалог.",
+      "Менеджеры заранее изучают специфику вашей услуги: не читают заученный текст с экрана, но ведут диалог по выверенной структуре. Для нас возражение — это не отказ, а уточняющий вопрос, который часто подтверждает интерес.",
+    ],
+    payment:
+      "За подготовленные переговоры, в которых с вашим потенциальным клиентом говорит человек, разбирающийся в вашем продукте.",
+  },
+];
+
 const conversionReasons = [
   {
     title: "Консалтинговый подход",
@@ -769,6 +823,114 @@ function WhatWeDoTabs() {
         </TabsContent>
       ))}
     </Tabs>
+  );
+}
+
+function LaunchProcess() {
+  return (
+    <div className="mx-auto max-w-5xl">
+      <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_390px] lg:items-stretch">
+        <div className="flex flex-col justify-center">
+          <p className="max-w-2xl text-sm leading-relaxed text-muted-foreground md:text-base">
+            Мы — внешний отдел продаж в сегменте B2B. Компании передают нам продажи своих услуг, а
+            мы выстраиваем системный процесс: от анализа продукта до живых переговоров с теми, кто
+            реально принимает решения. Ниже — что именно мы делаем на каждом этапе и за что вы
+            платите.
+          </p>
+        </div>
+        <div className="relative overflow-hidden rounded-[28px] border border-border bg-card">
+          <img
+            src="https://axcend.pro/assets/callcenter-real-CefSNWWS.jpg"
+            alt="Команда AXCEND в работе"
+            loading="lazy"
+            className="h-full min-h-[220px] w-full object-cover"
+          />
+          <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(26,46,42,0)_35%,rgba(26,46,42,0.62)_100%)]" />
+        </div>
+      </div>
+
+      <div className="mt-10 overflow-hidden rounded-[26px] border border-axcend-action/55 bg-axcend-soft p-0 md:mt-12">
+        <div className="flex items-stretch">
+          <div className="hidden w-1.5 shrink-0 bg-axcend-action md:block" />
+          <div className="p-5 md:p-6">
+            <div>
+              <div className="inline-flex rounded-full border border-axcend-action/60 bg-card/70 px-3 py-1 text-[10px] font-medium uppercase tracking-[0.18em] text-axcend-dark">
+                Нулевой шаг
+              </div>
+              <h3 className="mt-3 text-lg font-semibold leading-snug text-foreground md:text-xl">
+                Старт проекта
+              </h3>
+              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                Проект стартует после подписания договора и оплаты счёта. С этого момента мы
+                запускаем работу по вашему продукту — и начинаем не со звонков, а с подготовки.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <Accordion type="single" collapsible className="mt-4 space-y-4 md:mt-5">
+        {launchStages.map((stage, index) => (
+          <AccordionItem
+            key={stage.number}
+            value={String(index)}
+            className="overflow-hidden rounded-[26px] border border-border bg-card px-0 transition-colors hover:border-axcend-action/60 hover:bg-axcend-soft/45 data-[state=open]:border-axcend-action/70 data-[state=open]:bg-axcend-soft"
+          >
+            <AccordionTrigger className="group px-5 py-5 text-left hover:no-underline md:px-6 md:py-6 [&>svg]:hidden">
+              <div className="flex min-w-0 flex-1 items-center gap-4 pr-4">
+                <div className="min-w-0 flex-1">
+                  <div className="mb-2 inline-flex rounded-full border border-axcend-action/50 bg-axcend-soft px-3 py-1 text-[10px] font-medium tracking-[0.04em] text-axcend-dark">
+                    {index + 1} шаг
+                  </div>
+                  <div className="text-base font-semibold leading-snug text-foreground md:text-xl">
+                    {stage.title}
+                  </div>
+                  <div className="mt-1 text-xs leading-relaxed text-muted-foreground md:text-sm">
+                    {stage.summary}
+                  </div>
+                </div>
+                <div className="ml-auto flex h-10 w-10 shrink-0 items-center justify-center gap-2 rounded-full border border-axcend-action bg-axcend-action text-[11px] font-medium text-axcend-dark transition-colors group-hover:bg-axcend-action/85 group-data-[state=open]:bg-axcend-action md:h-auto md:w-auto md:px-3 md:py-2">
+                  <span className="hidden md:inline group-data-[state=open]:!hidden">Раскрыть</span>
+                  <span className="hidden md:group-data-[state=open]:inline">Свернуть</span>
+                  <Plus className="h-3.5 w-3.5 transition-transform group-data-[state=open]:rotate-45" />
+                </div>
+              </div>
+            </AccordionTrigger>
+            <AccordionContent className="px-5 pb-5 md:px-6 md:pb-6">
+              <div className="border-t border-border/80 pt-5">
+                <div className="space-y-3 text-sm leading-relaxed text-muted-foreground md:text-base">
+                  {stage.body.map((paragraph) => (
+                    <p key={paragraph}>{paragraph}</p>
+                  ))}
+                </div>
+                <div className="mt-5 grid gap-3 md:grid-cols-2">
+                  {stage.result && (
+                    <div className="rounded-2xl border border-border bg-card/80 p-4">
+                      <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.14em] text-axcend-dark">
+                        <Check className="h-4 w-4" />
+                        Результат этапа
+                      </div>
+                      <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                        {stage.result}
+                      </p>
+                    </div>
+                  )}
+                  <div className="rounded-2xl border border-axcend-action/50 bg-axcend-action/15 p-4">
+                    <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.14em] text-axcend-dark">
+                      <Check className="h-4 w-4" />
+                      За что вы платите
+                    </div>
+                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                      {stage.payment}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </AccordionContent>
+          </AccordionItem>
+        ))}
+      </Accordion>
+    </div>
   );
 }
 
@@ -1612,7 +1774,17 @@ function createLanguageScrollRestorer() {
     window.innerHeight - 1,
     headerHeight + Math.max(96, Math.min(220, (window.innerHeight - headerHeight) * 0.28)),
   );
-  const sectionIds = ["why", "what", "industries", "proof", "funnel", "calc", "faq", "contact"];
+  const sectionIds = [
+    "why",
+    "what",
+    "work",
+    "industries",
+    "proof",
+    "funnel",
+    "calc",
+    "faq",
+    "contact",
+  ];
   const visibleSection = sectionIds
     .map((id) => document.getElementById(id))
     .filter((section): section is HTMLElement => Boolean(section))
@@ -2053,13 +2225,27 @@ function Index() {
       <div className="relative overflow-hidden bg-axcend-dark [&_h2]:!font-sans [&_h2]:!text-[24px] [&_h2]:!font-semibold [&_h2]:!leading-[1.12] [&_h2]:!tracking-normal [&_h2]:!text-primary-foreground md:[&_h2]:!text-5xl md:[&_h2]:!leading-[1.15] [&_.text-muted-foreground]:!text-primary-foreground [&_section>div]:!py-12 md:[&_section>div]:!py-16 [&_.mt-14]:!mt-0 md:[&_.md\:mt-20]:!mt-0">
         <div className="pointer-events-none absolute -right-[18%] -top-40 hidden h-[30rem] w-[70rem] rounded-full bg-[radial-gradient(ellipse_at_62%_32%,rgba(200,240,160,0.22)_0%,rgba(200,240,160,0.12)_36%,rgba(200,240,160,0.05)_62%,rgba(200,240,160,0)_84%)] blur-[72px] md:block" />
         <Section eyebrow="Гарантия" title="Гарантия от 5% конверсии в договоре" center>
-          <></>
+          <p className="mx-auto mt-6 max-w-3xl text-center text-sm leading-relaxed text-primary-foreground/80 md:mt-7 md:text-base">
+            Не менее 5% обработанной базы переходят в прямое обсуждение сделки с заказчиком. Если
+            заявленные 5% не достигнуты, мы запускаем проект повторно за свой счёт и работаем до тех
+            пор, пока не выйдем на зафиксированный в договоре результат.
+          </p>
         </Section>
       </div>
 
       {/* What we do */}
       <Section id="what" eyebrow="Что вы получаете" title="Работая с AXCEND" center>
         <WhatWeDoTabs />
+      </Section>
+
+      {/* Work stages */}
+      <Section
+        id="work"
+        eyebrow="Что входит в работу"
+        title="Как мы работаем: этапы запуска продаж"
+        center
+      >
+        <LaunchProcess />
       </Section>
 
       {/* Industries & conversion */}
