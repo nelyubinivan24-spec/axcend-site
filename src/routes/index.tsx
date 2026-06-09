@@ -1668,31 +1668,27 @@ function TeamSection() {
         </div>
 
         <Reveal className="mt-8 md:mt-14">
-          <div className="relative overflow-hidden rounded-[30px] bg-axcend-dark text-primary-foreground md:rounded-[34px]">
-            <div className={`${DARK_SURFACE_GLOW_CLASS} hidden opacity-55 md:block`} />
-            <div className="relative z-10 grid grid-cols-1 divide-y divide-primary-foreground/12 md:grid-cols-2 md:divide-x md:divide-y-0 xl:grid-cols-4">
+          <div className="relative overflow-hidden rounded-[30px] border border-[#dbe7d8] bg-[#fbfdf8] text-foreground md:rounded-[34px]">
+            <div className="grid grid-cols-1 divide-y divide-[#dbe7d8] md:grid-cols-2 md:divide-x md:divide-y-0 xl:grid-cols-4">
               {teamMembers.map((member) => (
                 <article key={member.name} className="group flex min-h-full flex-col">
-                  <div className="relative aspect-[4/3] overflow-hidden bg-primary-foreground/6 md:aspect-[3/4]">
+                  <div className="relative aspect-[4/3] overflow-hidden bg-[#eef8e6]/55 md:aspect-[3/4]">
                     <img
                       src={member.image}
                       alt={member.name}
                       loading="lazy"
-                      className="h-full w-full object-cover object-top opacity-95 transition-transform duration-500 group-hover:scale-[1.025]"
+                      className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.018]"
                     />
-                    <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-[linear-gradient(180deg,rgba(26,46,42,0)_0%,rgba(26,46,42,0.78)_100%)]" />
-                    <div className="absolute bottom-4 left-4 right-4 md:bottom-5 md:left-5 md:right-5">
-                      <div className="mb-3 h-1 w-10 rounded-full bg-axcend-action/85" />
-                      <h3 className="text-xl font-semibold leading-tight text-primary-foreground md:text-2xl">
-                        {member.name}
-                      </h3>
-                    </div>
                   </div>
-                  <div className="flex flex-1 flex-col p-5 md:p-6">
-                    <p className="text-sm leading-relaxed text-primary-foreground/70 md:text-base">
+                  <div className="grid flex-1 grid-rows-[auto_minmax(58px,auto)_minmax(82px,auto)_1fr] p-5 md:p-6">
+                    <div className="h-1 w-10 rounded-full bg-axcend-action" />
+                    <h3 className="mt-4 text-xl font-semibold leading-tight text-foreground md:text-2xl">
+                      {member.name}
+                    </h3>
+                    <p className="mt-3 text-sm leading-relaxed text-muted-foreground md:text-base">
                       {member.role}
                     </p>
-                    <div className="mt-5 border-t border-primary-foreground/14 pt-4 text-xs font-semibold leading-relaxed text-axcend-action md:mt-auto md:pt-5 md:text-sm">
+                    <div className="mt-5 border-t border-[#dbe7d8] pt-4 text-xs font-semibold leading-relaxed text-axcend-dark md:text-sm">
                       {member.proof}
                     </div>
                   </div>
