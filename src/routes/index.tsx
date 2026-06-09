@@ -970,201 +970,131 @@ function LaunchProcess({ dark = false }: { dark?: boolean } = {}) {
 }
 
 function IndustriesShowcase() {
-  const caseFlow = industriesData.flatMap((industry, industryIndex) =>
+  const caseFlow = industriesData.flatMap((industry) =>
     industry.cases.map((result, caseIndex) => ({
       industry,
-      industryIndex,
       result,
       caseIndex,
     })),
   );
   const [activeFlowIndex, setActiveFlowIndex] = useState(0);
   const safeFlowIndex = caseFlow.length ? activeFlowIndex % caseFlow.length : 0;
-  const currentItem = caseFlow[safeFlowIndex]!;
-  const current = currentItem.industry;
-  const currentCase = currentItem.result;
-  const totalDialogs = current.cases.reduce((s, c) => s + c.total, 0);
-  const totalHits = current.cases.reduce((s, c) => s + c.hits, 0);
-  const avg = totalDialogs ? (totalHits / totalDialogs) * 100 : 0;
-  const best = current.cases.reduce((m, c) => (c.pct > m ? c.pct : m), 0);
   const totalCaseCount = caseFlow.length;
   const overallDialogs = caseFlow.reduce((s, item) => s + item.result.total, 0);
   const overallHits = caseFlow.reduce((s, item) => s + item.result.hits, 0);
   const overallAvg = overallDialogs ? (overallHits / overallDialogs) * 100 : 0;
-  const globalProgress = ((safeFlowIndex + 1) / caseFlow.length) * 100;
-  const industryProgress = ((currentItem.caseIndex + 1) / current.cases.length) * 100;
-  const caseBar = Math.min(100, Math.max(3, currentCase.pct * 1.6));
-  const isLastCase = safeFlowIndex === caseFlow.length - 1;
-  const goNextCase = () => setActiveFlowIndex((i) => (i + 1) % caseFlow.length);
+  const visibleCases = Array.from({ length: Math.min(3, totalCaseCount) }, (_, offset) => {
+    const flowIndex = (safeFlowIndex + offset) % totalCaseCount;
+    return { ...caseFlow[flowIndex]!, flowIndex };
+  });
+  const goPrevCase = () => setActiveFlowIndex((i) => (i - 1 + totalCaseCount) % totalCaseCount);
+  const goNextCase = () => setActiveFlowIndex((i) => (i + 1) % totalCaseCount);
 
   return (
-    <div className="mx-auto max-w-5xl">
-      <div className={`${DARK_SURFACE_BASE_CLASS} rounded-[34px] p-5 sm:p-7 md:p-9`}>
-        <div className={`${DARK_SURFACE_GLOW_CLASS} hidden md:block`} />
-        <div className="relative z-10">
-          <div className="grid gap-5 border-b border-primary-foreground/15 pb-6 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
-            <div className="min-w-0">
-              <div className="text-xs font-medium uppercase tracking-[0.18em] text-axcend-action/80">
-                Доказательная база
-              </div>
-              <div className="mt-2 text-[22px] font-semibold leading-tight text-primary-foreground sm:text-2xl md:text-[32px]">
-                {industriesData.length}+ отраслей и {totalCaseCount} кейсов в одном потоке
-              </div>
-              <p className="mt-3 max-w-2xl text-sm leading-relaxed text-primary-foreground/66">
-                Кейсы собраны в единый поток: после последнего результата одной отрасли открывается
-                следующая. Так виден не отдельный пример, а вся доказательная база AXCEND.
-              </p>
+    <div className="mx-auto max-w-6xl">
+      <div className="mb-7 grid gap-5 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
+        <p className="max-w-2xl text-sm leading-relaxed text-muted-foreground md:text-base">
+          Реальные результаты по разным B2B-сегментам. Каждый кейс показывает не количество звонков,
+          а долю компаний, которые дошли до предметного разговора.
+        </p>
+        <div className="grid grid-cols-3 gap-2 rounded-[24px] border border-border bg-card p-2">
+          <div className="rounded-2xl px-3 py-3">
+            <div className="text-[10px] font-medium uppercase tracking-[0.16em] text-muted-foreground">
+              Отрасли
             </div>
-            <div className="grid grid-cols-3 gap-2 rounded-[24px] border border-primary-foreground/10 bg-primary-foreground/[0.045] p-2 sm:min-w-[390px]">
-              <div className="rounded-2xl px-3 py-3">
-                <div className="text-[10px] font-medium uppercase tracking-[0.16em] text-primary-foreground/46">
-                  Отрасли
-                </div>
-                <div className="mt-1 text-2xl font-semibold tabular-nums text-primary-foreground">
-                  {industriesData.length}+
-                </div>
-              </div>
-              <div className="rounded-2xl px-3 py-3">
-                <div className="text-[10px] font-medium uppercase tracking-[0.16em] text-primary-foreground/46">
-                  Кейсы
-                </div>
-                <div className="mt-1 text-2xl font-semibold tabular-nums text-primary-foreground">
-                  {totalCaseCount}
-                </div>
-              </div>
-              <div className="rounded-2xl border border-axcend-action/30 bg-axcend-action/10 px-3 py-3">
-                <div className="text-[10px] font-medium uppercase tracking-[0.16em] text-primary-foreground/46">
-                  Средняя
-                </div>
-                <div className="mt-1 text-2xl font-semibold tabular-nums text-axcend-action">
-                  {overallAvg.toFixed(1)}%
-                </div>
-              </div>
+            <div className="mt-1 text-2xl font-semibold tabular-nums text-foreground">
+              {industriesData.length}+
             </div>
           </div>
-
-          <div className="mt-6">
-            <div className="flex items-center justify-between gap-4 text-[11px] font-medium uppercase tracking-[0.16em] text-primary-foreground/48">
-              <span>Общий поток кейсов</span>
-              <span className="tabular-nums">
-                {String(safeFlowIndex + 1).padStart(2, "0")} /{" "}
-                {String(totalCaseCount).padStart(2, "0")}
-              </span>
+          <div className="rounded-2xl px-3 py-3">
+            <div className="text-[10px] font-medium uppercase tracking-[0.16em] text-muted-foreground">
+              Кейсы
             </div>
-            <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-primary-foreground/10">
-              <div
-                className="h-full rounded-full bg-axcend-action transition-all duration-500"
-                style={{ width: `${globalProgress}%` }}
-              />
+            <div className="mt-1 text-2xl font-semibold tabular-nums text-foreground">
+              {totalCaseCount}
             </div>
           </div>
+          <div className="rounded-2xl border border-axcend-action/45 bg-axcend-soft px-3 py-3">
+            <div className="text-[10px] font-medium uppercase tracking-[0.16em] text-muted-foreground">
+              Средняя
+            </div>
+            <div className="mt-1 text-2xl font-semibold tabular-nums text-axcend-dark">
+              {overallAvg.toFixed(1)}%
+            </div>
+          </div>
+        </div>
+      </div>
 
-          <div className="mt-8 grid gap-5 lg:grid-cols-[minmax(0,1.15fr)_minmax(280px,0.85fr)]">
-            <div className="rounded-[28px] border border-primary-foreground/12 bg-primary-foreground/[0.06] p-5 md:p-7">
-              <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
-                <div className="min-w-0">
-                  <div className="text-[10px] font-medium uppercase tracking-[0.18em] text-primary-foreground/50">
-                    Кейс {String(safeFlowIndex + 1).padStart(2, "0")} /{" "}
-                    {String(totalCaseCount).padStart(2, "0")}
-                  </div>
-                  <div className="mt-3 text-2xl font-semibold leading-tight text-primary-foreground md:text-[34px]">
-                    {currentCase.client}
-                  </div>
-                </div>
-                <div className="shrink-0 rounded-[24px] border border-axcend-action/35 bg-axcend-action/10 px-5 py-4 text-right">
-                  <div className="text-[10px] font-medium uppercase tracking-[0.16em] text-primary-foreground/52">
+      <div className="grid gap-4 md:grid-cols-3">
+        {visibleCases.map((item, visibleIndex) => {
+          const barWidth = Math.min(100, Math.max(8, item.result.pct * 1.45));
+          return (
+            <article
+              key={`${item.industry.name}-${item.result.client}-${item.flowIndex}`}
+              className={`rounded-[28px] border border-border bg-card p-5 transition-colors hover:border-axcend-action/60 md:block ${
+                visibleIndex > 0 ? "hidden" : ""
+              }`}
+            >
+              <div className="inline-flex rounded-full border border-border bg-background px-3 py-1 text-[11px] font-medium text-muted-foreground">
+                {item.industry.name}
+              </div>
+              <h3 className="mt-5 min-h-[56px] text-xl font-semibold leading-tight text-foreground">
+                {item.result.client}
+              </h3>
+              <div className="mt-6 flex items-end justify-between gap-4">
+                <div>
+                  <div className="text-[10px] font-medium uppercase tracking-[0.16em] text-muted-foreground">
                     Конверсия
                   </div>
-                  <div className="mt-1 text-4xl font-semibold tabular-nums text-axcend-action md:text-5xl">
-                    {currentCase.pct.toFixed(1)}%
+                  <div className="mt-1 text-[42px] font-semibold leading-none tabular-nums text-foreground">
+                    {item.result.pct.toFixed(1)}%
                   </div>
                 </div>
+                <div className="pb-1 text-right text-sm tabular-nums text-muted-foreground">
+                  {item.result.hits.toLocaleString("ru-RU")} из{" "}
+                  {item.result.total.toLocaleString("ru-RU")}
+                </div>
               </div>
+              <div className="mt-5 h-1.5 overflow-hidden rounded-full bg-muted">
+                <div
+                  className="h-full rounded-full bg-axcend-action transition-all duration-500"
+                  style={{ width: `${barWidth}%` }}
+                />
+              </div>
+            </article>
+          );
+        })}
+      </div>
 
-              <div className="mt-7">
-                <div className="h-2.5 overflow-hidden rounded-full bg-primary-foreground/10">
-                  <div
-                    className="h-full rounded-full bg-axcend-action transition-all duration-500"
-                    style={{ width: `${caseBar}%` }}
-                  />
-                </div>
-                <div className="mt-3 text-sm tabular-nums text-primary-foreground/65">
-                  {currentCase.hits.toLocaleString("ru-RU")} из{" "}
-                  {currentCase.total.toLocaleString("ru-RU")} диалогов
-                </div>
-              </div>
-            </div>
-
-            <aside className="rounded-[28px] border border-primary-foreground/10 bg-primary-foreground/[0.045] p-5 md:p-6">
-              <div className="text-[10px] font-medium uppercase tracking-[0.18em] text-axcend-action/80">
-                Текущая отрасль · {String(currentItem.industryIndex + 1).padStart(2, "0")} /{" "}
-                {String(industriesData.length).padStart(2, "0")}
-              </div>
-              <h3 className="mt-2 text-2xl font-semibold leading-tight text-primary-foreground">
-                {current.name}
-              </h3>
-
-              <div className="mt-5 grid grid-cols-2 gap-3">
-                <div className="rounded-2xl border border-primary-foreground/10 bg-primary-foreground/[0.055] px-4 py-3">
-                  <div className="text-[10px] font-medium uppercase tracking-[0.16em] text-primary-foreground/46">
-                    Средняя
-                  </div>
-                  <div className="mt-1 text-2xl font-semibold tabular-nums text-primary-foreground">
-                    {avg.toFixed(1)}%
-                  </div>
-                </div>
-                <div className="rounded-2xl border border-axcend-action/30 bg-axcend-action/10 px-4 py-3">
-                  <div className="text-[10px] font-medium uppercase tracking-[0.16em] text-primary-foreground/46">
-                    Лучший
-                  </div>
-                  <div className="mt-1 text-2xl font-semibold tabular-nums text-axcend-action">
-                    {best.toFixed(1)}%
-                  </div>
-                </div>
-              </div>
-
-              <div className="mt-7">
-                <div className="flex items-center justify-between gap-3 text-[11px] font-medium uppercase tracking-[0.16em] text-primary-foreground/50">
-                  <span>Кейсы отрасли</span>
-                  <span className="tabular-nums">
-                    {currentItem.caseIndex + 1} / {current.cases.length}
-                  </span>
-                </div>
-                <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-primary-foreground/10">
-                  <div
-                    className="h-full rounded-full bg-axcend-action transition-all duration-500"
-                    style={{ width: `${industryProgress}%` }}
-                  />
-                </div>
-              </div>
-            </aside>
-          </div>
-
-          <div className="mt-6 flex flex-col gap-4 border-t border-primary-foreground/10 pt-5 md:flex-row md:items-center md:justify-between">
-            <div className="grid gap-2 text-sm text-primary-foreground/62 sm:grid-cols-2 sm:gap-6">
-              <div>
-                Диалогов в массиве:{" "}
-                <span className="font-semibold tabular-nums text-primary-foreground">
-                  {overallDialogs.toLocaleString("ru-RU")}
-                </span>
-              </div>
-              <div>
-                Зафиксировано встреч:{" "}
-                <span className="font-semibold tabular-nums text-primary-foreground">
-                  {overallHits.toLocaleString("ru-RU")}
-                </span>
-              </div>
-            </div>
-            <button
-              type="button"
-              aria-label="Следующий кейс"
-              onClick={goNextCase}
-              className="inline-flex h-11 shrink-0 items-center justify-center gap-2 rounded-full bg-axcend-action px-5 text-sm font-semibold text-axcend-dark transition-opacity hover:opacity-85"
-            >
-              {isLastCase ? "Начать сначала" : "Следующий кейс"}
-              <ArrowRight className="h-4 w-4" />
-            </button>
-          </div>
+      <div className="mt-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+        <div className="text-sm text-muted-foreground">
+          Кейс{" "}
+          <span className="font-semibold tabular-nums text-foreground">
+            {String(safeFlowIndex + 1).padStart(2, "0")}
+          </span>{" "}
+          из{" "}
+          <span className="font-semibold tabular-nums text-foreground">
+            {String(totalCaseCount).padStart(2, "0")}
+          </span>
+        </div>
+        <div className="flex gap-2">
+          <button
+            type="button"
+            aria-label="Предыдущий кейс"
+            onClick={goPrevCase}
+            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-border bg-card text-foreground transition-colors hover:border-axcend-action hover:bg-axcend-soft"
+          >
+            <ArrowRight className="h-4 w-4 rotate-180" />
+          </button>
+          <button
+            type="button"
+            aria-label="Следующий кейс"
+            onClick={goNextCase}
+            className="inline-flex h-11 items-center justify-center gap-2 rounded-full bg-axcend-action px-5 text-sm font-semibold text-axcend-dark transition-opacity hover:opacity-85"
+          >
+            Следующий кейс
+            <ArrowRight className="h-4 w-4" />
+          </button>
         </div>
       </div>
     </div>
