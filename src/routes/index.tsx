@@ -2351,16 +2351,25 @@ function Index() {
       </section>
 
       {/* Guarantee */}
-      <div className="relative overflow-hidden bg-axcend-dark [&_h2]:!font-sans [&_h2]:!text-[24px] [&_h2]:!font-semibold [&_h2]:!leading-[1.12] [&_h2]:!tracking-normal [&_h2]:!text-primary-foreground md:[&_h2]:!text-5xl md:[&_h2]:!leading-[1.15] [&_.text-muted-foreground]:!text-primary-foreground [&_section>div]:!py-12 md:[&_section>div]:!py-16 [&_.mt-14]:!mt-0 md:[&_.md\:mt-20]:!mt-0">
+      <section
+        id="guarantee"
+        className="relative overflow-hidden border-t border-primary-foreground/10 bg-axcend-dark text-primary-foreground"
+      >
         <div className="pointer-events-none absolute -right-[18%] -top-40 hidden h-[30rem] w-[70rem] rounded-full bg-[radial-gradient(ellipse_at_62%_32%,rgba(200,240,160,0.22)_0%,rgba(200,240,160,0.12)_36%,rgba(200,240,160,0.05)_62%,rgba(200,240,160,0)_84%)] blur-[72px] md:block" />
-        <Section eyebrow="Гарантия" title="Гарантия от 5% конверсии в договоре" center>
-          <p className="mx-auto mt-6 max-w-3xl text-center text-sm leading-relaxed text-primary-foreground/80 md:mt-7 md:text-base">
+        <div className="relative z-10 mx-auto max-w-6xl px-6 py-14 text-center md:py-20">
+          <div className="mb-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-primary-foreground/80 md:text-xs">
+            Гарантия
+          </div>
+          <h2 className="mx-auto max-w-4xl text-[24px] font-semibold leading-[1.12] tracking-tight text-primary-foreground md:text-5xl md:leading-[1.15]">
+            Гарантия от 5% конверсии в договоре
+          </h2>
+          <p className="mx-auto mt-6 max-w-3xl text-sm leading-relaxed text-primary-foreground/78 md:mt-7 md:text-base">
             Не менее 5% обработанной базы переходят в прямое обсуждение сделки с заказчиком. Если
             заявленные 5% не достигнуты, мы запускаем проект повторно за свой счёт и работаем до тех
             пор, пока не выйдем на зафиксированный в договоре результат.
           </p>
-        </Section>
-      </div>
+        </div>
+      </section>
 
       {/* What we do */}
       <Section id="what" eyebrow="Что вы получаете" title="Работая с AXCEND" center>
