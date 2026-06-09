@@ -1779,8 +1779,10 @@ function ConversionSystem({ items }: { items: typeof conversionReasons }) {
   }, [active]);
 
   return (
-    <div className="mx-auto grid w-full max-w-4xl gap-3">
-      <div className="grid gap-3 md:gap-4">
+    <div
+      className={`${EDITORIAL_SURFACE_CLASS} mx-auto w-full max-w-5xl overflow-hidden p-2 md:p-3`}
+    >
+      <div className="grid gap-1 md:gap-2">
         {items.map((item, index) => {
           const isActive = active === index;
           return (
@@ -1794,20 +1796,14 @@ function ConversionSystem({ items }: { items: typeof conversionReasons }) {
               data-conversion-card={index}
               onClick={() => setActive(index)}
               onFocus={() => setActive(index)}
-              className={`group relative overflow-hidden rounded-[28px] border p-5 text-left transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-axcend-action/40 md:p-7 ${
+              className={`group relative overflow-hidden rounded-[24px] border p-5 text-left transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-axcend-action/40 md:p-6 ${
                 isActive
-                  ? "border-primary-foreground/12 bg-axcend-dark text-primary-foreground shadow-[0_26px_78px_rgba(26,46,42,0.22)]"
-                  : "border-border/80 bg-white/90 shadow-[0_14px_48px_rgba(26,46,42,0.045)] hover:border-axcend-action/60 hover:bg-[#fbfef7]"
+                  ? "border-axcend-action/70 bg-axcend-soft"
+                  : "border-transparent bg-white/62 hover:border-axcend-action/50 hover:bg-white"
               }`}
             >
               <div
-                aria-hidden="true"
-                className={`pointer-events-none absolute -right-24 -top-28 h-64 w-80 rounded-full bg-[radial-gradient(ellipse_at_center,rgba(200,240,160,0.23)_0%,rgba(200,240,160,0.08)_50%,rgba(200,240,160,0)_76%)] blur-3xl transition-opacity duration-300 ${
-                  isActive ? "opacity-100" : "opacity-0"
-                }`}
-              />
-              <div
-                className={`pointer-events-none absolute bottom-0 left-0 top-0 w-1 rounded-full transition-opacity duration-300 ${
+                className={`pointer-events-none absolute bottom-5 left-0 top-5 w-1 rounded-full transition-opacity duration-300 ${
                   isActive ? "bg-axcend-action opacity-100" : "bg-transparent opacity-0"
                 }`}
               />
@@ -1816,19 +1812,19 @@ function ConversionSystem({ items }: { items: typeof conversionReasons }) {
                 <div className="min-w-0 flex-1">
                   <h3
                     className={`text-[15px] font-semibold leading-snug md:text-base ${
-                      isActive ? "text-primary-foreground" : "text-foreground"
+                      isActive ? "text-foreground" : "text-foreground"
                     }`}
                   >
                     {item.title}
                   </h3>
                   <div
                     className={`mt-4 h-px w-full ${
-                      isActive ? "bg-primary-foreground/14" : "bg-border/70"
+                      isActive ? "bg-axcend-action/35" : "bg-border/70"
                     }`}
                   />
                   <p
                     className={`mt-3 text-[11px] leading-relaxed md:mt-4 md:text-sm ${
-                      isActive ? "text-primary-foreground/72" : "text-muted-foreground"
+                      isActive ? "text-muted-foreground" : "text-muted-foreground"
                     }`}
                   >
                     {item.text}
@@ -2441,34 +2437,17 @@ function Index() {
           aria-hidden="true"
           className="pointer-events-none absolute -left-48 top-16 h-[34rem] w-[42rem] rounded-full bg-[radial-gradient(ellipse_at_center,rgba(200,240,160,0.18)_0%,rgba(200,240,160,0.065)_48%,rgba(200,240,160,0)_76%)] blur-3xl"
         />
-        <div className="relative z-10 mx-auto grid max-w-6xl gap-10 px-6 py-20 md:py-28 lg:grid-cols-[0.82fr_1.18fr] lg:items-start lg:gap-14">
-          <div className="lg:sticky lg:top-32">
+        <div className="relative z-10 mx-auto max-w-6xl px-6 py-20 md:py-28">
+          <div className="mx-auto max-w-4xl text-center">
             <div className="mb-4 text-[11px] font-medium uppercase tracking-[0.16em] text-muted-foreground md:mb-5 md:text-xs md:tracking-[0.18em]">
               Почему AXCEND
             </div>
-            <h2 className="max-w-xl text-[32px] font-semibold leading-[1.04] tracking-tight md:text-[56px]">
+            <h2 className="mx-auto max-w-4xl text-[32px] font-semibold leading-[1.04] tracking-tight md:text-[56px]">
               <span>32%</span> средний процент конверсии
             </h2>
-            <div
-              aria-hidden="true"
-              className="mt-8 hidden max-w-sm rounded-[30px] border border-border bg-white/72 p-5 shadow-[0_24px_80px_rgba(26,46,42,0.06)] backdrop-blur md:block"
-            >
-              <div className="grid grid-cols-[1fr_0.32fr] gap-2">
-                <div className="h-2 rounded-full bg-border/70" />
-                <div className="h-2 rounded-full bg-axcend-action" />
-              </div>
-              <div className="mt-4 h-1.5 overflow-hidden rounded-full bg-border/65">
-                <div className="h-full w-[32%] rounded-full bg-axcend-action" />
-              </div>
-              <div className="mt-4 grid grid-cols-3 gap-2">
-                <div className="h-16 rounded-2xl bg-axcend-soft" />
-                <div className="h-16 rounded-2xl bg-white" />
-                <div className="h-16 rounded-2xl bg-axcend-soft" />
-              </div>
-            </div>
           </div>
 
-          <div>
+          <div className="mt-12 md:mt-16">
             <ConversionSystem items={conversionReasons} />
           </div>
         </div>
