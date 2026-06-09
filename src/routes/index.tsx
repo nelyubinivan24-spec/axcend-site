@@ -56,15 +56,15 @@ declare global {
 }
 
 const DARK_SURFACE_BASE_CLASS =
-  "relative overflow-hidden border border-primary-foreground/10 bg-axcend-dark bg-[linear-gradient(145deg,#1a2e2a_0%,#10231f_100%)] text-primary-foreground";
+  "relative overflow-hidden bg-axcend-dark bg-[linear-gradient(145deg,#1a2e2a_0%,#11231f_100%)] text-primary-foreground";
 
 const DARK_SURFACE_GLOW_CLASS =
-  "pointer-events-none absolute -right-32 -top-28 h-[28rem] w-[44rem] rounded-full bg-[radial-gradient(ellipse_at_70%_30%,rgba(200,240,160,0.20)_0%,rgba(200,240,160,0.085)_42%,rgba(200,240,160,0.025)_66%,rgba(200,240,160,0)_84%)] blur-[72px]";
+  "pointer-events-none absolute -right-36 -top-32 h-[34rem] w-[52rem] rounded-full bg-[radial-gradient(ellipse_at_70%_30%,rgba(200,240,160,0.16)_0%,rgba(200,240,160,0.075)_42%,rgba(200,240,160,0.024)_66%,rgba(200,240,160,0)_84%)] blur-[88px]";
 
 const LIGHT_SECTION_CLASS =
   "relative isolate overflow-hidden border-t border-[#e2eadf] bg-[#fbfcf8]";
 
-const LIGHT_SECTION_INNER_CLASS = "relative z-10 mx-auto max-w-6xl px-5 py-14 md:px-6 md:py-20";
+const LIGHT_SECTION_INNER_CLASS = "relative z-10 mx-auto max-w-6xl px-5 py-16 md:px-6 md:py-24";
 
 const EDITORIAL_SURFACE_CLASS = "rounded-[22px] border border-[#dbe7d8] bg-white/72";
 
@@ -194,7 +194,7 @@ function ProofGrid({ items }: { items: typeof proofs }) {
   return (
     <div
       ref={wrapRef}
-      className="mx-auto grid max-w-5xl grid-cols-1 overflow-hidden border-y border-[#dbe7d8] md:grid-cols-2"
+      className="mx-auto grid max-w-6xl grid-cols-1 border-y border-[#d5e4d4] md:grid-cols-2"
     >
       {items.map((p, i) => {
         const Icon = p.icon;
@@ -212,32 +212,32 @@ function ProofGrid({ items }: { items: typeof proofs }) {
             onMouseEnter={() => setHover(i)}
             onMouseLeave={() => setHover(null)}
             style={{ transitionDelay: `${i * 60}ms` }}
-            className={`group relative flex min-h-[172px] flex-col overflow-hidden border-b border-[#dbe7d8] p-5 text-left transition-colors duration-300 last:border-b-0 md:min-h-[196px] md:border-b-0 md:border-r md:p-7 md:[&:nth-child(2n)]:border-r-0 md:[&:nth-child(n+3)]:border-t ${
-              lifted ? "bg-white" : "bg-transparent hover:bg-white/56"
+            className={`group relative flex min-h-[160px] flex-col border-b border-[#d5e4d4] p-5 text-left transition-colors duration-300 last:border-b-0 md:min-h-[184px] md:border-b-0 md:border-r md:p-7 md:[&:nth-child(2n)]:border-r-0 md:[&:nth-child(n+3)]:border-t ${
+              lifted ? "bg-axcend-action/18" : "bg-transparent hover:bg-white/54"
             } ${inView ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"}`}
           >
             <div
-              className={`absolute bottom-6 left-0 top-6 w-[3px] rounded-r-full transition-opacity duration-300 ${
+              className={`absolute bottom-5 left-0 top-5 w-[3px] rounded-r-full transition-opacity duration-300 ${
                 lifted ? "bg-axcend-action opacity-100" : "opacity-0"
               }`}
             />
-            <div className="relative flex h-full gap-4 md:gap-5">
+            <div className="relative flex h-full gap-4 md:gap-6">
               <div
-                className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full border transition-colors duration-300 ${
+                className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full border transition-colors duration-300 md:h-11 md:w-11 ${
                   lifted
                     ? "border-axcend-action bg-axcend-action text-axcend-dark"
-                    : "border-[#dbe7d8] bg-[#eef8e6] text-muted-foreground"
+                    : "border-[#d5e4d4] bg-transparent text-muted-foreground"
                 }`}
               >
-                <Icon className="h-5 w-5" strokeWidth={1.9} />
+                <Icon className="h-4 w-4 md:h-5 md:w-5" strokeWidth={1.8} />
               </div>
 
               <div className="min-w-0 flex-1">
                 <div className="text-[15px] font-semibold leading-snug text-foreground md:text-base">
                   {p.title}
                 </div>
-                <div className="mt-4 h-px w-full bg-border/70" />
-                <div className="mt-3 text-[11px] leading-relaxed text-muted-foreground md:mt-4 md:text-sm">
+                <div className="mt-4 h-px w-full bg-[#d5e4d4]" />
+                <div className="mt-3 text-[12px] leading-relaxed text-muted-foreground md:mt-4 md:text-sm">
                   {p.text}
                 </div>
               </div>
@@ -834,14 +834,14 @@ function WhatWeDoTabs() {
   return (
     <Tabs
       defaultValue="0"
-      className="mx-auto grid w-full max-w-6xl gap-6 lg:grid-cols-[300px_minmax(0,1fr)] lg:items-start"
+      className="mx-auto grid w-full max-w-6xl gap-6 lg:grid-cols-[320px_minmax(0,1fr)] lg:items-start"
     >
-      <TabsList className="grid h-auto w-full grid-cols-2 items-stretch gap-1 border-y border-[#dbe7d8] bg-transparent py-2 md:grid-cols-3 lg:sticky lg:top-28 lg:grid-cols-1 lg:gap-0 lg:py-0">
+      <TabsList className="grid h-auto w-full grid-cols-2 items-stretch gap-1 border-y border-[#d5e4d4] bg-transparent py-2 md:grid-cols-3 lg:sticky lg:top-28 lg:grid-cols-1 lg:gap-0 lg:py-0">
         {whatWeDo.map((s, i) => (
           <TabsTrigger
             key={s.title}
             value={String(i)}
-            className="min-h-[34px] w-full whitespace-normal rounded-none border border-transparent bg-transparent px-2 py-1 text-center text-[10px] leading-[1.12] text-muted-foreground transition-colors hover:bg-white/60 hover:text-foreground data-[state=active]:border-transparent data-[state=active]:bg-axcend-soft data-[state=active]:text-axcend-dark data-[state=active]:shadow-none md:min-h-[38px] md:px-3 md:py-2 md:text-xs md:leading-snug lg:min-h-[52px] lg:justify-start lg:border-b lg:border-[#dbe7d8] lg:px-4 lg:py-3 lg:text-left lg:text-sm lg:last:border-b-0 lg:data-[state=active]:border-l-2 lg:data-[state=active]:border-l-axcend-action"
+            className="min-h-[34px] w-full whitespace-normal rounded-none border border-transparent bg-transparent px-2 py-1 text-center text-[10px] leading-[1.12] text-muted-foreground transition-colors hover:bg-white/60 hover:text-foreground data-[state=active]:border-transparent data-[state=active]:bg-axcend-action data-[state=active]:text-axcend-dark data-[state=active]:shadow-none md:min-h-[38px] md:px-3 md:py-2 md:text-xs md:leading-snug lg:min-h-[52px] lg:justify-start lg:border-b lg:border-[#d5e4d4] lg:px-4 lg:py-3 lg:text-left lg:text-sm lg:last:border-b-0 lg:data-[state=active]:border-l-2 lg:data-[state=active]:border-l-axcend-dark"
           >
             {s.title}
           </TabsTrigger>
@@ -849,8 +849,8 @@ function WhatWeDoTabs() {
       </TabsList>
       {whatWeDo.map((s, i) => (
         <TabsContent key={s.title} value={String(i)} className="mt-0 lg:col-start-2 lg:row-start-1">
-          <div className="relative min-h-[228px] border-y border-[#dbe7d8] py-6 pl-5 pr-2 md:min-h-[280px] md:py-9 md:pl-8 lg:pr-8">
-            <div className="pointer-events-none absolute bottom-5 left-0 top-5 w-[3px] rounded-r-full bg-axcend-action" />
+          <div className="relative min-h-[228px] border-y border-[#d5e4d4] bg-white/42 py-6 pl-5 pr-2 md:min-h-[280px] md:py-9 md:pl-8 lg:pr-8">
+            <div className="pointer-events-none absolute bottom-5 left-0 top-5 w-[4px] rounded-r-full bg-axcend-action" />
             <div className="relative">
               <h3 className="text-xl font-semibold leading-tight text-foreground md:text-[34px]">
                 {s.title}
@@ -882,8 +882,8 @@ function LaunchProcess({ dark = false }: { dark?: boolean } = {}) {
             Ниже описано, что именно мы делаем на каждом этапе и за что вы платите.
           </p>
         </div>
-        <div className="relative z-10 hidden h-full rounded-[24px] border border-primary-foreground/10 bg-white/[0.045] p-2 md:block">
-          <div className="relative h-full min-h-[220px] overflow-hidden rounded-[20px] bg-muted">
+        <div className="relative z-10 hidden h-full overflow-hidden rounded-[22px] bg-primary-foreground/[0.04] p-2 md:block">
+          <div className="relative h-full min-h-[220px] overflow-hidden rounded-[18px] bg-muted">
             <img
               src="https://axcend.pro/assets/callcenter-real-CefSNWWS.jpg"
               alt="Команда AXCEND в работе"
@@ -899,7 +899,7 @@ function LaunchProcess({ dark = false }: { dark?: boolean } = {}) {
         className={cn(
           "mt-6 overflow-hidden border-y p-0 md:mt-12",
           dark
-            ? "border-primary-foreground/12 bg-transparent"
+            ? "border-axcend-action/30 bg-axcend-action/[0.075]"
             : "border-axcend-action/55 bg-axcend-soft",
         )}
       >
@@ -929,16 +929,25 @@ function LaunchProcess({ dark = false }: { dark?: boolean } = {}) {
         </div>
       </div>
 
-      <Accordion type="single" collapsible className="mt-3 space-y-3 md:mt-5 md:space-y-4">
+      <Accordion
+        type="single"
+        collapsible
+        className={cn(
+          "mt-4 md:mt-6",
+          dark
+            ? "divide-y divide-primary-foreground/12 border-y border-primary-foreground/12"
+            : "space-y-3 md:space-y-4",
+        )}
+      >
         {launchStages.map((stage, index) => (
           <AccordionItem
             key={stage.number}
             value={String(index)}
             className={cn(
-              "overflow-hidden border px-0 transition-colors",
+              "overflow-hidden px-0 transition-colors",
               dark
-                ? "border-primary-foreground/12 bg-primary-foreground/[0.035] hover:border-axcend-action/50 data-[state=open]:border-axcend-action/70 data-[state=open]:bg-primary-foreground/[0.065]"
-                : "border-border bg-card hover:border-axcend-action/70 data-[state=open]:border-axcend-action/70 data-[state=open]:bg-axcend-soft",
+                ? "border-0 bg-transparent hover:bg-primary-foreground/[0.035] data-[state=open]:bg-primary-foreground/[0.06]"
+                : "border border-border bg-card hover:border-axcend-action/70 data-[state=open]:border-axcend-action/70 data-[state=open]:bg-axcend-soft",
             )}
           >
             <AccordionTrigger className="group px-4 py-4 text-left hover:no-underline md:px-6 md:py-6 [&>svg]:hidden">
@@ -1083,103 +1092,102 @@ function IndustriesShowcase() {
   const activeBarWidth = Math.min(100, Math.max(8, activeItem.result.pct * 1.45));
 
   return (
-    <div className={`${DARK_SURFACE_BASE_CLASS} mx-auto max-w-6xl rounded-[26px] p-4 md:p-6`}>
-      <div className={`${DARK_SURFACE_GLOW_CLASS} hidden opacity-75 md:block`} />
-      <div className="relative z-10 mb-4 grid gap-4 md:mb-5 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
-        <p className="max-w-2xl text-[13px] leading-relaxed text-primary-foreground/72 md:text-base">
+    <div className="mx-auto max-w-6xl border-y border-[#d5e4d4]">
+      <div className="grid gap-5 border-b border-[#d5e4d4] py-5 md:grid-cols-[minmax(0,1fr)_auto] md:items-end md:py-6">
+        <p className="max-w-2xl text-[13px] leading-relaxed text-muted-foreground md:text-base">
           Реальные результаты по разным B2B-сегментам. Каждый кейс показывает не количество звонков,
           а долю компаний, которые дошли до предметного разговора.
         </p>
-        <div className="grid grid-cols-3 divide-x divide-primary-foreground/12 border-y border-primary-foreground/12 md:min-w-[360px]">
+        <div className="grid grid-cols-3 divide-x divide-[#d5e4d4] border-y border-[#d5e4d4] md:min-w-[360px]">
           <div className="px-2.5 py-2.5 md:px-4 md:py-3">
-            <div className="text-[9px] font-medium uppercase tracking-[0.14em] text-primary-foreground/55 md:text-[10px] md:tracking-[0.16em]">
+            <div className="text-[9px] font-medium uppercase tracking-[0.14em] text-muted-foreground md:text-[10px] md:tracking-[0.16em]">
               Отрасли
             </div>
-            <div className="mt-1 text-xl font-semibold tabular-nums text-primary-foreground md:text-2xl">
+            <div className="mt-1 text-xl font-semibold tabular-nums text-foreground md:text-2xl">
               {industriesData.length}+
             </div>
           </div>
           <div className="px-2.5 py-2.5 md:px-4 md:py-3">
-            <div className="text-[9px] font-medium uppercase tracking-[0.14em] text-primary-foreground/55 md:text-[10px] md:tracking-[0.16em]">
+            <div className="text-[9px] font-medium uppercase tracking-[0.14em] text-muted-foreground md:text-[10px] md:tracking-[0.16em]">
               Кейсы
             </div>
-            <div className="mt-1 text-xl font-semibold tabular-nums text-primary-foreground md:text-2xl">
+            <div className="mt-1 text-xl font-semibold tabular-nums text-foreground md:text-2xl">
               {totalCaseCount}
             </div>
           </div>
-          <div className="bg-axcend-action/10 px-2.5 py-2.5 md:px-4 md:py-3">
-            <div className="text-[9px] font-medium uppercase tracking-[0.14em] text-primary-foreground/55 md:text-[10px] md:tracking-[0.16em]">
+          <div className="bg-axcend-action px-2.5 py-2.5 md:px-4 md:py-3">
+            <div className="text-[9px] font-medium uppercase tracking-[0.14em] text-axcend-dark/65 md:text-[10px] md:tracking-[0.16em]">
               Средняя
             </div>
-            <div className="mt-1 text-xl font-semibold tabular-nums text-axcend-action md:text-2xl">
+            <div className="mt-1 text-xl font-semibold tabular-nums text-axcend-dark md:text-2xl">
               {overallAvg.toFixed(1)}%
             </div>
           </div>
         </div>
       </div>
 
-      <div className="relative z-10 grid gap-6 border-y border-primary-foreground/12 py-5 lg:grid-cols-[minmax(0,1.25fr)_minmax(280px,0.75fr)] lg:gap-8">
-        <article className="p-0">
+      <div className="grid gap-0 lg:grid-cols-[minmax(0,1.25fr)_minmax(280px,0.75fr)]">
+        <article className="py-6 pr-0 md:py-8 lg:pr-8">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
             <div>
-              <div className="inline-flex rounded-full border border-axcend-action/25 bg-axcend-action/12 px-3 py-1 text-[10px] font-semibold text-axcend-action md:text-[11px]">
+              <div className="inline-flex rounded-full bg-axcend-action px-3 py-1 text-[10px] font-semibold text-axcend-dark md:text-[11px]">
                 {activeItem.industry.name}
               </div>
-              <h3 className="mt-4 text-2xl font-semibold leading-tight text-primary-foreground md:mt-5 md:text-[34px]">
+              <h3 className="mt-4 text-2xl font-semibold leading-tight text-foreground md:mt-5 md:text-[34px]">
                 {activeItem.result.client}
               </h3>
             </div>
-            <div className="shrink-0 border-l border-primary-foreground/12 pl-4 text-left sm:text-right">
-              <div className="text-[9px] font-medium uppercase tracking-[0.16em] text-primary-foreground/52 md:text-[10px]">
+            <div className="shrink-0 border-l border-[#d5e4d4] pl-4 text-left sm:text-right">
+              <div className="text-[9px] font-medium uppercase tracking-[0.16em] text-muted-foreground md:text-[10px]">
                 Конверсия
               </div>
-              <div className="mt-1 text-[42px] font-semibold leading-none tabular-nums text-axcend-action md:text-[54px]">
+              <div className="mt-1 text-[42px] font-semibold leading-none tabular-nums text-foreground md:text-[54px]">
                 {activeItem.result.pct.toFixed(1)}%
               </div>
             </div>
           </div>
-          <div className="mt-7 flex items-end justify-between gap-4 border-t border-primary-foreground/12 pt-5 md:mt-8 md:pt-6">
-            <div className="text-xs tabular-nums text-primary-foreground/58 md:text-sm">
+          <div className="mt-7 flex items-end justify-between gap-4 border-t border-[#d5e4d4] pt-5 md:mt-8 md:pt-6">
+            <div className="text-xs tabular-nums text-muted-foreground md:text-sm">
               {activeItem.result.hits.toLocaleString("ru-RU")} из{" "}
               {activeItem.result.total.toLocaleString("ru-RU")}
             </div>
-            <div className="text-xs tabular-nums text-primary-foreground/44 md:text-sm">
+            <div className="text-xs tabular-nums text-muted-foreground md:text-sm">
               {String(safeFlowIndex + 1).padStart(2, "0")} /{" "}
               {String(totalCaseCount).padStart(2, "0")}
             </div>
           </div>
-          <div className="mt-4 h-2 overflow-hidden rounded-full bg-primary-foreground/12">
+          <div className="mt-4 h-2 overflow-hidden rounded-full bg-[#e7efe4]">
             <div
-              className="h-full rounded-full bg-axcend-action transition-all duration-500"
+              className="h-full rounded-full bg-axcend-dark transition-all duration-500"
               style={{ width: `${activeBarWidth}%` }}
             />
           </div>
         </article>
 
-        <div className="border-t border-primary-foreground/12 lg:border-l lg:border-t-0 lg:pl-6">
+        <div className="border-t border-[#d5e4d4] lg:border-l lg:border-t-0 lg:pl-6">
           {previewCases.map((item) => (
             <button
               key={`${item.industry.name}-${item.result.client}-${item.flowIndex}`}
               type="button"
               onClick={() => setActiveFlowIndex(item.flowIndex)}
-              className="group w-full border-b border-primary-foreground/12 py-3 text-left transition-colors last:border-b-0 hover:bg-primary-foreground/[0.035] md:py-4"
+              className="group w-full border-b border-[#d5e4d4] py-3 text-left transition-colors last:border-b-0 hover:bg-axcend-action/16 md:py-4"
             >
               <div className="flex items-start justify-between gap-3">
                 <div className="min-w-0">
-                  <div className="truncate text-[10px] font-medium text-primary-foreground/50 md:text-[11px]">
+                  <div className="truncate text-[10px] font-medium text-muted-foreground md:text-[11px]">
                     {item.industry.name}
                   </div>
-                  <div className="mt-1 truncate text-sm font-semibold text-primary-foreground md:text-base">
+                  <div className="mt-1 truncate text-sm font-semibold text-foreground md:text-base">
                     {item.result.client}
                   </div>
                 </div>
-                <div className="shrink-0 text-lg font-semibold tabular-nums text-axcend-action md:text-xl">
+                <div className="shrink-0 text-lg font-semibold tabular-nums text-foreground md:text-xl">
                   {item.result.pct.toFixed(1)}%
                 </div>
               </div>
-              <div className="mt-3 h-px overflow-hidden bg-primary-foreground/10">
+              <div className="mt-3 h-px overflow-hidden bg-[#e7efe4]">
                 <div
-                  className="h-full rounded-full bg-axcend-action/85 transition-all duration-500"
+                  className="h-full rounded-full bg-axcend-dark transition-all duration-500"
                   style={{ width: `${Math.min(100, Math.max(8, item.result.pct * 1.45))}%` }}
                 />
               </div>
@@ -1188,14 +1196,14 @@ function IndustriesShowcase() {
         </div>
       </div>
 
-      <div className="relative z-10 mt-5 flex flex-col gap-3 md:mt-6 md:flex-row md:items-center md:justify-between md:gap-4">
-        <div className="text-sm text-primary-foreground/60">
+      <div className="flex flex-col gap-3 border-t border-[#d5e4d4] py-5 md:flex-row md:items-center md:justify-between md:gap-4 md:py-6">
+        <div className="text-sm text-muted-foreground">
           Кейс{" "}
-          <span className="font-semibold tabular-nums text-primary-foreground">
+          <span className="font-semibold tabular-nums text-foreground">
             {String(safeFlowIndex + 1).padStart(2, "0")}
           </span>{" "}
           из{" "}
-          <span className="font-semibold tabular-nums text-primary-foreground">
+          <span className="font-semibold tabular-nums text-foreground">
             {String(totalCaseCount).padStart(2, "0")}
           </span>
         </div>
@@ -1204,7 +1212,7 @@ function IndustriesShowcase() {
             type="button"
             aria-label="Предыдущий кейс"
             onClick={goPrevCase}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-primary-foreground/15 bg-primary-foreground/[0.06] text-primary-foreground transition-colors hover:border-axcend-action hover:bg-axcend-action hover:text-axcend-dark md:h-11 md:w-11"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[#d5e4d4] bg-white/60 text-foreground transition-colors hover:border-axcend-action hover:bg-axcend-action hover:text-axcend-dark md:h-11 md:w-11"
           >
             <ArrowRight className="h-4 w-4 rotate-180" />
           </button>
@@ -1534,8 +1542,8 @@ function Calculator() {
             Расчёт результата
           </div>
 
-          <div className="mt-4 space-y-3 md:mt-7 md:space-y-4">
-            <div className="rounded-2xl border border-axcend-action/35 bg-axcend-action/12 p-4 md:p-5">
+          <div className="mt-4 md:mt-7">
+            <div className="border-y border-axcend-action/35 bg-axcend-action/12 py-4 md:py-5">
               <div className="flex items-start justify-between gap-4">
                 <div>
                   <div className="mt-1 flex items-end gap-1.5 md:mt-3 md:gap-2">
@@ -1554,7 +1562,7 @@ function Calculator() {
               </p>
             </div>
 
-            <div className="rounded-2xl border border-primary-foreground/10 bg-primary-foreground/[0.055] p-4 md:p-5">
+            <div className="border-b border-primary-foreground/12 py-4 md:py-5">
               <div className="text-[10px] font-medium uppercase tracking-[0.16em] text-primary-foreground/60 md:text-xs md:tracking-[0.18em]">
                 Потенциал при выбранной конверсии
               </div>
@@ -1578,7 +1586,7 @@ function Calculator() {
               </div>
             </div>
 
-            <div className="rounded-2xl border border-primary-foreground/10 bg-primary-foreground/[0.04] p-3 text-[11px] leading-relaxed text-primary-foreground/70 md:p-4 md:text-xs">
+            <div className="pt-4 text-[11px] leading-relaxed text-primary-foreground/70 md:pt-5 md:text-xs">
               Оценка ориентировочная. Точная модель строится после диагностики продукта и сегмента,
               но договорный минимум 5% гарантирован.
             </div>
@@ -1594,13 +1602,13 @@ function FAQ() {
     <Accordion
       type="single"
       collapsible
-      className="mx-auto max-w-5xl divide-y divide-[#dbe7d8] overflow-hidden border-y border-[#dbe7d8]"
+      className="mx-auto max-w-5xl divide-y divide-[#d5e4d4] overflow-hidden border-y border-[#d5e4d4]"
     >
       {faqs.map((f, i) => (
         <AccordionItem
           key={i}
           value={String(i)}
-          className="border-0 bg-transparent px-2 transition-colors hover:bg-white/54 data-[state=open]:bg-white/72 md:px-4"
+          className="border-0 bg-transparent px-2 transition-colors hover:bg-white/54 data-[state=open]:bg-axcend-action/12 md:px-4"
         >
           <AccordionTrigger className="py-3 text-left text-[11px] font-semibold leading-[1.2] text-foreground hover:no-underline md:py-4 md:text-base md:leading-snug [&>svg]:text-axcend-dark/70">
             {f.q}
@@ -1668,28 +1676,31 @@ function TeamSection() {
         </div>
 
         <Reveal className="mt-8 md:mt-14">
-          <div className="relative overflow-hidden rounded-[30px] border border-[#dbe7d8] bg-[#fbfdf8] text-foreground md:rounded-[34px]">
-            <div className="grid grid-cols-1 divide-y divide-[#dbe7d8] md:grid-cols-2 md:divide-x md:divide-y-0 xl:grid-cols-4">
+          <div className="relative overflow-hidden border-y border-[#d5e4d4] bg-transparent text-foreground">
+            <div className="grid grid-cols-1 divide-y divide-[#d5e4d4] md:grid-cols-2 md:divide-x md:divide-y-0 xl:grid-cols-4">
               {teamMembers.map((member) => (
-                <article key={member.name} className="group flex min-h-full flex-col">
-                  <div className="relative aspect-[4/3] overflow-hidden bg-[#eef8e6]/55 md:aspect-[3/4]">
+                <article
+                  key={member.name}
+                  className="group grid min-h-full grid-cols-[104px_minmax(0,1fr)] md:flex md:flex-col"
+                >
+                  <div className="relative min-h-full overflow-hidden bg-[#eef8e6]/55 md:aspect-[3/4]">
                     <img
                       src={member.image}
                       alt={member.name}
                       loading="lazy"
-                      className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.018]"
+                      className="h-full w-full object-cover object-top saturate-[0.96] transition-transform duration-500 group-hover:scale-[1.015]"
                     />
                   </div>
-                  <div className="grid flex-1 grid-rows-[auto_minmax(58px,auto)_minmax(82px,auto)_1fr] p-5 md:p-6">
-                    <div className="h-1 w-10 rounded-full bg-axcend-action" />
+                  <div className="grid flex-1 grid-rows-[auto_auto_auto_1fr] p-4 md:grid-rows-[auto_minmax(56px,auto)_minmax(86px,auto)_1fr] md:p-6">
+                    <div className="h-1 w-12 rounded-full bg-axcend-action" />
                     <h3 className="mt-4 text-xl font-semibold leading-tight text-foreground md:text-2xl">
                       {member.name}
                     </h3>
                     <p className="mt-3 text-sm leading-relaxed text-muted-foreground md:text-base">
                       {member.role}
                     </p>
-                    <div className="mt-5 border-t border-[#dbe7d8] pt-4 text-xs font-semibold leading-relaxed text-axcend-dark md:text-sm">
-                      {member.proof}
+                    <div className="-mx-4 mt-4 border-t border-[#d5e4d4] bg-axcend-action/18 px-4 py-3 text-xs font-semibold leading-relaxed text-axcend-dark md:-mx-6 md:mt-5 md:px-6 md:py-4 md:text-sm">
+                      <span>{member.proof}</span>
                     </div>
                   </div>
                 </article>
@@ -1771,7 +1782,7 @@ function ConversionSystem({ items }: { items: typeof conversionReasons }) {
   }, [active]);
 
   return (
-    <div className="mx-auto w-full max-w-5xl overflow-hidden border-y border-[#dbe7d8]">
+    <div className="w-full overflow-hidden border-y border-[#d5e4d4]">
       <div className="grid">
         {items.map((item, index) => {
           const isActive = active === index;
@@ -1786,12 +1797,12 @@ function ConversionSystem({ items }: { items: typeof conversionReasons }) {
               data-conversion-card={index}
               onClick={() => setActive(index)}
               onFocus={() => setActive(index)}
-              className={`group relative overflow-hidden border-b border-[#dbe7d8] p-5 text-left transition-colors duration-300 last:border-b-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-axcend-action/40 md:p-7 ${
-                isActive ? "bg-white" : "bg-transparent hover:bg-white/56"
+              className={`group relative overflow-hidden border-b border-[#d5e4d4] p-5 text-left transition-colors duration-300 last:border-b-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-axcend-action/40 md:p-7 ${
+                isActive ? "bg-axcend-action/18" : "bg-transparent hover:bg-white/56"
               }`}
             >
               <div
-                className={`pointer-events-none absolute bottom-6 left-0 top-6 w-[3px] rounded-r-full transition-opacity duration-300 ${
+                className={`pointer-events-none absolute bottom-5 left-0 top-5 w-[3px] rounded-r-full transition-opacity duration-300 ${
                   isActive ? "bg-axcend-action opacity-100" : "bg-transparent opacity-0"
                 }`}
               />
@@ -1831,10 +1842,10 @@ function ConversionGlyph({ index, active }: { index: number; active: boolean }) 
   const Icon = Check;
   return (
     <span
-      className={`relative mt-0.5 flex h-11 w-11 shrink-0 items-center justify-center rounded-full border transition-colors duration-300 ${
+      className={`relative mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border transition-colors duration-300 md:h-11 md:w-11 ${
         active
           ? "border-axcend-action bg-axcend-action text-axcend-dark"
-          : "border-[#dbe7d8] bg-[#eef8e6] text-muted-foreground"
+          : "border-[#d5e4d4] bg-transparent text-muted-foreground"
       }`}
       aria-hidden
     >
@@ -2420,22 +2431,17 @@ function Index() {
       </section>
 
       {/* Why high conversion — centerpiece */}
-      <section id="why" className="relative overflow-hidden border-t border-border/70 bg-[#fbfcf8]">
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute -left-48 top-16 h-[34rem] w-[42rem] rounded-full bg-[radial-gradient(ellipse_at_center,rgba(200,240,160,0.18)_0%,rgba(200,240,160,0.065)_48%,rgba(200,240,160,0)_76%)] blur-3xl"
-        />
-        <div className="relative z-10 mx-auto max-w-6xl px-6 py-20 md:py-28">
-          <div className="mx-auto max-w-4xl text-center">
-            <div className="mb-4 text-[11px] font-medium uppercase tracking-[0.16em] text-muted-foreground md:mb-5 md:text-xs md:tracking-[0.18em]">
-              Почему AXCEND
+      <section id="why" className={LIGHT_SECTION_CLASS}>
+        <div className={LIGHT_SECTION_INNER_CLASS}>
+          <div className="grid gap-10 lg:grid-cols-[0.82fr_1.18fr] lg:items-start lg:gap-14">
+            <div className="lg:sticky lg:top-28">
+              <div className="mb-4 text-[11px] font-medium uppercase tracking-[0.16em] text-muted-foreground md:mb-5 md:text-xs md:tracking-[0.18em]">
+                Почему AXCEND
+              </div>
+              <h2 className="max-w-xl text-[38px] font-semibold leading-[0.98] tracking-tight md:text-[64px]">
+                <span>32%</span> средний процент конверсии
+              </h2>
             </div>
-            <h2 className="mx-auto max-w-4xl text-[32px] font-semibold leading-[1.04] tracking-tight md:text-[56px]">
-              <span>32%</span> средний процент конверсии
-            </h2>
-          </div>
-
-          <div className="mt-12 md:mt-16">
             <ConversionSystem items={conversionReasons} />
           </div>
         </div>
