@@ -1076,12 +1076,22 @@ function IndustriesShowcase() {
   const overallDialogs = caseFlow.reduce((s, item) => s + item.result.total, 0);
   const overallHits = caseFlow.reduce((s, item) => s + item.result.hits, 0);
   const overallAvg = overallDialogs ? (overallHits / overallDialogs) * 100 : 0;
-  const visibleCases = Array.from({ length: Math.min(3, totalCaseCount) }, (_, offset) => {
-    const flowIndex = (safeFlowIndex + offset) % totalCaseCount;
-    return { ...caseFlow[flowIndex]!, flowIndex };
-  });
+  const activeItem = caseFlow[safeFlowIndex];
+  const previewCases = Array.from(
+    { length: Math.min(4, Math.max(totalCaseCount - 1, 0)) },
+    (_, offset) => {
+      const flowIndex = (safeFlowIndex + offset + 1) % totalCaseCount;
+      return { ...caseFlow[flowIndex]!, flowIndex };
+    },
+  );
   const goPrevCase = () => setActiveFlowIndex((i) => (i - 1 + totalCaseCount) % totalCaseCount);
   const goNextCase = () => setActiveFlowIndex((i) => (i + 1) % totalCaseCount);
+
+  if (!activeItem) {
+    return null;
+  }
+
+  const activeBarWidth = Math.min(100, Math.max(8, activeItem.result.pct * 1.45));
 
   return (
     <div
@@ -1121,45 +1131,74 @@ function IndustriesShowcase() {
         </div>
       </div>
 
-      <div className="relative z-10 grid gap-3 md:grid-cols-3">
-        {visibleCases.map((item, visibleIndex) => {
-          const barWidth = Math.min(100, Math.max(8, item.result.pct * 1.45));
-          return (
-            <article
-              key={`${item.industry.name}-${item.result.client}-${item.flowIndex}`}
-              className={`rounded-[24px] border border-primary-foreground/12 bg-primary-foreground/[0.06] p-4 transition-colors hover:border-axcend-action/60 md:block md:rounded-[28px] md:p-5 ${
-                visibleIndex > 0 ? "hidden" : ""
-              }`}
-            >
-              <div className="inline-flex rounded-full border border-primary-foreground/12 bg-primary-foreground/[0.08] px-3 py-1 text-[10px] font-medium text-primary-foreground/66 md:text-[11px]">
-                {item.industry.name}
+      <div className="relative z-10 grid gap-3 lg:grid-cols-[minmax(0,1.25fr)_minmax(280px,0.75fr)] lg:gap-4">
+        <article className="rounded-[28px] border border-axcend-action/35 bg-primary-foreground/[0.075] p-5 shadow-[0_24px_70px_rgba(0,0,0,0.16)] md:rounded-[32px] md:p-7">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+            <div>
+              <div className="inline-flex rounded-full border border-axcend-action/25 bg-axcend-action/12 px-3 py-1 text-[10px] font-semibold text-axcend-action md:text-[11px]">
+                {activeItem.industry.name}
               </div>
-              <h3 className="mt-4 text-lg font-semibold leading-tight text-primary-foreground md:mt-5 md:min-h-[56px] md:text-xl">
-                {item.result.client}
+              <h3 className="mt-4 text-2xl font-semibold leading-tight text-primary-foreground md:mt-5 md:text-[34px]">
+                {activeItem.result.client}
               </h3>
-              <div className="mt-5 flex items-end justify-between gap-4 md:mt-6">
-                <div>
-                  <div className="text-[9px] font-medium uppercase tracking-[0.16em] text-primary-foreground/52 md:text-[10px]">
-                    Конверсия
+            </div>
+            <div className="shrink-0 rounded-[24px] border border-primary-foreground/12 bg-primary-foreground/[0.07] px-4 py-3 text-left sm:text-right">
+              <div className="text-[9px] font-medium uppercase tracking-[0.16em] text-primary-foreground/52 md:text-[10px]">
+                Конверсия
+              </div>
+              <div className="mt-1 text-[42px] font-semibold leading-none tabular-nums text-axcend-action md:text-[54px]">
+                {activeItem.result.pct.toFixed(1)}%
+              </div>
+            </div>
+          </div>
+          <div className="mt-7 flex items-end justify-between gap-4 border-t border-primary-foreground/12 pt-5 md:mt-8 md:pt-6">
+            <div className="text-xs tabular-nums text-primary-foreground/58 md:text-sm">
+              {activeItem.result.hits.toLocaleString("ru-RU")} из{" "}
+              {activeItem.result.total.toLocaleString("ru-RU")}
+            </div>
+            <div className="text-xs tabular-nums text-primary-foreground/44 md:text-sm">
+              {String(safeFlowIndex + 1).padStart(2, "0")} /{" "}
+              {String(totalCaseCount).padStart(2, "0")}
+            </div>
+          </div>
+          <div className="mt-4 h-2 overflow-hidden rounded-full bg-primary-foreground/12">
+            <div
+              className="h-full rounded-full bg-axcend-action transition-all duration-500"
+              style={{ width: `${activeBarWidth}%` }}
+            />
+          </div>
+        </article>
+
+        <div className="grid gap-2.5">
+          {previewCases.map((item) => (
+            <button
+              key={`${item.industry.name}-${item.result.client}-${item.flowIndex}`}
+              type="button"
+              onClick={() => setActiveFlowIndex(item.flowIndex)}
+              className="group rounded-[22px] border border-primary-foreground/10 bg-primary-foreground/[0.045] p-3 text-left transition-colors hover:border-axcend-action/55 hover:bg-primary-foreground/[0.075] md:p-4"
+            >
+              <div className="flex items-start justify-between gap-3">
+                <div className="min-w-0">
+                  <div className="truncate text-[10px] font-medium text-primary-foreground/50 md:text-[11px]">
+                    {item.industry.name}
                   </div>
-                  <div className="mt-1 text-[36px] font-semibold leading-none tabular-nums text-axcend-action md:text-[42px]">
-                    {item.result.pct.toFixed(1)}%
+                  <div className="mt-1 truncate text-sm font-semibold text-primary-foreground md:text-base">
+                    {item.result.client}
                   </div>
                 </div>
-                <div className="pb-1 text-right text-xs tabular-nums text-primary-foreground/55 md:text-sm">
-                  {item.result.hits.toLocaleString("ru-RU")} из{" "}
-                  {item.result.total.toLocaleString("ru-RU")}
+                <div className="shrink-0 text-lg font-semibold tabular-nums text-axcend-action md:text-xl">
+                  {item.result.pct.toFixed(1)}%
                 </div>
               </div>
-              <div className="mt-4 h-1.5 overflow-hidden rounded-full bg-primary-foreground/12 md:mt-5">
+              <div className="mt-3 h-1 overflow-hidden rounded-full bg-primary-foreground/10">
                 <div
-                  className="h-full rounded-full bg-axcend-action transition-all duration-500"
-                  style={{ width: `${barWidth}%` }}
+                  className="h-full rounded-full bg-axcend-action/85 transition-all duration-500"
+                  style={{ width: `${Math.min(100, Math.max(8, item.result.pct * 1.45))}%` }}
                 />
               </div>
-            </article>
-          );
-        })}
+            </button>
+          ))}
+        </div>
       </div>
 
       <div className="relative z-10 mt-5 flex flex-col gap-3 md:mt-6 md:flex-row md:items-center md:justify-between md:gap-4">
