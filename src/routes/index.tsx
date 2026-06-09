@@ -1096,10 +1096,10 @@ function IndustriesShowcase() {
 
   return (
     <div
-      className={`${DARK_SURFACE_BASE_CLASS} mx-auto max-w-6xl rounded-[32px] p-4 shadow-[0_28px_86px_rgba(26,46,42,0.16)] md:p-7`}
+      className={`${DARK_SURFACE_BASE_CLASS} mx-auto max-w-6xl rounded-[34px] p-3 shadow-[0_28px_86px_rgba(26,46,42,0.16)] md:p-6`}
     >
       <div className={`${DARK_SURFACE_GLOW_CLASS} hidden opacity-75 md:block`} />
-      <div className="relative z-10 mb-6 grid gap-5 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
+      <div className="relative z-10 mb-5 grid gap-5 md:mb-6 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
         <p className="max-w-2xl text-[13px] leading-relaxed text-primary-foreground/72 md:text-base">
           Реальные результаты по разным B2B-сегментам. Каждый кейс показывает не количество звонков,
           а долю компаний, которые дошли до предметного разговора.
@@ -1132,8 +1132,8 @@ function IndustriesShowcase() {
         </div>
       </div>
 
-      <div className="relative z-10 grid gap-3 lg:grid-cols-[minmax(0,1.25fr)_minmax(280px,0.75fr)] lg:gap-4">
-        <article className="rounded-[28px] border border-axcend-action/35 bg-primary-foreground/[0.075] p-5 shadow-[0_24px_70px_rgba(0,0,0,0.16)] md:rounded-[32px] md:p-7">
+      <div className="relative z-10 grid gap-3 lg:grid-cols-[minmax(0,1.25fr)_minmax(280px,0.75fr)] lg:gap-3">
+        <article className="rounded-[28px] border border-axcend-action/35 bg-primary-foreground/[0.075] p-5 shadow-[0_20px_62px_rgba(0,0,0,0.14)] md:rounded-[32px] md:p-7">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
             <div>
               <div className="inline-flex rounded-full border border-axcend-action/25 bg-axcend-action/12 px-3 py-1 text-[10px] font-semibold text-axcend-action md:text-[11px]">
@@ -1170,13 +1170,13 @@ function IndustriesShowcase() {
           </div>
         </article>
 
-        <div className="grid gap-2.5">
+        <div className="grid gap-2">
           {previewCases.map((item) => (
             <button
               key={`${item.industry.name}-${item.result.client}-${item.flowIndex}`}
               type="button"
               onClick={() => setActiveFlowIndex(item.flowIndex)}
-              className="group rounded-[22px] border border-primary-foreground/10 bg-primary-foreground/[0.045] p-3 text-left transition-colors hover:border-axcend-action/55 hover:bg-primary-foreground/[0.075] md:p-4"
+              className="group rounded-[22px] border border-primary-foreground/10 bg-primary-foreground/[0.045] p-3 text-left transition-colors hover:border-axcend-action/55 hover:bg-primary-foreground/[0.075] md:p-3.5"
             >
               <div className="flex items-start justify-between gap-3">
                 <div className="min-w-0">
@@ -1692,8 +1692,12 @@ function TeamSection() {
 
         <Reveal className="mt-8 md:mt-14">
           <div
-            className={`${EDITORIAL_SURFACE_CLASS} grid gap-4 p-3 md:p-4 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.35fr)] lg:items-stretch`}
+            className={`${EDITORIAL_SURFACE_CLASS} relative grid gap-3 overflow-hidden p-2 md:p-3 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.35fr)] lg:items-stretch`}
           >
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute -right-28 -top-28 h-72 w-96 rounded-full bg-[radial-gradient(ellipse_at_center,rgba(200,240,160,0.16)_0%,rgba(200,240,160,0.055)_48%,rgba(200,240,160,0)_78%)] blur-3xl"
+            />
             <article className="relative overflow-hidden rounded-[26px] border border-primary-foreground/10 bg-axcend-dark p-3 text-primary-foreground shadow-[0_24px_70px_rgba(26,46,42,0.18)] md:rounded-[30px] md:p-4">
               <div className={`${DARK_SURFACE_GLOW_CLASS} opacity-80`} />
               <div className="relative z-10 grid grid-cols-[92px_minmax(0,1fr)] gap-3 md:block">
@@ -1717,17 +1721,17 @@ function TeamSection() {
               </div>
             </article>
 
-            <div className="grid gap-3 md:gap-4">
+            <div className="relative rounded-[26px] border border-border/75 bg-white/76 p-2 md:rounded-[30px] md:p-3">
               {team.map((member) => (
                 <article
                   key={member.name}
-                  className={`${QUIET_SURFACE_CLASS} group grid grid-cols-[82px_minmax(0,1fr)] gap-3 p-3 transition-colors hover:border-axcend-action/70 md:grid-cols-[148px_minmax(0,1fr)] md:items-center md:gap-4 md:p-5`}
+                  className="group grid grid-cols-[82px_minmax(0,1fr)] gap-3 rounded-[22px] border border-transparent p-3 transition-colors hover:border-axcend-action/60 hover:bg-axcend-soft/70 md:grid-cols-[128px_minmax(0,1fr)] md:items-center md:gap-4 md:p-4"
                 >
                   <img
                     src={member.image}
                     alt={member.name}
                     loading="lazy"
-                    className="h-[98px] w-[82px] rounded-[16px] object-cover md:aspect-square md:h-auto md:w-[148px] md:rounded-[20px]"
+                    className="h-[98px] w-[82px] rounded-[16px] object-cover md:aspect-square md:h-auto md:w-[128px] md:rounded-[20px]"
                   />
                   <div className="min-w-0">
                     <h3 className="text-base font-semibold leading-snug text-foreground md:text-xl">
