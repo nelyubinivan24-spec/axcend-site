@@ -56,18 +56,23 @@ declare global {
 }
 
 const DARK_SURFACE_BASE_CLASS =
-  "relative overflow-hidden border border-primary-foreground/10 bg-axcend-dark bg-[linear-gradient(145deg,#1a2e2a_0%,#142722_100%)] text-primary-foreground";
+  "relative overflow-hidden border border-primary-foreground/10 bg-axcend-dark bg-[linear-gradient(145deg,#1a2e2a_0%,#10231f_100%)] text-primary-foreground";
 
 const DARK_SURFACE_GLOW_CLASS =
   "pointer-events-none absolute -right-32 -top-28 h-[28rem] w-[44rem] rounded-full bg-[radial-gradient(ellipse_at_70%_30%,rgba(200,240,160,0.20)_0%,rgba(200,240,160,0.085)_42%,rgba(200,240,160,0.025)_66%,rgba(200,240,160,0)_84%)] blur-[72px]";
 
-const LIGHT_SECTION_CLASS =
-  "relative border-t border-border/70 bg-[linear-gradient(180deg,#fbfcf8_0%,#ffffff_46%,#f8fbf4_100%)]";
+const LIGHT_SECTION_CLASS = "relative overflow-hidden border-t border-border/70 bg-[#fbfcf8]";
 
-const LIGHT_SECTION_INNER_CLASS = "mx-auto max-w-6xl px-6 py-20 md:py-28";
+const LIGHT_SECTION_INNER_CLASS = "relative z-10 mx-auto max-w-6xl px-6 py-20 md:py-28";
 
-const LIGHT_PANEL_CLASS =
-  "rounded-[32px] border border-border/80 bg-white/82 shadow-[0_24px_80px_rgba(26,46,42,0.055)] backdrop-blur";
+const EDITORIAL_SURFACE_CLASS =
+  "rounded-[38px] border border-border/80 bg-[linear-gradient(180deg,#ffffff_0%,#f7fbf2_100%)] shadow-[0_30px_100px_rgba(26,46,42,0.075)]";
+
+const QUIET_SURFACE_CLASS =
+  "rounded-[28px] border border-border/75 bg-white/88 shadow-[0_16px_55px_rgba(26,46,42,0.045)]";
+
+const DARK_PANEL_CLASS =
+  "rounded-[30px] border border-primary-foreground/12 bg-primary-foreground/[0.055] shadow-[0_28px_90px_rgba(0,0,0,0.18)]";
 
 const CONTACT_WHATSAPP_URL = "https://wa.me/77085077371";
 const CONTACT_WHATSAPP_FOOTER_URL = `${CONTACT_WHATSAPP_URL}?text=${encodeURIComponent(
@@ -190,7 +195,7 @@ function ProofGrid({ items }: { items: typeof proofs }) {
   return (
     <div
       ref={wrapRef}
-      className={`${LIGHT_PANEL_CLASS} grid grid-cols-1 gap-3 p-3 md:grid-cols-2 md:gap-4 md:p-4`}
+      className={`${EDITORIAL_SURFACE_CLASS} grid grid-cols-1 gap-3 p-3 md:grid-cols-2 md:gap-4 md:p-4`}
     >
       {items.map((p, i) => {
         const Icon = p.icon;
@@ -210,8 +215,8 @@ function ProofGrid({ items }: { items: typeof proofs }) {
             style={{ transitionDelay: `${i * 60}ms` }}
             className={`group relative flex min-h-[220px] flex-col overflow-hidden rounded-[24px] border p-5 text-left transition-all duration-300 md:min-h-[250px] md:rounded-[28px] md:p-7 ${
               lifted
-                ? "border-axcend-action bg-axcend-soft shadow-[0_18px_58px_rgba(26,46,42,0.08)]"
-                : "border-border/80 bg-white/86 hover:border-axcend-action/70 hover:bg-[#fbfef7]"
+                ? "border-axcend-action bg-axcend-soft shadow-[0_22px_70px_rgba(26,46,42,0.09)]"
+                : "border-border/80 bg-white/92 shadow-[0_12px_42px_rgba(26,46,42,0.035)] hover:border-axcend-action/70 hover:bg-[#fbfef7]"
             } ${inView ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"}`}
           >
             <div
@@ -835,26 +840,33 @@ const industriesData = [
 
 function WhatWeDoTabs() {
   return (
-    <Tabs defaultValue="0" className="mx-auto w-full max-w-5xl">
-      <TabsList className="mx-auto grid h-auto w-full grid-cols-2 items-stretch gap-1.5 rounded-[24px] border border-border/80 bg-white/76 p-1.5 shadow-[0_16px_50px_rgba(26,46,42,0.045)] md:flex md:w-fit md:max-w-full md:flex-wrap md:items-center md:justify-center md:gap-2 md:rounded-full md:p-2">
+    <Tabs
+      defaultValue="0"
+      className="mx-auto grid w-full max-w-6xl gap-5 lg:grid-cols-[330px_minmax(0,1fr)] lg:items-start"
+    >
+      <TabsList className="grid h-auto w-full grid-cols-2 items-stretch gap-1.5 rounded-[24px] border border-border/80 bg-white/80 p-1.5 shadow-[0_16px_50px_rgba(26,46,42,0.045)] md:grid-cols-3 md:gap-2 lg:sticky lg:top-28 lg:grid-cols-1 lg:rounded-[28px] lg:bg-white/90 lg:p-2">
         {whatWeDo.map((s, i) => (
           <TabsTrigger
             key={s.title}
             value={String(i)}
-            className="min-h-[34px] w-full whitespace-normal rounded-full border border-transparent bg-transparent px-2 py-1 text-center text-[10px] leading-[1.12] text-muted-foreground transition-colors hover:bg-axcend-soft/70 hover:text-foreground data-[state=active]:border-axcend-action data-[state=active]:bg-axcend-action data-[state=active]:text-axcend-dark data-[state=active]:shadow-none md:min-h-0 md:w-auto md:max-w-full md:px-4 md:py-2 md:text-sm md:leading-snug"
+            className="min-h-[34px] w-full whitespace-normal rounded-full border border-transparent bg-transparent px-2 py-1 text-center text-[10px] leading-[1.12] text-muted-foreground transition-colors hover:bg-axcend-soft/70 hover:text-foreground data-[state=active]:border-axcend-action data-[state=active]:bg-axcend-action data-[state=active]:text-axcend-dark data-[state=active]:shadow-none md:min-h-[38px] md:px-3 md:py-2 md:text-xs md:leading-snug lg:min-h-[54px] lg:justify-start lg:rounded-[20px] lg:px-4 lg:py-3 lg:text-left lg:text-sm"
           >
             {s.title}
           </TabsTrigger>
         ))}
       </TabsList>
       {whatWeDo.map((s, i) => (
-        <TabsContent key={s.title} value={String(i)} className="mt-5 md:mt-8">
-          <div className={`${LIGHT_PANEL_CLASS} relative overflow-hidden p-6 md:p-10`}>
+        <TabsContent key={s.title} value={String(i)} className="mt-0 lg:col-start-2 lg:row-start-1">
+          <div
+            className={`${EDITORIAL_SURFACE_CLASS} relative min-h-[260px] overflow-hidden p-6 md:min-h-[320px] md:p-10 lg:p-12`}
+          >
             <div className="pointer-events-none absolute -left-20 -top-28 h-64 w-80 rounded-full bg-[radial-gradient(ellipse_at_center,rgba(200,240,160,0.34)_0%,rgba(200,240,160,0.12)_48%,rgba(200,240,160,0)_76%)] blur-3xl" />
             <div className="pointer-events-none absolute bottom-0 left-0 top-0 w-1 rounded-full bg-axcend-action" />
             <div className="relative">
-              <h3 className="text-xl font-semibold text-foreground md:text-3xl">{s.title}</h3>
-              <p className="mt-4 max-w-3xl text-sm leading-relaxed text-muted-foreground md:mt-5 md:text-base">
+              <h3 className="text-xl font-semibold leading-tight text-foreground md:text-[34px]">
+                {s.title}
+              </h3>
+              <p className="mt-4 max-w-4xl text-sm leading-relaxed text-muted-foreground md:mt-6 md:text-base">
                 {s.text}
               </p>
             </div>
@@ -896,18 +908,28 @@ function LaunchProcess({ dark = false }: { dark?: boolean } = {}) {
 
       <div
         className={cn(
-          "mt-6 overflow-hidden rounded-[24px] border border-axcend-action/55 bg-axcend-soft p-0 md:mt-12 md:rounded-[26px]",
-          dark && "shadow-[0_28px_90px_rgba(0,0,0,0.18)]",
+          "mt-6 overflow-hidden rounded-[24px] border p-0 md:mt-12 md:rounded-[26px]",
+          dark ? DARK_PANEL_CLASS : "border-axcend-action/55 bg-axcend-soft",
         )}
       >
         <div className="flex items-stretch">
           <div className="hidden w-1.5 shrink-0 bg-axcend-action md:block" />
           <div className="p-4 md:p-6">
             <div>
-              <h3 className="text-base font-semibold leading-snug text-foreground md:text-xl">
+              <h3
+                className={cn(
+                  "text-base font-semibold leading-snug md:text-xl",
+                  dark ? "text-primary-foreground" : "text-foreground",
+                )}
+              >
                 Старт проекта
               </h3>
-              <p className="mt-2 text-[13px] leading-relaxed text-muted-foreground md:mt-3 md:text-sm">
+              <p
+                className={cn(
+                  "mt-2 text-[13px] leading-relaxed md:mt-3 md:text-sm",
+                  dark ? "text-primary-foreground/68" : "text-muted-foreground",
+                )}
+              >
                 Проект стартует после подписания договора и оплаты счёта. С этого момента мы
                 запускаем работу по вашему продукту — и начинаем не со звонков, а с подготовки.
               </p>
@@ -921,18 +943,40 @@ function LaunchProcess({ dark = false }: { dark?: boolean } = {}) {
           <AccordionItem
             key={stage.number}
             value={String(index)}
-            className="overflow-hidden rounded-[22px] border border-border bg-card px-0 transition-[border-color,box-shadow] hover:border-axcend-action/70 hover:shadow-[0_18px_50px_rgba(0,0,0,0.08)] data-[state=open]:border-axcend-action/70 data-[state=open]:bg-axcend-soft md:rounded-[26px]"
+            className={cn(
+              "overflow-hidden rounded-[22px] border px-0 transition-[border-color,box-shadow] md:rounded-[26px]",
+              dark
+                ? "border-primary-foreground/12 bg-primary-foreground/[0.055] hover:border-axcend-action/60 hover:shadow-[0_22px_70px_rgba(0,0,0,0.22)] data-[state=open]:border-axcend-action/70 data-[state=open]:bg-primary-foreground/[0.085]"
+                : "border-border bg-card hover:border-axcend-action/70 hover:shadow-[0_18px_50px_rgba(0,0,0,0.08)] data-[state=open]:border-axcend-action/70 data-[state=open]:bg-axcend-soft",
+            )}
           >
             <AccordionTrigger className="group px-4 py-4 text-left hover:no-underline md:px-6 md:py-6 [&>svg]:hidden">
               <div className="flex min-w-0 flex-1 items-center gap-3 pr-2 md:gap-4 md:pr-4">
                 <div className="min-w-0 flex-1">
-                  <div className="mb-1.5 inline-flex rounded-full border border-axcend-action/50 bg-axcend-soft px-2.5 py-0.5 text-[9px] font-medium tracking-[0.04em] text-axcend-dark md:mb-2 md:px-3 md:py-1 md:text-[10px]">
+                  <div
+                    className={cn(
+                      "mb-1.5 inline-flex rounded-full border border-axcend-action/50 px-2.5 py-0.5 text-[9px] font-medium tracking-[0.04em] md:mb-2 md:px-3 md:py-1 md:text-[10px]",
+                      dark
+                        ? "bg-axcend-action/12 text-axcend-action"
+                        : "bg-axcend-soft text-axcend-dark",
+                    )}
+                  >
                     {index + 1} шаг
                   </div>
-                  <div className="text-[15px] font-semibold leading-snug text-foreground md:text-xl">
+                  <div
+                    className={cn(
+                      "text-[15px] font-semibold leading-snug md:text-xl",
+                      dark ? "text-primary-foreground" : "text-foreground",
+                    )}
+                  >
                     {stage.title}
                   </div>
-                  <div className="mt-1 text-[11px] leading-relaxed text-muted-foreground md:text-sm">
+                  <div
+                    className={cn(
+                      "mt-1 text-[11px] leading-relaxed md:text-sm",
+                      dark ? "text-primary-foreground/62" : "text-muted-foreground",
+                    )}
+                  >
                     {stage.summary}
                   </div>
                 </div>
@@ -944,30 +988,67 @@ function LaunchProcess({ dark = false }: { dark?: boolean } = {}) {
               </div>
             </AccordionTrigger>
             <AccordionContent className="px-4 pb-4 md:px-6 md:pb-6">
-              <div className="border-t border-border/80 pt-4 md:pt-5">
-                <div className="space-y-3 text-[13px] leading-relaxed text-muted-foreground md:text-base">
+              <div
+                className={cn(
+                  "border-t pt-4 md:pt-5",
+                  dark ? "border-primary-foreground/12" : "border-border/80",
+                )}
+              >
+                <div
+                  className={cn(
+                    "space-y-3 text-[13px] leading-relaxed md:text-base",
+                    dark ? "text-primary-foreground/72" : "text-muted-foreground",
+                  )}
+                >
                   {stage.body.map((paragraph) => (
                     <p key={paragraph}>{paragraph}</p>
                   ))}
                 </div>
                 <div className="mt-4 grid gap-3 md:mt-5 md:grid-cols-2">
                   {stage.result && (
-                    <div className="rounded-2xl border border-border bg-card/80 p-3 md:p-4">
-                      <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-axcend-dark md:text-xs">
+                    <div
+                      className={cn(
+                        "rounded-2xl border p-3 md:p-4",
+                        dark
+                          ? "border-primary-foreground/12 bg-primary-foreground/[0.05]"
+                          : "border-border bg-card/80",
+                      )}
+                    >
+                      <div
+                        className={cn(
+                          "flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.14em] md:text-xs",
+                          dark ? "text-axcend-action" : "text-axcend-dark",
+                        )}
+                      >
                         <Check className="h-4 w-4" />
                         Результат этапа
                       </div>
-                      <p className="mt-2 text-[13px] leading-relaxed text-muted-foreground md:text-sm">
+                      <p
+                        className={cn(
+                          "mt-2 text-[13px] leading-relaxed md:text-sm",
+                          dark ? "text-primary-foreground/68" : "text-muted-foreground",
+                        )}
+                      >
                         {stage.result}
                       </p>
                     </div>
                   )}
                   <div className="rounded-2xl border border-axcend-action/50 bg-axcend-action/15 p-3 md:p-4">
-                    <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-axcend-dark md:text-xs">
+                    <div
+                      className={cn(
+                        "flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.14em] md:text-xs",
+                        dark ? "text-axcend-action" : "text-axcend-dark",
+                      )}
+                    >
                       <Check className="h-4 w-4" />
                       За что вы платите
                     </div>
-                    <p className="mt-2 text-[13px] leading-relaxed text-muted-foreground md:text-sm">
+                    <p
+                      className={cn(
+                        "mt-2 text-[13px] leading-relaxed md:text-sm",
+                        dark ? "text-primary-foreground/70" : "text-muted-foreground",
+                      )}
+                    >
                       {stage.payment}
                     </p>
                   </div>
@@ -1352,7 +1433,7 @@ function Calculator() {
   const revenue = meetings * avgDeal;
   return (
     <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_420px] lg:items-start">
-      <div className={`${LIGHT_PANEL_CLASS} relative overflow-hidden p-4 md:p-6`}>
+      <div className={`${EDITORIAL_SURFACE_CLASS} relative overflow-hidden p-4 md:p-6`}>
         <div className="pointer-events-none absolute -right-28 -top-28 h-80 w-80 rounded-full bg-[radial-gradient(circle,rgba(200,240,160,0.32)_0%,rgba(200,240,160,0.10)_52%,rgba(200,240,160,0)_78%)] blur-3xl" />
         <div className="relative z-10 mb-4 flex flex-col gap-2 text-left sm:flex-row sm:items-end sm:justify-between md:mb-5">
           <div>
@@ -1362,7 +1443,7 @@ function Calculator() {
             5% в договоре
           </div>
         </div>
-        <div className="relative z-10 space-y-2 rounded-[24px] border border-border/80 bg-[#f7fbf2]/80 p-2 md:space-y-3 md:rounded-[28px] md:p-4">
+        <div className="relative z-10 space-y-2 rounded-[24px] border border-border/80 bg-white/72 p-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.8)] md:space-y-3 md:rounded-[28px] md:p-4">
           <CalcRow
             label="Размер базы целевых компаний"
             value={companies}
@@ -1393,7 +1474,7 @@ function Calculator() {
           />
         </div>
 
-        <div className="relative z-10 mt-3 grid grid-cols-3 overflow-hidden rounded-[22px] border border-border/80 bg-white/86 text-left shadow-[0_16px_36px_rgba(26,46,42,0.035)] md:mt-4 md:rounded-[26px]">
+        <div className="relative z-10 mt-3 grid grid-cols-3 overflow-hidden rounded-[22px] border border-border/80 bg-white/92 text-left shadow-[0_18px_48px_rgba(26,46,42,0.045)] md:mt-4 md:rounded-[26px]">
           <div className="border-r border-border p-3 md:p-4">
             <div className="text-[10px] font-medium uppercase tracking-[0.16em] text-muted-foreground md:text-xs md:tracking-[0.18em]">
               База
@@ -1490,15 +1571,15 @@ function FAQ() {
     <Accordion
       type="single"
       collapsible
-      className={`${LIGHT_PANEL_CLASS} mx-auto max-w-3xl space-y-1 p-2 md:space-y-1.5 md:p-2.5`}
+      className={`${EDITORIAL_SURFACE_CLASS} mx-auto max-w-4xl space-y-1 p-2 md:space-y-1.5 md:p-3`}
     >
       {faqs.map((f, i) => (
         <AccordionItem
           key={i}
           value={String(i)}
-          className="rounded-[18px] border border-transparent bg-white/82 px-3 transition-colors data-[state=open]:border-axcend-action/70 data-[state=open]:bg-axcend-soft md:rounded-[22px] md:px-5"
+          className="rounded-[18px] border border-transparent bg-white/88 px-3 transition-colors hover:border-border data-[state=open]:border-axcend-action/70 data-[state=open]:bg-axcend-soft md:rounded-[22px] md:px-5"
         >
-          <AccordionTrigger className="py-2 text-left text-[11px] font-semibold leading-[1.2] text-foreground hover:no-underline md:py-4 md:text-base md:leading-snug [&>svg]:text-muted-foreground">
+          <AccordionTrigger className="py-2 text-left text-[11px] font-semibold leading-[1.2] text-foreground hover:no-underline md:py-4 md:text-base md:leading-snug [&>svg]:text-axcend-dark/70">
             {f.q}
           </AccordionTrigger>
           <AccordionContent className="pb-2 pr-5 text-[11px] leading-relaxed text-muted-foreground md:pb-4 md:pr-8 md:text-sm">
@@ -1529,18 +1610,22 @@ function Section({
         aria-hidden="true"
         className="pointer-events-none absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,rgba(26,46,42,0),rgba(26,46,42,0.12),rgba(26,46,42,0))]"
       />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute left-1/2 top-10 h-[30rem] w-[76rem] -translate-x-1/2 rounded-full bg-[radial-gradient(ellipse_at_center,rgba(200,240,160,0.13)_0%,rgba(200,240,160,0.045)_48%,rgba(200,240,160,0)_74%)] blur-3xl"
+      />
       <div className={LIGHT_SECTION_INNER_CLASS}>
         <div className={center ? "mx-auto max-w-3xl text-center" : "max-w-3xl"}>
           {eyebrow && (
-            <div className="mb-4 text-[11px] font-semibold uppercase tracking-[0.16em] text-axcend-dark/70 md:mb-5 md:text-xs md:tracking-[0.18em]">
+            <div className="mb-4 text-[11px] font-semibold uppercase tracking-[0.16em] text-axcend-dark/64 md:mb-5 md:text-xs md:tracking-[0.18em]">
               {eyebrow}
             </div>
           )}
-          <h2 className="text-[28px] font-semibold leading-[1.12] tracking-tight text-foreground md:text-5xl">
+          <h2 className="text-[28px] font-semibold leading-[1.08] tracking-tight text-foreground md:text-5xl">
             {title}
           </h2>
         </div>
-        <Reveal className="mt-10 md:mt-16">{children}</Reveal>
+        <Reveal className="mt-9 md:mt-14">{children}</Reveal>
       </div>
     </section>
   );
@@ -1567,7 +1652,7 @@ function TeamSection() {
 
         <Reveal className="mt-8 md:mt-14">
           <div
-            className={`${LIGHT_PANEL_CLASS} grid gap-4 p-3 md:p-4 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.35fr)] lg:items-stretch`}
+            className={`${EDITORIAL_SURFACE_CLASS} grid gap-4 p-3 md:p-4 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.35fr)] lg:items-stretch`}
           >
             <article className="relative overflow-hidden rounded-[26px] border border-primary-foreground/10 bg-axcend-dark p-3 text-primary-foreground shadow-[0_24px_70px_rgba(26,46,42,0.18)] md:rounded-[30px] md:p-4">
               <div className={`${DARK_SURFACE_GLOW_CLASS} opacity-80`} />
@@ -1596,7 +1681,7 @@ function TeamSection() {
               {team.map((member) => (
                 <article
                   key={member.name}
-                  className="group grid grid-cols-[82px_minmax(0,1fr)] gap-3 rounded-[22px] border border-border bg-card p-3 transition-colors hover:border-axcend-action/70 md:grid-cols-[148px_minmax(0,1fr)] md:items-center md:gap-4 md:rounded-[26px] md:p-5"
+                  className={`${QUIET_SURFACE_CLASS} group grid grid-cols-[82px_minmax(0,1fr)] gap-3 p-3 transition-colors hover:border-axcend-action/70 md:grid-cols-[148px_minmax(0,1fr)] md:items-center md:gap-4 md:p-5`}
                 >
                   <img
                     src={member.image}
@@ -1694,7 +1779,7 @@ function ConversionSystem({ items }: { items: typeof conversionReasons }) {
   }, [active]);
 
   return (
-    <div className={`${LIGHT_PANEL_CLASS} mx-auto grid w-full max-w-4xl gap-4 p-3 md:p-5`}>
+    <div className="mx-auto grid w-full max-w-4xl gap-3">
       <div className="grid gap-3 md:gap-4">
         {items.map((item, index) => {
           const isActive = active === index;
@@ -1709,12 +1794,18 @@ function ConversionSystem({ items }: { items: typeof conversionReasons }) {
               data-conversion-card={index}
               onClick={() => setActive(index)}
               onFocus={() => setActive(index)}
-              className={`group relative overflow-hidden rounded-[24px] border p-5 text-left transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-axcend-action/40 md:rounded-[28px] md:p-6 ${
+              className={`group relative overflow-hidden rounded-[28px] border p-5 text-left transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-axcend-action/40 md:p-7 ${
                 isActive
-                  ? "border-axcend-action bg-axcend-soft shadow-[0_18px_58px_rgba(26,46,42,0.08)]"
-                  : "border-border/80 bg-white/86 hover:border-axcend-action/60 hover:bg-[#fbfef7]"
+                  ? "border-primary-foreground/12 bg-axcend-dark text-primary-foreground shadow-[0_26px_78px_rgba(26,46,42,0.22)]"
+                  : "border-border/80 bg-white/90 shadow-[0_14px_48px_rgba(26,46,42,0.045)] hover:border-axcend-action/60 hover:bg-[#fbfef7]"
               }`}
             >
+              <div
+                aria-hidden="true"
+                className={`pointer-events-none absolute -right-24 -top-28 h-64 w-80 rounded-full bg-[radial-gradient(ellipse_at_center,rgba(200,240,160,0.23)_0%,rgba(200,240,160,0.08)_50%,rgba(200,240,160,0)_76%)] blur-3xl transition-opacity duration-300 ${
+                  isActive ? "opacity-100" : "opacity-0"
+                }`}
+              />
               <div
                 className={`pointer-events-none absolute bottom-0 left-0 top-0 w-1 rounded-full transition-opacity duration-300 ${
                   isActive ? "bg-axcend-action opacity-100" : "bg-transparent opacity-0"
@@ -1723,11 +1814,23 @@ function ConversionSystem({ items }: { items: typeof conversionReasons }) {
               <div className="flex gap-4 md:gap-5">
                 <ConversionGlyph index={index} active={isActive} />
                 <div className="min-w-0 flex-1">
-                  <h3 className="text-[15px] font-semibold leading-snug text-foreground md:text-base">
+                  <h3
+                    className={`text-[15px] font-semibold leading-snug md:text-base ${
+                      isActive ? "text-primary-foreground" : "text-foreground"
+                    }`}
+                  >
                     {item.title}
                   </h3>
-                  <div className="mt-4 h-px w-full bg-border/70" />
-                  <p className="mt-3 text-[11px] leading-relaxed text-muted-foreground md:mt-4 md:text-sm">
+                  <div
+                    className={`mt-4 h-px w-full ${
+                      isActive ? "bg-primary-foreground/14" : "bg-border/70"
+                    }`}
+                  />
+                  <p
+                    className={`mt-3 text-[11px] leading-relaxed md:mt-4 md:text-sm ${
+                      isActive ? "text-primary-foreground/72" : "text-muted-foreground"
+                    }`}
+                  >
                     {item.text}
                   </p>
                 </div>
@@ -2333,18 +2436,39 @@ function Index() {
       </section>
 
       {/* Why high conversion — centerpiece */}
-      <section id="why" className="border-t border-border">
-        <div className="mx-auto max-w-6xl px-6 py-28 md:py-36">
-          <div className="mx-auto max-w-3xl text-center">
+      <section id="why" className="relative overflow-hidden border-t border-border/70 bg-[#fbfcf8]">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -left-48 top-16 h-[34rem] w-[42rem] rounded-full bg-[radial-gradient(ellipse_at_center,rgba(200,240,160,0.18)_0%,rgba(200,240,160,0.065)_48%,rgba(200,240,160,0)_76%)] blur-3xl"
+        />
+        <div className="relative z-10 mx-auto grid max-w-6xl gap-10 px-6 py-20 md:py-28 lg:grid-cols-[0.82fr_1.18fr] lg:items-start lg:gap-14">
+          <div className="lg:sticky lg:top-32">
             <div className="mb-4 text-[11px] font-medium uppercase tracking-[0.16em] text-muted-foreground md:mb-5 md:text-xs md:tracking-[0.18em]">
               Почему AXCEND
             </div>
-            <h2 className="text-[28px] font-semibold leading-[1.12] md:text-5xl">
+            <h2 className="max-w-xl text-[32px] font-semibold leading-[1.04] tracking-tight md:text-[56px]">
               <span>32%</span> средний процент конверсии
             </h2>
+            <div
+              aria-hidden="true"
+              className="mt-8 hidden max-w-sm rounded-[30px] border border-border bg-white/72 p-5 shadow-[0_24px_80px_rgba(26,46,42,0.06)] backdrop-blur md:block"
+            >
+              <div className="grid grid-cols-[1fr_0.32fr] gap-2">
+                <div className="h-2 rounded-full bg-border/70" />
+                <div className="h-2 rounded-full bg-axcend-action" />
+              </div>
+              <div className="mt-4 h-1.5 overflow-hidden rounded-full bg-border/65">
+                <div className="h-full w-[32%] rounded-full bg-axcend-action" />
+              </div>
+              <div className="mt-4 grid grid-cols-3 gap-2">
+                <div className="h-16 rounded-2xl bg-axcend-soft" />
+                <div className="h-16 rounded-2xl bg-white" />
+                <div className="h-16 rounded-2xl bg-axcend-soft" />
+              </div>
+            </div>
           </div>
 
-          <div className="mt-16">
+          <div>
             <ConversionSystem items={conversionReasons} />
           </div>
         </div>
