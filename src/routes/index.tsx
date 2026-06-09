@@ -62,15 +62,15 @@ const DARK_SURFACE_GLOW_CLASS =
   "pointer-events-none absolute -right-32 -top-28 h-[28rem] w-[44rem] rounded-full bg-[radial-gradient(ellipse_at_70%_30%,rgba(200,240,160,0.20)_0%,rgba(200,240,160,0.085)_42%,rgba(200,240,160,0.025)_66%,rgba(200,240,160,0)_84%)] blur-[72px]";
 
 const LIGHT_SECTION_CLASS =
-  "relative isolate overflow-hidden border-t border-border/60 bg-[#fbfcf8]";
+  "relative isolate overflow-hidden border-t border-[#dde9dd] bg-[#fbfcf8]";
 
-const LIGHT_SECTION_INNER_CLASS = "relative z-10 mx-auto max-w-6xl px-6 py-20 md:py-28";
+const LIGHT_SECTION_INNER_CLASS = "relative z-10 mx-auto max-w-6xl px-5 py-16 md:px-6 md:py-24";
 
 const EDITORIAL_SURFACE_CLASS =
-  "rounded-[34px] border border-[#d8e6da] bg-[linear-gradient(180deg,rgba(255,255,255,0.96)_0%,rgba(247,251,242,0.92)_100%)] shadow-[0_22px_80px_rgba(26,46,42,0.06)]";
+  "rounded-[30px] border border-[#d9e7da] bg-[linear-gradient(180deg,rgba(255,255,255,0.94)_0%,rgba(248,252,244,0.82)_100%)] shadow-[0_18px_58px_rgba(26,46,42,0.045)]";
 
 const QUIET_SURFACE_CLASS =
-  "rounded-[26px] border border-[#d8e6da]/90 bg-white/86 shadow-[0_10px_38px_rgba(26,46,42,0.035)]";
+  "rounded-[24px] border border-[#d9e7da]/85 bg-white/76 shadow-[0_8px_28px_rgba(26,46,42,0.025)]";
 
 const DARK_PANEL_CLASS =
   "rounded-[30px] border border-primary-foreground/12 bg-primary-foreground/[0.06] shadow-[0_24px_74px_rgba(0,0,0,0.2)]";
@@ -196,7 +196,7 @@ function ProofGrid({ items }: { items: typeof proofs }) {
   return (
     <div
       ref={wrapRef}
-      className={`${EDITORIAL_SURFACE_CLASS} mx-auto grid max-w-5xl grid-cols-1 gap-2 overflow-hidden p-2 md:grid-cols-2 md:p-3`}
+      className={`${EDITORIAL_SURFACE_CLASS} mx-auto grid max-w-5xl grid-cols-1 gap-1.5 overflow-hidden p-1.5 md:grid-cols-2 md:p-2`}
     >
       {items.map((p, i) => {
         const Icon = p.icon;
@@ -214,14 +214,14 @@ function ProofGrid({ items }: { items: typeof proofs }) {
             onMouseEnter={() => setHover(i)}
             onMouseLeave={() => setHover(null)}
             style={{ transitionDelay: `${i * 60}ms` }}
-            className={`group relative flex min-h-[190px] flex-col overflow-hidden rounded-[22px] border p-5 text-left transition-all duration-300 md:min-h-[218px] md:rounded-[26px] md:p-6 ${
+            className={`group relative flex min-h-[184px] flex-col overflow-hidden rounded-[20px] border p-5 text-left transition-all duration-300 md:min-h-[210px] md:rounded-[24px] md:p-6 ${
               lifted
-                ? "border-axcend-action bg-axcend-soft shadow-[0_18px_54px_rgba(26,46,42,0.075)]"
-                : "border-transparent bg-white/72 hover:border-axcend-action/55 hover:bg-white/92"
+                ? "border-axcend-action bg-axcend-soft shadow-[0_14px_40px_rgba(26,46,42,0.055)]"
+                : "border-transparent bg-white/56 hover:border-[#d9e7da] hover:bg-white/78"
             } ${inView ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"}`}
           >
             <div
-              className={`pointer-events-none absolute -right-24 -top-24 h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(200,240,160,0.42),rgba(200,240,160,0.12)_42%,rgba(200,240,160,0)_72%)] blur-2xl transition-opacity duration-300 ${
+              className={`pointer-events-none absolute -right-24 -top-24 h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(200,240,160,0.28),rgba(200,240,160,0.08)_46%,rgba(200,240,160,0)_74%)] blur-2xl transition-opacity duration-300 ${
                 lifted ? "opacity-100" : "opacity-0"
               }`}
             />
@@ -235,7 +235,7 @@ function ProofGrid({ items }: { items: typeof proofs }) {
                 className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border transition-all duration-300 ${
                   lifted
                     ? "border-axcend-action bg-axcend-action text-axcend-dark"
-                    : "border-border bg-axcend-soft text-muted-foreground"
+                    : "border-[#d9e7da] bg-axcend-soft/70 text-muted-foreground"
                 }`}
               >
                 <Icon className="h-5 w-5" strokeWidth={1.9} />
@@ -843,14 +843,14 @@ function WhatWeDoTabs() {
   return (
     <Tabs
       defaultValue="0"
-      className="mx-auto grid w-full max-w-6xl gap-5 lg:grid-cols-[330px_minmax(0,1fr)] lg:items-start"
+      className="mx-auto grid w-full max-w-6xl gap-4 lg:grid-cols-[320px_minmax(0,1fr)] lg:items-start"
     >
-      <TabsList className="grid h-auto w-full grid-cols-2 items-stretch gap-1.5 rounded-[24px] border border-border/80 bg-white/80 p-1.5 shadow-[0_16px_50px_rgba(26,46,42,0.045)] md:grid-cols-3 md:gap-2 lg:sticky lg:top-28 lg:grid-cols-1 lg:rounded-[28px] lg:bg-white/90 lg:p-2">
+      <TabsList className="grid h-auto w-full grid-cols-2 items-stretch gap-1.5 rounded-[22px] border border-[#d9e7da] bg-white/70 p-1.5 md:grid-cols-3 md:gap-2 lg:sticky lg:top-28 lg:grid-cols-1 lg:rounded-[26px] lg:bg-white/72 lg:p-2">
         {whatWeDo.map((s, i) => (
           <TabsTrigger
             key={s.title}
             value={String(i)}
-            className="min-h-[34px] w-full whitespace-normal rounded-full border border-transparent bg-transparent px-2 py-1 text-center text-[10px] leading-[1.12] text-muted-foreground transition-colors hover:bg-axcend-soft/70 hover:text-foreground data-[state=active]:border-axcend-action data-[state=active]:bg-axcend-action data-[state=active]:text-axcend-dark data-[state=active]:shadow-none md:min-h-[38px] md:px-3 md:py-2 md:text-xs md:leading-snug lg:min-h-[54px] lg:justify-start lg:rounded-[20px] lg:px-4 lg:py-3 lg:text-left lg:text-sm"
+            className="min-h-[34px] w-full whitespace-normal rounded-full border border-transparent bg-transparent px-2 py-1 text-center text-[10px] leading-[1.12] text-muted-foreground transition-colors hover:bg-axcend-soft/70 hover:text-foreground data-[state=active]:border-axcend-action data-[state=active]:bg-axcend-action data-[state=active]:text-axcend-dark data-[state=active]:shadow-none md:min-h-[38px] md:px-3 md:py-2 md:text-xs md:leading-snug lg:min-h-[50px] lg:justify-start lg:rounded-[18px] lg:px-4 lg:py-3 lg:text-left lg:text-sm"
           >
             {s.title}
           </TabsTrigger>
@@ -859,9 +859,9 @@ function WhatWeDoTabs() {
       {whatWeDo.map((s, i) => (
         <TabsContent key={s.title} value={String(i)} className="mt-0 lg:col-start-2 lg:row-start-1">
           <div
-            className={`${EDITORIAL_SURFACE_CLASS} relative min-h-[260px] overflow-hidden p-6 md:min-h-[320px] md:p-10 lg:p-12`}
+            className={`${EDITORIAL_SURFACE_CLASS} relative min-h-[240px] overflow-hidden p-6 md:min-h-[300px] md:p-9 lg:p-10`}
           >
-            <div className="pointer-events-none absolute -left-20 -top-28 h-64 w-80 rounded-full bg-[radial-gradient(ellipse_at_center,rgba(200,240,160,0.34)_0%,rgba(200,240,160,0.12)_48%,rgba(200,240,160,0)_76%)] blur-3xl" />
+            <div className="pointer-events-none absolute -left-24 -top-28 h-64 w-80 rounded-full bg-[radial-gradient(ellipse_at_center,rgba(200,240,160,0.22)_0%,rgba(200,240,160,0.075)_50%,rgba(200,240,160,0)_78%)] blur-3xl" />
             <div className="pointer-events-none absolute bottom-0 left-0 top-0 w-1 rounded-full bg-axcend-action" />
             <div className="relative">
               <h3 className="text-xl font-semibold leading-tight text-foreground md:text-[34px]">
@@ -1096,15 +1096,15 @@ function IndustriesShowcase() {
 
   return (
     <div
-      className={`${DARK_SURFACE_BASE_CLASS} mx-auto max-w-6xl rounded-[34px] p-3 shadow-[0_28px_86px_rgba(26,46,42,0.16)] md:p-6`}
+      className={`${DARK_SURFACE_BASE_CLASS} mx-auto max-w-6xl rounded-[30px] p-3 shadow-[0_24px_72px_rgba(26,46,42,0.14)] md:p-5`}
     >
       <div className={`${DARK_SURFACE_GLOW_CLASS} hidden opacity-75 md:block`} />
-      <div className="relative z-10 mb-5 grid gap-5 md:mb-6 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
+      <div className="relative z-10 mb-4 grid gap-4 md:mb-5 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
         <p className="max-w-2xl text-[13px] leading-relaxed text-primary-foreground/72 md:text-base">
           Реальные результаты по разным B2B-сегментам. Каждый кейс показывает не количество звонков,
           а долю компаний, которые дошли до предметного разговора.
         </p>
-        <div className="grid grid-cols-3 gap-1.5 rounded-[22px] border border-primary-foreground/12 bg-primary-foreground/[0.055] p-1.5 md:gap-2 md:rounded-[24px] md:p-2">
+        <div className="grid grid-cols-3 gap-1.5 rounded-[20px] border border-primary-foreground/12 bg-primary-foreground/[0.045] p-1.5 md:gap-2 md:rounded-[22px] md:p-2">
           <div className="rounded-2xl px-2.5 py-2.5 md:px-3 md:py-3">
             <div className="text-[9px] font-medium uppercase tracking-[0.14em] text-primary-foreground/55 md:text-[10px] md:tracking-[0.16em]">
               Отрасли
@@ -1132,8 +1132,8 @@ function IndustriesShowcase() {
         </div>
       </div>
 
-      <div className="relative z-10 grid gap-3 lg:grid-cols-[minmax(0,1.25fr)_minmax(280px,0.75fr)] lg:gap-3">
-        <article className="rounded-[28px] border border-axcend-action/35 bg-primary-foreground/[0.075] p-5 shadow-[0_20px_62px_rgba(0,0,0,0.14)] md:rounded-[32px] md:p-7">
+      <div className="relative z-10 grid gap-2.5 lg:grid-cols-[minmax(0,1.25fr)_minmax(280px,0.75fr)] lg:gap-3">
+        <article className="rounded-[24px] border border-axcend-action/30 bg-primary-foreground/[0.07] p-5 shadow-[0_18px_52px_rgba(0,0,0,0.12)] md:rounded-[28px] md:p-6">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
             <div>
               <div className="inline-flex rounded-full border border-axcend-action/25 bg-axcend-action/12 px-3 py-1 text-[10px] font-semibold text-axcend-action md:text-[11px]">
@@ -1143,7 +1143,7 @@ function IndustriesShowcase() {
                 {activeItem.result.client}
               </h3>
             </div>
-            <div className="shrink-0 rounded-[24px] border border-primary-foreground/12 bg-primary-foreground/[0.07] px-4 py-3 text-left sm:text-right">
+            <div className="shrink-0 rounded-[22px] border border-primary-foreground/12 bg-primary-foreground/[0.065] px-4 py-3 text-left sm:text-right">
               <div className="text-[9px] font-medium uppercase tracking-[0.16em] text-primary-foreground/52 md:text-[10px]">
                 Конверсия
               </div>
@@ -1176,7 +1176,7 @@ function IndustriesShowcase() {
               key={`${item.industry.name}-${item.result.client}-${item.flowIndex}`}
               type="button"
               onClick={() => setActiveFlowIndex(item.flowIndex)}
-              className="group rounded-[22px] border border-primary-foreground/10 bg-primary-foreground/[0.045] p-3 text-left transition-colors hover:border-axcend-action/55 hover:bg-primary-foreground/[0.075] md:p-3.5"
+              className="group rounded-[20px] border border-primary-foreground/10 bg-primary-foreground/[0.04] p-3 text-left transition-colors hover:border-axcend-action/55 hover:bg-primary-foreground/[0.07] md:p-3.5"
             >
               <div className="flex items-start justify-between gap-3">
                 <div className="min-w-0">
@@ -1423,8 +1423,8 @@ function CalcRow({
   fmt: (n: number) => string;
 }) {
   return (
-    <div className="rounded-[20px] border border-border bg-background/95 p-3 shadow-[0_14px_34px_rgba(26,46,42,0.035)] transition-colors hover:border-axcend-action/45 md:rounded-[24px] md:p-5">
-      <div className="mb-3 grid gap-2 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center sm:gap-5 md:mb-4">
+    <div className="rounded-[18px] border border-transparent bg-white/58 px-3 py-3 transition-colors hover:border-[#d9e7da] hover:bg-white/78 md:px-4 md:py-4">
+      <div className="mb-2.5 grid gap-2 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center sm:gap-5 md:mb-3">
         <label className="min-w-0 whitespace-nowrap text-[12px] font-semibold leading-none text-foreground md:max-w-[340px] md:text-sm md:leading-snug">
           {label}
         </label>
@@ -1473,10 +1473,10 @@ function Calculator() {
   const revenue = meetings * avgDeal;
   return (
     <div
-      className={`${EDITORIAL_SURFACE_CLASS} mx-auto grid max-w-6xl grid-cols-1 gap-3 overflow-hidden p-2 md:p-3 lg:grid-cols-[minmax(0,1fr)_420px] lg:items-stretch`}
+      className={`${EDITORIAL_SURFACE_CLASS} mx-auto grid max-w-6xl grid-cols-1 gap-2 overflow-hidden p-1.5 md:p-2 lg:grid-cols-[minmax(0,1fr)_400px] lg:items-stretch`}
     >
-      <div className="relative overflow-hidden rounded-[26px] border border-border/75 bg-white/76 p-4 md:rounded-[30px] md:p-6">
-        <div className="pointer-events-none absolute -right-28 -top-28 h-80 w-80 rounded-full bg-[radial-gradient(circle,rgba(200,240,160,0.32)_0%,rgba(200,240,160,0.10)_52%,rgba(200,240,160,0)_78%)] blur-3xl" />
+      <div className="relative overflow-hidden rounded-[24px] bg-white/58 p-4 md:rounded-[28px] md:p-6">
+        <div className="pointer-events-none absolute -right-28 -top-28 h-80 w-80 rounded-full bg-[radial-gradient(circle,rgba(200,240,160,0.20)_0%,rgba(200,240,160,0.065)_54%,rgba(200,240,160,0)_80%)] blur-3xl" />
         <div className="relative z-10 mb-4 flex flex-col gap-2 text-left sm:flex-row sm:items-end sm:justify-between md:mb-5">
           <div>
             <div className="text-lg font-semibold text-foreground md:text-xl">Параметры</div>
@@ -1485,7 +1485,7 @@ function Calculator() {
             5% в договоре
           </div>
         </div>
-        <div className="relative z-10 space-y-2 rounded-[24px] border border-border/80 bg-white/72 p-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.8)] md:space-y-3 md:rounded-[28px] md:p-4">
+        <div className="relative z-10 space-y-1.5 rounded-[22px] bg-[#f6faf2]/72 p-1.5 md:space-y-2 md:rounded-[26px] md:p-2">
           <CalcRow
             label="Размер базы целевых компаний"
             value={companies}
@@ -1516,7 +1516,7 @@ function Calculator() {
           />
         </div>
 
-        <div className="relative z-10 mt-3 grid grid-cols-3 overflow-hidden rounded-[22px] border border-border/80 bg-white/92 text-left shadow-[0_18px_48px_rgba(26,46,42,0.045)] md:mt-4 md:rounded-[26px]">
+        <div className="relative z-10 mt-3 grid grid-cols-3 overflow-hidden rounded-[20px] border border-[#d9e7da] bg-white/78 text-left md:mt-4 md:rounded-[24px]">
           <div className="border-r border-border p-3 md:p-4">
             <div className="text-[10px] font-medium uppercase tracking-[0.16em] text-muted-foreground md:text-xs md:tracking-[0.18em]">
               База
@@ -1544,7 +1544,7 @@ function Calculator() {
         </div>
       </div>
 
-      <div className={`${DARK_SURFACE_BASE_CLASS} rounded-[26px] p-4 md:rounded-[30px] md:p-8`}>
+      <div className={`${DARK_SURFACE_BASE_CLASS} rounded-[24px] p-4 md:rounded-[28px] md:p-7`}>
         <div className={`${DARK_SURFACE_GLOW_CLASS} hidden md:block`} />
         <div className="relative z-10">
           <div className="text-[10px] font-medium uppercase tracking-[0.16em] text-primary-foreground/60 md:text-xs md:tracking-[0.18em]">
@@ -1650,10 +1650,6 @@ function Section({
         aria-hidden="true"
         className="pointer-events-none absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,rgba(26,46,42,0),rgba(26,46,42,0.12),rgba(26,46,42,0))]"
       />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute left-1/2 top-10 h-[30rem] w-[76rem] -translate-x-1/2 rounded-full bg-[radial-gradient(ellipse_at_center,rgba(200,240,160,0.09)_0%,rgba(200,240,160,0.035)_48%,rgba(200,240,160,0)_74%)] blur-3xl"
-      />
       <div className={LIGHT_SECTION_INNER_CLASS}>
         <div className={center ? "mx-auto max-w-3xl text-center" : "max-w-3xl"}>
           {eyebrow && (
@@ -1665,7 +1661,7 @@ function Section({
             {title}
           </h2>
         </div>
-        <Reveal className="mt-9 md:mt-14">{children}</Reveal>
+        <Reveal className="mt-8 md:mt-12">{children}</Reveal>
       </div>
     </section>
   );
@@ -1692,13 +1688,13 @@ function TeamSection() {
 
         <Reveal className="mt-8 md:mt-14">
           <div
-            className={`${EDITORIAL_SURFACE_CLASS} relative grid gap-3 overflow-hidden p-2 md:p-3 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.35fr)] lg:items-stretch`}
+            className={`${EDITORIAL_SURFACE_CLASS} relative grid gap-2 overflow-hidden p-1.5 md:p-2 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.35fr)] lg:items-stretch`}
           >
             <div
               aria-hidden="true"
-              className="pointer-events-none absolute -right-28 -top-28 h-72 w-96 rounded-full bg-[radial-gradient(ellipse_at_center,rgba(200,240,160,0.16)_0%,rgba(200,240,160,0.055)_48%,rgba(200,240,160,0)_78%)] blur-3xl"
+              className="pointer-events-none absolute -right-28 -top-28 h-72 w-96 rounded-full bg-[radial-gradient(ellipse_at_center,rgba(200,240,160,0.11)_0%,rgba(200,240,160,0.04)_50%,rgba(200,240,160,0)_80%)] blur-3xl"
             />
-            <article className="relative overflow-hidden rounded-[26px] border border-primary-foreground/10 bg-axcend-dark p-3 text-primary-foreground shadow-[0_24px_70px_rgba(26,46,42,0.18)] md:rounded-[30px] md:p-4">
+            <article className="relative overflow-hidden rounded-[24px] border border-primary-foreground/10 bg-axcend-dark p-3 text-primary-foreground shadow-[0_20px_58px_rgba(26,46,42,0.14)] md:rounded-[28px] md:p-4">
               <div className={`${DARK_SURFACE_GLOW_CLASS} opacity-80`} />
               <div className="relative z-10 grid grid-cols-[92px_minmax(0,1fr)] gap-3 md:block">
                 <img
@@ -1721,11 +1717,11 @@ function TeamSection() {
               </div>
             </article>
 
-            <div className="relative rounded-[26px] border border-border/75 bg-white/76 p-2 md:rounded-[30px] md:p-3">
+            <div className="relative rounded-[24px] bg-white/58 p-1.5 md:rounded-[28px] md:p-2">
               {team.map((member) => (
                 <article
                   key={member.name}
-                  className="group grid grid-cols-[82px_minmax(0,1fr)] gap-3 rounded-[22px] border border-transparent p-3 transition-colors hover:border-axcend-action/60 hover:bg-axcend-soft/70 md:grid-cols-[128px_minmax(0,1fr)] md:items-center md:gap-4 md:p-4"
+                  className="group grid grid-cols-[82px_minmax(0,1fr)] gap-3 rounded-[20px] border border-transparent p-3 transition-colors hover:border-axcend-action/55 hover:bg-axcend-soft/68 md:grid-cols-[128px_minmax(0,1fr)] md:items-center md:gap-4 md:p-4"
                 >
                   <img
                     src={member.image}
