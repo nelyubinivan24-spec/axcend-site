@@ -61,18 +61,19 @@ const DARK_SURFACE_BASE_CLASS =
 const DARK_SURFACE_GLOW_CLASS =
   "pointer-events-none absolute -right-32 -top-28 h-[28rem] w-[44rem] rounded-full bg-[radial-gradient(ellipse_at_70%_30%,rgba(200,240,160,0.20)_0%,rgba(200,240,160,0.085)_42%,rgba(200,240,160,0.025)_66%,rgba(200,240,160,0)_84%)] blur-[72px]";
 
-const LIGHT_SECTION_CLASS = "relative overflow-hidden border-t border-border/70 bg-[#fbfcf8]";
+const LIGHT_SECTION_CLASS =
+  "relative isolate overflow-hidden border-t border-border/60 bg-[#fbfcf8]";
 
 const LIGHT_SECTION_INNER_CLASS = "relative z-10 mx-auto max-w-6xl px-6 py-20 md:py-28";
 
 const EDITORIAL_SURFACE_CLASS =
-  "rounded-[38px] border border-border/80 bg-[linear-gradient(180deg,#ffffff_0%,#f7fbf2_100%)] shadow-[0_30px_100px_rgba(26,46,42,0.075)]";
+  "rounded-[34px] border border-[#d8e6da] bg-[linear-gradient(180deg,rgba(255,255,255,0.96)_0%,rgba(247,251,242,0.92)_100%)] shadow-[0_22px_80px_rgba(26,46,42,0.06)]";
 
 const QUIET_SURFACE_CLASS =
-  "rounded-[28px] border border-border/75 bg-white/88 shadow-[0_16px_55px_rgba(26,46,42,0.045)]";
+  "rounded-[26px] border border-[#d8e6da]/90 bg-white/86 shadow-[0_10px_38px_rgba(26,46,42,0.035)]";
 
 const DARK_PANEL_CLASS =
-  "rounded-[30px] border border-primary-foreground/12 bg-primary-foreground/[0.055] shadow-[0_28px_90px_rgba(0,0,0,0.18)]";
+  "rounded-[30px] border border-primary-foreground/12 bg-primary-foreground/[0.06] shadow-[0_24px_74px_rgba(0,0,0,0.2)]";
 
 const CONTACT_WHATSAPP_URL = "https://wa.me/77085077371";
 const CONTACT_WHATSAPP_FOOTER_URL = `${CONTACT_WHATSAPP_URL}?text=${encodeURIComponent(
@@ -1651,7 +1652,7 @@ function Section({
       />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute left-1/2 top-10 h-[30rem] w-[76rem] -translate-x-1/2 rounded-full bg-[radial-gradient(ellipse_at_center,rgba(200,240,160,0.13)_0%,rgba(200,240,160,0.045)_48%,rgba(200,240,160,0)_74%)] blur-3xl"
+        className="pointer-events-none absolute left-1/2 top-10 h-[30rem] w-[76rem] -translate-x-1/2 rounded-full bg-[radial-gradient(ellipse_at_center,rgba(200,240,160,0.09)_0%,rgba(200,240,160,0.035)_48%,rgba(200,240,160,0)_74%)] blur-3xl"
       />
       <div className={LIGHT_SECTION_INNER_CLASS}>
         <div className={center ? "mx-auto max-w-3xl text-center" : "max-w-3xl"}>
