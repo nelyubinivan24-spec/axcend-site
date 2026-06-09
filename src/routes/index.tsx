@@ -856,11 +856,11 @@ function WhatWeDoTabs() {
 function LaunchProcess({ dark = false }: { dark?: boolean } = {}) {
   return (
     <div className="mx-auto max-w-5xl">
-      <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_390px] lg:items-stretch">
+      <div className="grid gap-5 md:gap-8 lg:grid-cols-[minmax(0,1fr)_390px] lg:items-stretch">
         <div className="flex flex-col justify-center">
           <p
             className={cn(
-              "max-w-2xl text-sm leading-relaxed md:text-base",
+              "max-w-2xl text-[13px] leading-relaxed md:text-base",
               dark ? "text-primary-foreground/76" : "text-muted-foreground",
             )}
           >
@@ -869,7 +869,7 @@ function LaunchProcess({ dark = false }: { dark?: boolean } = {}) {
             Ниже описано, что именно мы делаем на каждом этапе и за что вы платите.
           </p>
         </div>
-        <div className="relative z-10 h-full rounded-[34px] bg-white/[0.055] p-2 shadow-[0_34px_92px_rgba(0,0,0,0.36),0_14px_36px_rgba(0,0,0,0.26),0_0_0_1px_rgba(255,255,255,0.08)]">
+        <div className="relative z-10 hidden h-full rounded-[34px] bg-white/[0.055] p-2 shadow-[0_34px_92px_rgba(0,0,0,0.36),0_14px_36px_rgba(0,0,0,0.26),0_0_0_1px_rgba(255,255,255,0.08)] md:block">
           <div className="relative h-full min-h-[220px] overflow-hidden rounded-[28px] bg-muted">
             <img
               src="https://axcend.pro/assets/callcenter-real-CefSNWWS.jpg"
@@ -884,18 +884,18 @@ function LaunchProcess({ dark = false }: { dark?: boolean } = {}) {
 
       <div
         className={cn(
-          "mt-10 overflow-hidden rounded-[26px] border border-axcend-action/55 bg-axcend-soft p-0 md:mt-12",
+          "mt-6 overflow-hidden rounded-[24px] border border-axcend-action/55 bg-axcend-soft p-0 md:mt-12 md:rounded-[26px]",
           dark && "shadow-[0_28px_90px_rgba(0,0,0,0.18)]",
         )}
       >
         <div className="flex items-stretch">
           <div className="hidden w-1.5 shrink-0 bg-axcend-action md:block" />
-          <div className="p-5 md:p-6">
+          <div className="p-4 md:p-6">
             <div>
-              <h3 className="text-lg font-semibold leading-snug text-foreground md:text-xl">
+              <h3 className="text-base font-semibold leading-snug text-foreground md:text-xl">
                 Старт проекта
               </h3>
-              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+              <p className="mt-2 text-[13px] leading-relaxed text-muted-foreground md:mt-3 md:text-sm">
                 Проект стартует после подписания договора и оплаты счёта. С этого момента мы
                 запускаем работу по вашему продукту — и начинаем не со звонков, а с подготовки.
               </p>
@@ -904,58 +904,58 @@ function LaunchProcess({ dark = false }: { dark?: boolean } = {}) {
         </div>
       </div>
 
-      <Accordion type="single" collapsible className="mt-4 space-y-4 md:mt-5">
+      <Accordion type="single" collapsible className="mt-3 space-y-3 md:mt-5 md:space-y-4">
         {launchStages.map((stage, index) => (
           <AccordionItem
             key={stage.number}
             value={String(index)}
-            className="overflow-hidden rounded-[26px] border border-border bg-card px-0 transition-[border-color,box-shadow] hover:border-axcend-action/70 hover:shadow-[0_18px_50px_rgba(0,0,0,0.08)] data-[state=open]:border-axcend-action/70 data-[state=open]:bg-axcend-soft"
+            className="overflow-hidden rounded-[22px] border border-border bg-card px-0 transition-[border-color,box-shadow] hover:border-axcend-action/70 hover:shadow-[0_18px_50px_rgba(0,0,0,0.08)] data-[state=open]:border-axcend-action/70 data-[state=open]:bg-axcend-soft md:rounded-[26px]"
           >
-            <AccordionTrigger className="group px-5 py-5 text-left hover:no-underline md:px-6 md:py-6 [&>svg]:hidden">
-              <div className="flex min-w-0 flex-1 items-center gap-4 pr-4">
+            <AccordionTrigger className="group px-4 py-4 text-left hover:no-underline md:px-6 md:py-6 [&>svg]:hidden">
+              <div className="flex min-w-0 flex-1 items-center gap-3 pr-2 md:gap-4 md:pr-4">
                 <div className="min-w-0 flex-1">
-                  <div className="mb-2 inline-flex rounded-full border border-axcend-action/50 bg-axcend-soft px-3 py-1 text-[10px] font-medium tracking-[0.04em] text-axcend-dark">
+                  <div className="mb-1.5 inline-flex rounded-full border border-axcend-action/50 bg-axcend-soft px-2.5 py-0.5 text-[9px] font-medium tracking-[0.04em] text-axcend-dark md:mb-2 md:px-3 md:py-1 md:text-[10px]">
                     {index + 1} шаг
                   </div>
-                  <div className="text-base font-semibold leading-snug text-foreground md:text-xl">
+                  <div className="text-[15px] font-semibold leading-snug text-foreground md:text-xl">
                     {stage.title}
                   </div>
-                  <div className="mt-1 text-xs leading-relaxed text-muted-foreground md:text-sm">
+                  <div className="mt-1 text-[11px] leading-relaxed text-muted-foreground md:text-sm">
                     {stage.summary}
                   </div>
                 </div>
-                <div className="ml-auto flex h-10 w-10 shrink-0 items-center justify-center gap-2 rounded-full border border-axcend-action bg-axcend-action text-[11px] font-medium text-axcend-dark transition-colors group-hover:bg-axcend-action/85 group-data-[state=open]:bg-axcend-action md:h-auto md:w-auto md:px-3 md:py-2">
+                <div className="ml-auto flex h-9 w-9 shrink-0 items-center justify-center gap-2 rounded-full border border-axcend-action bg-axcend-action text-[11px] font-medium text-axcend-dark transition-colors group-hover:bg-axcend-action/85 group-data-[state=open]:bg-axcend-action md:h-auto md:w-auto md:px-3 md:py-2">
                   <span className="hidden md:inline group-data-[state=open]:!hidden">Раскрыть</span>
                   <span className="hidden md:group-data-[state=open]:inline">Свернуть</span>
                   <Plus className="h-3.5 w-3.5 transition-transform group-data-[state=open]:rotate-45" />
                 </div>
               </div>
             </AccordionTrigger>
-            <AccordionContent className="px-5 pb-5 md:px-6 md:pb-6">
-              <div className="border-t border-border/80 pt-5">
-                <div className="space-y-3 text-sm leading-relaxed text-muted-foreground md:text-base">
+            <AccordionContent className="px-4 pb-4 md:px-6 md:pb-6">
+              <div className="border-t border-border/80 pt-4 md:pt-5">
+                <div className="space-y-3 text-[13px] leading-relaxed text-muted-foreground md:text-base">
                   {stage.body.map((paragraph) => (
                     <p key={paragraph}>{paragraph}</p>
                   ))}
                 </div>
-                <div className="mt-5 grid gap-3 md:grid-cols-2">
+                <div className="mt-4 grid gap-3 md:mt-5 md:grid-cols-2">
                   {stage.result && (
-                    <div className="rounded-2xl border border-border bg-card/80 p-4">
-                      <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.14em] text-axcend-dark">
+                    <div className="rounded-2xl border border-border bg-card/80 p-3 md:p-4">
+                      <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-axcend-dark md:text-xs">
                         <Check className="h-4 w-4" />
                         Результат этапа
                       </div>
-                      <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                      <p className="mt-2 text-[13px] leading-relaxed text-muted-foreground md:text-sm">
                         {stage.result}
                       </p>
                     </div>
                   )}
-                  <div className="rounded-2xl border border-axcend-action/50 bg-axcend-action/15 p-4">
-                    <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.14em] text-axcend-dark">
+                  <div className="rounded-2xl border border-axcend-action/50 bg-axcend-action/15 p-3 md:p-4">
+                    <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-axcend-dark md:text-xs">
                       <Check className="h-4 w-4" />
                       За что вы платите
                     </div>
-                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                    <p className="mt-2 text-[13px] leading-relaxed text-muted-foreground md:text-sm">
                       {stage.payment}
                     </p>
                   </div>
@@ -993,32 +993,32 @@ function IndustriesShowcase() {
   return (
     <div className="mx-auto max-w-6xl">
       <div className="mb-7 grid gap-5 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
-        <p className="max-w-2xl text-sm leading-relaxed text-muted-foreground md:text-base">
+        <p className="max-w-2xl text-[13px] leading-relaxed text-muted-foreground md:text-base">
           Реальные результаты по разным B2B-сегментам. Каждый кейс показывает не количество звонков,
           а долю компаний, которые дошли до предметного разговора.
         </p>
-        <div className="grid grid-cols-3 gap-2 rounded-[24px] border border-border bg-card p-2">
-          <div className="rounded-2xl px-3 py-3">
-            <div className="text-[10px] font-medium uppercase tracking-[0.16em] text-muted-foreground">
+        <div className="grid grid-cols-3 gap-1.5 rounded-[22px] border border-border bg-card p-1.5 md:gap-2 md:rounded-[24px] md:p-2">
+          <div className="rounded-2xl px-2.5 py-2.5 md:px-3 md:py-3">
+            <div className="text-[9px] font-medium uppercase tracking-[0.14em] text-muted-foreground md:text-[10px] md:tracking-[0.16em]">
               Отрасли
             </div>
-            <div className="mt-1 text-2xl font-semibold tabular-nums text-foreground">
+            <div className="mt-1 text-xl font-semibold tabular-nums text-foreground md:text-2xl">
               {industriesData.length}+
             </div>
           </div>
-          <div className="rounded-2xl px-3 py-3">
-            <div className="text-[10px] font-medium uppercase tracking-[0.16em] text-muted-foreground">
+          <div className="rounded-2xl px-2.5 py-2.5 md:px-3 md:py-3">
+            <div className="text-[9px] font-medium uppercase tracking-[0.14em] text-muted-foreground md:text-[10px] md:tracking-[0.16em]">
               Кейсы
             </div>
-            <div className="mt-1 text-2xl font-semibold tabular-nums text-foreground">
+            <div className="mt-1 text-xl font-semibold tabular-nums text-foreground md:text-2xl">
               {totalCaseCount}
             </div>
           </div>
-          <div className="rounded-2xl border border-axcend-action/45 bg-axcend-soft px-3 py-3">
-            <div className="text-[10px] font-medium uppercase tracking-[0.16em] text-muted-foreground">
+          <div className="rounded-2xl border border-axcend-action/45 bg-axcend-soft px-2.5 py-2.5 md:px-3 md:py-3">
+            <div className="text-[9px] font-medium uppercase tracking-[0.14em] text-muted-foreground md:text-[10px] md:tracking-[0.16em]">
               Средняя
             </div>
-            <div className="mt-1 text-2xl font-semibold tabular-nums text-axcend-dark">
+            <div className="mt-1 text-xl font-semibold tabular-nums text-axcend-dark md:text-2xl">
               {overallAvg.toFixed(1)}%
             </div>
           </div>
@@ -1031,31 +1031,31 @@ function IndustriesShowcase() {
           return (
             <article
               key={`${item.industry.name}-${item.result.client}-${item.flowIndex}`}
-              className={`rounded-[28px] border border-border bg-card p-5 transition-colors hover:border-axcend-action/60 md:block ${
+              className={`rounded-[24px] border border-border bg-card p-4 transition-colors hover:border-axcend-action/60 md:block md:rounded-[28px] md:p-5 ${
                 visibleIndex > 0 ? "hidden" : ""
               }`}
             >
-              <div className="inline-flex rounded-full border border-border bg-background px-3 py-1 text-[11px] font-medium text-muted-foreground">
+              <div className="inline-flex rounded-full border border-border bg-background px-3 py-1 text-[10px] font-medium text-muted-foreground md:text-[11px]">
                 {item.industry.name}
               </div>
-              <h3 className="mt-5 min-h-[56px] text-xl font-semibold leading-tight text-foreground">
+              <h3 className="mt-4 text-lg font-semibold leading-tight text-foreground md:mt-5 md:min-h-[56px] md:text-xl">
                 {item.result.client}
               </h3>
-              <div className="mt-6 flex items-end justify-between gap-4">
+              <div className="mt-5 flex items-end justify-between gap-4 md:mt-6">
                 <div>
-                  <div className="text-[10px] font-medium uppercase tracking-[0.16em] text-muted-foreground">
+                  <div className="text-[9px] font-medium uppercase tracking-[0.16em] text-muted-foreground md:text-[10px]">
                     Конверсия
                   </div>
-                  <div className="mt-1 text-[42px] font-semibold leading-none tabular-nums text-foreground">
+                  <div className="mt-1 text-[36px] font-semibold leading-none tabular-nums text-foreground md:text-[42px]">
                     {item.result.pct.toFixed(1)}%
                   </div>
                 </div>
-                <div className="pb-1 text-right text-sm tabular-nums text-muted-foreground">
+                <div className="pb-1 text-right text-xs tabular-nums text-muted-foreground md:text-sm">
                   {item.result.hits.toLocaleString("ru-RU")} из{" "}
                   {item.result.total.toLocaleString("ru-RU")}
                 </div>
               </div>
-              <div className="mt-5 h-1.5 overflow-hidden rounded-full bg-muted">
+              <div className="mt-4 h-1.5 overflow-hidden rounded-full bg-muted md:mt-5">
                 <div
                   className="h-full rounded-full bg-axcend-action transition-all duration-500"
                   style={{ width: `${barWidth}%` }}
@@ -1066,7 +1066,7 @@ function IndustriesShowcase() {
         })}
       </div>
 
-      <div className="mt-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+      <div className="mt-5 flex flex-col gap-3 md:mt-6 md:flex-row md:items-center md:justify-between md:gap-4">
         <div className="text-sm text-muted-foreground">
           Кейс{" "}
           <span className="font-semibold tabular-nums text-foreground">
@@ -1082,7 +1082,7 @@ function IndustriesShowcase() {
             type="button"
             aria-label="Предыдущий кейс"
             onClick={goPrevCase}
-            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-border bg-card text-foreground transition-colors hover:border-axcend-action hover:bg-axcend-soft"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border bg-card text-foreground transition-colors hover:border-axcend-action hover:bg-axcend-soft md:h-11 md:w-11"
           >
             <ArrowRight className="h-4 w-4 rotate-180" />
           </button>
@@ -1090,7 +1090,7 @@ function IndustriesShowcase() {
             type="button"
             aria-label="Следующий кейс"
             onClick={goNextCase}
-            className="inline-flex h-11 items-center justify-center gap-2 rounded-full bg-axcend-action px-5 text-sm font-semibold text-axcend-dark transition-opacity hover:opacity-85"
+            className="inline-flex h-10 items-center justify-center gap-2 rounded-full bg-axcend-action px-4 text-sm font-semibold text-axcend-dark transition-opacity hover:opacity-85 md:h-11 md:px-5"
           >
             Следующий кейс
             <ArrowRight className="h-4 w-4" />
@@ -1534,59 +1534,59 @@ function TeamSection() {
     <section id="team" className="border-t border-border bg-background">
       <div className="mx-auto max-w-6xl px-6 py-24 md:py-32">
         <div className="mx-auto max-w-3xl text-center">
-          <div className="mb-4 inline-flex rounded-full bg-axcend-soft px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.12em] text-axcend-dark">
+          <div className="mb-3 inline-flex rounded-full bg-axcend-soft px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-axcend-dark md:mb-4 md:px-4 md:py-1.5 md:text-xs">
             Команда
           </div>
-          <h2 className="text-[28px] font-semibold leading-[1.15] text-foreground md:text-5xl">
+          <h2 className="text-[26px] font-semibold leading-[1.15] text-foreground md:text-5xl">
             Кто отвечает за результат
           </h2>
         </div>
 
-        <Reveal className="mt-12 md:mt-14">
+        <Reveal className="mt-8 md:mt-14">
           <div className="grid gap-6 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.35fr)] lg:items-stretch">
-            <article className="relative overflow-hidden rounded-[30px] border border-primary-foreground/10 bg-axcend-dark p-4 text-primary-foreground shadow-[0_24px_70px_rgba(26,46,42,0.18)]">
+            <article className="relative overflow-hidden rounded-[26px] border border-primary-foreground/10 bg-axcend-dark p-3 text-primary-foreground shadow-[0_24px_70px_rgba(26,46,42,0.18)] md:rounded-[30px] md:p-4">
               <div className={`${DARK_SURFACE_GLOW_CLASS} opacity-80`} />
-              <div className="relative z-10">
+              <div className="relative z-10 grid grid-cols-[92px_minmax(0,1fr)] gap-3 md:block">
                 <img
                   src={lead.image}
                   alt={lead.name}
                   loading="lazy"
-                  className="aspect-[4/3] w-full rounded-[22px] object-cover"
+                  className="h-28 w-[92px] rounded-[18px] object-cover md:aspect-[4/3] md:h-auto md:w-full md:rounded-[22px]"
                 />
-                <div className="p-2 pt-6 md:p-4 md:pt-7">
-                  <h3 className="text-2xl font-semibold leading-tight text-primary-foreground">
+                <div className="min-w-0 p-0 md:p-4 md:pt-7">
+                  <h3 className="text-lg font-semibold leading-tight text-primary-foreground md:text-2xl">
                     {lead.name}
                   </h3>
-                  <p className="mt-3 text-base leading-relaxed text-primary-foreground/72">
+                  <p className="mt-1 text-[13px] leading-snug text-primary-foreground/72 md:mt-3 md:text-base md:leading-relaxed">
                     {lead.role}
                   </p>
-                  <div className="mt-7 border-t border-primary-foreground/14 pt-5 text-sm font-semibold leading-relaxed text-axcend-action">
+                  <div className="mt-3 border-t border-primary-foreground/14 pt-3 text-xs font-semibold leading-relaxed text-axcend-action md:mt-7 md:pt-5 md:text-sm">
                     {lead.proof}
                   </div>
                 </div>
               </div>
             </article>
 
-            <div className="grid gap-4">
+            <div className="grid gap-3 md:gap-4">
               {team.map((member) => (
                 <article
                   key={member.name}
-                  className="group grid gap-4 rounded-[26px] border border-border bg-card p-4 transition-colors hover:border-axcend-action/70 md:grid-cols-[148px_minmax(0,1fr)] md:items-center md:p-5"
+                  className="group grid grid-cols-[82px_minmax(0,1fr)] gap-3 rounded-[22px] border border-border bg-card p-3 transition-colors hover:border-axcend-action/70 md:grid-cols-[148px_minmax(0,1fr)] md:items-center md:gap-4 md:rounded-[26px] md:p-5"
                 >
                   <img
                     src={member.image}
                     alt={member.name}
                     loading="lazy"
-                    className="aspect-square w-full rounded-[20px] object-cover md:w-[148px]"
+                    className="h-[98px] w-[82px] rounded-[16px] object-cover md:aspect-square md:h-auto md:w-[148px] md:rounded-[20px]"
                   />
                   <div className="min-w-0">
-                    <h3 className="text-xl font-semibold leading-snug text-foreground">
+                    <h3 className="text-base font-semibold leading-snug text-foreground md:text-xl">
                       {member.name}
                     </h3>
-                    <p className="mt-2 text-base leading-snug text-muted-foreground">
+                    <p className="mt-1 text-[12px] leading-snug text-muted-foreground md:mt-2 md:text-base">
                       {member.role}
                     </p>
-                    <div className="mt-5 border-t border-border pt-4 text-sm font-semibold leading-relaxed text-axcend-dark">
+                    <div className="mt-3 border-t border-border pt-3 text-[11px] font-semibold leading-relaxed text-axcend-dark md:mt-5 md:pt-4 md:text-sm">
                       {member.proof}
                     </div>
                   </div>
@@ -2349,16 +2349,16 @@ function Index() {
           aria-hidden="true"
           className="pointer-events-none absolute -right-72 top-12 h-[42rem] w-[62rem] rounded-full bg-[radial-gradient(ellipse_at_center,rgba(200,240,160,0.13)_0%,rgba(200,240,160,0.065)_34%,rgba(200,240,160,0.025)_58%,rgba(200,240,160,0)_82%)] blur-[96px]"
         />
-        <div className="relative mx-auto max-w-6xl px-6 py-24 md:py-32">
+        <div className="relative mx-auto max-w-6xl px-5 py-16 md:px-6 md:py-32">
           <div className="mx-auto max-w-3xl text-center">
-            <div className="mb-4 text-[11px] font-medium uppercase tracking-[0.16em] text-primary-foreground/66 md:mb-5 md:text-xs md:tracking-[0.18em]">
+            <div className="mb-3 text-[10px] font-medium uppercase tracking-[0.16em] text-primary-foreground/66 md:mb-5 md:text-xs md:tracking-[0.18em]">
               Что входит в работу
             </div>
-            <h2 className="text-[28px] font-semibold leading-[1.15] text-primary-foreground md:text-5xl">
+            <h2 className="text-[26px] font-semibold leading-[1.15] text-primary-foreground md:text-5xl">
               Как мы работаем: этапы запуска продаж
             </h2>
           </div>
-          <Reveal className="mt-14 md:mt-20">
+          <Reveal className="mt-10 md:mt-20">
             <LaunchProcess dark />
           </Reveal>
         </div>
