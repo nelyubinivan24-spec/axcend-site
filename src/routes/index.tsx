@@ -61,6 +61,14 @@ const DARK_SURFACE_BASE_CLASS =
 const DARK_SURFACE_GLOW_CLASS =
   "pointer-events-none absolute -right-32 -top-28 h-[28rem] w-[44rem] rounded-full bg-[radial-gradient(ellipse_at_70%_30%,rgba(200,240,160,0.20)_0%,rgba(200,240,160,0.085)_42%,rgba(200,240,160,0.025)_66%,rgba(200,240,160,0)_84%)] blur-[72px]";
 
+const LIGHT_SECTION_CLASS =
+  "relative border-t border-border/70 bg-[linear-gradient(180deg,#fbfcf8_0%,#ffffff_46%,#f8fbf4_100%)]";
+
+const LIGHT_SECTION_INNER_CLASS = "mx-auto max-w-6xl px-6 py-20 md:py-28";
+
+const LIGHT_PANEL_CLASS =
+  "rounded-[32px] border border-border/80 bg-white/82 shadow-[0_24px_80px_rgba(26,46,42,0.055)] backdrop-blur";
+
 const CONTACT_WHATSAPP_URL = "https://wa.me/77085077371";
 const CONTACT_WHATSAPP_FOOTER_URL = `${CONTACT_WHATSAPP_URL}?text=${encodeURIComponent(
   "Добрый день. Мне нужны B2B продажи для моего бизнеса.",
@@ -180,7 +188,10 @@ function ProofGrid({ items }: { items: typeof proofs }) {
   }, []);
 
   return (
-    <div ref={wrapRef} className="grid grid-cols-1 gap-4 md:grid-cols-2">
+    <div
+      ref={wrapRef}
+      className={`${LIGHT_PANEL_CLASS} grid grid-cols-1 gap-3 p-3 md:grid-cols-2 md:gap-4 md:p-4`}
+    >
       {items.map((p, i) => {
         const Icon = p.icon;
         const isActive = active === i;
@@ -197,10 +208,10 @@ function ProofGrid({ items }: { items: typeof proofs }) {
             onMouseEnter={() => setHover(i)}
             onMouseLeave={() => setHover(null)}
             style={{ transitionDelay: `${i * 60}ms` }}
-            className={`group relative flex min-h-[240px] flex-col overflow-hidden rounded-[26px] border p-6 text-left transition-all duration-300 md:min-h-[260px] md:rounded-[28px] md:p-8 ${
+            className={`group relative flex min-h-[220px] flex-col overflow-hidden rounded-[24px] border p-5 text-left transition-all duration-300 md:min-h-[250px] md:rounded-[28px] md:p-7 ${
               lifted
-                ? "border-axcend-action bg-axcend-soft"
-                : "border-border bg-card hover:border-axcend-action/70 hover:bg-axcend-soft/40"
+                ? "border-axcend-action bg-axcend-soft shadow-[0_18px_58px_rgba(26,46,42,0.08)]"
+                : "border-border/80 bg-white/86 hover:border-axcend-action/70 hover:bg-[#fbfef7]"
             } ${inView ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"}`}
           >
             <div
@@ -824,21 +835,22 @@ const industriesData = [
 
 function WhatWeDoTabs() {
   return (
-    <Tabs defaultValue="0" className="w-full">
-      <TabsList className="mx-auto grid h-auto w-full grid-cols-2 items-stretch gap-1.5 bg-transparent px-0 pb-0 md:flex md:w-full md:flex-wrap md:items-center md:justify-center md:gap-2">
+    <Tabs defaultValue="0" className="mx-auto w-full max-w-5xl">
+      <TabsList className="mx-auto grid h-auto w-full grid-cols-2 items-stretch gap-1.5 rounded-[24px] border border-border/80 bg-white/76 p-1.5 shadow-[0_16px_50px_rgba(26,46,42,0.045)] md:flex md:w-fit md:max-w-full md:flex-wrap md:items-center md:justify-center md:gap-2 md:rounded-full md:p-2">
         {whatWeDo.map((s, i) => (
           <TabsTrigger
             key={s.title}
             value={String(i)}
-            className="min-h-[34px] w-full whitespace-normal rounded-full border border-border bg-card px-2 py-1 text-center text-[10px] leading-[1.12] text-muted-foreground transition-colors hover:text-foreground data-[state=active]:border-axcend-action data-[state=active]:bg-axcend-action data-[state=active]:text-axcend-dark data-[state=active]:shadow-none md:min-h-0 md:w-auto md:max-w-full md:px-4 md:py-2 md:text-sm md:leading-snug"
+            className="min-h-[34px] w-full whitespace-normal rounded-full border border-transparent bg-transparent px-2 py-1 text-center text-[10px] leading-[1.12] text-muted-foreground transition-colors hover:bg-axcend-soft/70 hover:text-foreground data-[state=active]:border-axcend-action data-[state=active]:bg-axcend-action data-[state=active]:text-axcend-dark data-[state=active]:shadow-none md:min-h-0 md:w-auto md:max-w-full md:px-4 md:py-2 md:text-sm md:leading-snug"
           >
             {s.title}
           </TabsTrigger>
         ))}
       </TabsList>
       {whatWeDo.map((s, i) => (
-        <TabsContent key={s.title} value={String(i)} className="mt-6 md:mt-8">
-          <div className="relative overflow-hidden rounded-[24px] border border-axcend-action bg-axcend-soft p-6 md:rounded-[28px] md:p-10">
+        <TabsContent key={s.title} value={String(i)} className="mt-5 md:mt-8">
+          <div className={`${LIGHT_PANEL_CLASS} relative overflow-hidden p-6 md:p-10`}>
+            <div className="pointer-events-none absolute -left-20 -top-28 h-64 w-80 rounded-full bg-[radial-gradient(ellipse_at_center,rgba(200,240,160,0.34)_0%,rgba(200,240,160,0.12)_48%,rgba(200,240,160,0)_76%)] blur-3xl" />
             <div className="pointer-events-none absolute bottom-0 left-0 top-0 w-1 rounded-full bg-axcend-action" />
             <div className="relative">
               <h3 className="text-xl font-semibold text-foreground md:text-3xl">{s.title}</h3>
@@ -991,71 +1003,74 @@ function IndustriesShowcase() {
   const goNextCase = () => setActiveFlowIndex((i) => (i + 1) % totalCaseCount);
 
   return (
-    <div className="mx-auto max-w-6xl">
-      <div className="mb-7 grid gap-5 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
-        <p className="max-w-2xl text-[13px] leading-relaxed text-muted-foreground md:text-base">
+    <div
+      className={`${DARK_SURFACE_BASE_CLASS} mx-auto max-w-6xl rounded-[32px] p-4 shadow-[0_28px_86px_rgba(26,46,42,0.16)] md:p-7`}
+    >
+      <div className={`${DARK_SURFACE_GLOW_CLASS} hidden opacity-75 md:block`} />
+      <div className="relative z-10 mb-6 grid gap-5 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
+        <p className="max-w-2xl text-[13px] leading-relaxed text-primary-foreground/72 md:text-base">
           Реальные результаты по разным B2B-сегментам. Каждый кейс показывает не количество звонков,
           а долю компаний, которые дошли до предметного разговора.
         </p>
-        <div className="grid grid-cols-3 gap-1.5 rounded-[22px] border border-border bg-card p-1.5 md:gap-2 md:rounded-[24px] md:p-2">
+        <div className="grid grid-cols-3 gap-1.5 rounded-[22px] border border-primary-foreground/12 bg-primary-foreground/[0.055] p-1.5 md:gap-2 md:rounded-[24px] md:p-2">
           <div className="rounded-2xl px-2.5 py-2.5 md:px-3 md:py-3">
-            <div className="text-[9px] font-medium uppercase tracking-[0.14em] text-muted-foreground md:text-[10px] md:tracking-[0.16em]">
+            <div className="text-[9px] font-medium uppercase tracking-[0.14em] text-primary-foreground/55 md:text-[10px] md:tracking-[0.16em]">
               Отрасли
             </div>
-            <div className="mt-1 text-xl font-semibold tabular-nums text-foreground md:text-2xl">
+            <div className="mt-1 text-xl font-semibold tabular-nums text-primary-foreground md:text-2xl">
               {industriesData.length}+
             </div>
           </div>
           <div className="rounded-2xl px-2.5 py-2.5 md:px-3 md:py-3">
-            <div className="text-[9px] font-medium uppercase tracking-[0.14em] text-muted-foreground md:text-[10px] md:tracking-[0.16em]">
+            <div className="text-[9px] font-medium uppercase tracking-[0.14em] text-primary-foreground/55 md:text-[10px] md:tracking-[0.16em]">
               Кейсы
             </div>
-            <div className="mt-1 text-xl font-semibold tabular-nums text-foreground md:text-2xl">
+            <div className="mt-1 text-xl font-semibold tabular-nums text-primary-foreground md:text-2xl">
               {totalCaseCount}
             </div>
           </div>
-          <div className="rounded-2xl border border-axcend-action/45 bg-axcend-soft px-2.5 py-2.5 md:px-3 md:py-3">
-            <div className="text-[9px] font-medium uppercase tracking-[0.14em] text-muted-foreground md:text-[10px] md:tracking-[0.16em]">
+          <div className="rounded-2xl border border-axcend-action/45 bg-axcend-action/12 px-2.5 py-2.5 md:px-3 md:py-3">
+            <div className="text-[9px] font-medium uppercase tracking-[0.14em] text-primary-foreground/55 md:text-[10px] md:tracking-[0.16em]">
               Средняя
             </div>
-            <div className="mt-1 text-xl font-semibold tabular-nums text-axcend-dark md:text-2xl">
+            <div className="mt-1 text-xl font-semibold tabular-nums text-axcend-action md:text-2xl">
               {overallAvg.toFixed(1)}%
             </div>
           </div>
         </div>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-3">
+      <div className="relative z-10 grid gap-3 md:grid-cols-3">
         {visibleCases.map((item, visibleIndex) => {
           const barWidth = Math.min(100, Math.max(8, item.result.pct * 1.45));
           return (
             <article
               key={`${item.industry.name}-${item.result.client}-${item.flowIndex}`}
-              className={`rounded-[24px] border border-border bg-card p-4 transition-colors hover:border-axcend-action/60 md:block md:rounded-[28px] md:p-5 ${
+              className={`rounded-[24px] border border-primary-foreground/12 bg-primary-foreground/[0.06] p-4 transition-colors hover:border-axcend-action/60 md:block md:rounded-[28px] md:p-5 ${
                 visibleIndex > 0 ? "hidden" : ""
               }`}
             >
-              <div className="inline-flex rounded-full border border-border bg-background px-3 py-1 text-[10px] font-medium text-muted-foreground md:text-[11px]">
+              <div className="inline-flex rounded-full border border-primary-foreground/12 bg-primary-foreground/[0.08] px-3 py-1 text-[10px] font-medium text-primary-foreground/66 md:text-[11px]">
                 {item.industry.name}
               </div>
-              <h3 className="mt-4 text-lg font-semibold leading-tight text-foreground md:mt-5 md:min-h-[56px] md:text-xl">
+              <h3 className="mt-4 text-lg font-semibold leading-tight text-primary-foreground md:mt-5 md:min-h-[56px] md:text-xl">
                 {item.result.client}
               </h3>
               <div className="mt-5 flex items-end justify-between gap-4 md:mt-6">
                 <div>
-                  <div className="text-[9px] font-medium uppercase tracking-[0.16em] text-muted-foreground md:text-[10px]">
+                  <div className="text-[9px] font-medium uppercase tracking-[0.16em] text-primary-foreground/52 md:text-[10px]">
                     Конверсия
                   </div>
-                  <div className="mt-1 text-[36px] font-semibold leading-none tabular-nums text-foreground md:text-[42px]">
+                  <div className="mt-1 text-[36px] font-semibold leading-none tabular-nums text-axcend-action md:text-[42px]">
                     {item.result.pct.toFixed(1)}%
                   </div>
                 </div>
-                <div className="pb-1 text-right text-xs tabular-nums text-muted-foreground md:text-sm">
+                <div className="pb-1 text-right text-xs tabular-nums text-primary-foreground/55 md:text-sm">
                   {item.result.hits.toLocaleString("ru-RU")} из{" "}
                   {item.result.total.toLocaleString("ru-RU")}
                 </div>
               </div>
-              <div className="mt-4 h-1.5 overflow-hidden rounded-full bg-muted md:mt-5">
+              <div className="mt-4 h-1.5 overflow-hidden rounded-full bg-primary-foreground/12 md:mt-5">
                 <div
                   className="h-full rounded-full bg-axcend-action transition-all duration-500"
                   style={{ width: `${barWidth}%` }}
@@ -1066,14 +1081,14 @@ function IndustriesShowcase() {
         })}
       </div>
 
-      <div className="mt-5 flex flex-col gap-3 md:mt-6 md:flex-row md:items-center md:justify-between md:gap-4">
-        <div className="text-sm text-muted-foreground">
+      <div className="relative z-10 mt-5 flex flex-col gap-3 md:mt-6 md:flex-row md:items-center md:justify-between md:gap-4">
+        <div className="text-sm text-primary-foreground/60">
           Кейс{" "}
-          <span className="font-semibold tabular-nums text-foreground">
+          <span className="font-semibold tabular-nums text-primary-foreground">
             {String(safeFlowIndex + 1).padStart(2, "0")}
           </span>{" "}
           из{" "}
-          <span className="font-semibold tabular-nums text-foreground">
+          <span className="font-semibold tabular-nums text-primary-foreground">
             {String(totalCaseCount).padStart(2, "0")}
           </span>
         </div>
@@ -1082,7 +1097,7 @@ function IndustriesShowcase() {
             type="button"
             aria-label="Предыдущий кейс"
             onClick={goPrevCase}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border bg-card text-foreground transition-colors hover:border-axcend-action hover:bg-axcend-soft md:h-11 md:w-11"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-primary-foreground/15 bg-primary-foreground/[0.06] text-primary-foreground transition-colors hover:border-axcend-action hover:bg-axcend-action hover:text-axcend-dark md:h-11 md:w-11"
           >
             <ArrowRight className="h-4 w-4 rotate-180" />
           </button>
@@ -1337,8 +1352,8 @@ function Calculator() {
   const revenue = meetings * avgDeal;
   return (
     <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_420px] lg:items-start">
-      <div className="relative overflow-hidden rounded-[28px] border border-border bg-card p-4 shadow-[0_26px_80px_rgba(26,46,42,0.06)] md:rounded-[32px] md:p-6">
-        <div className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-axcend-soft blur-3xl" />
+      <div className={`${LIGHT_PANEL_CLASS} relative overflow-hidden p-4 md:p-6`}>
+        <div className="pointer-events-none absolute -right-28 -top-28 h-80 w-80 rounded-full bg-[radial-gradient(circle,rgba(200,240,160,0.32)_0%,rgba(200,240,160,0.10)_52%,rgba(200,240,160,0)_78%)] blur-3xl" />
         <div className="relative z-10 mb-4 flex flex-col gap-2 text-left sm:flex-row sm:items-end sm:justify-between md:mb-5">
           <div>
             <div className="text-lg font-semibold text-foreground md:text-xl">Параметры</div>
@@ -1347,7 +1362,7 @@ function Calculator() {
             5% в договоре
           </div>
         </div>
-        <div className="relative z-10 space-y-2 rounded-[24px] border border-border bg-muted/55 p-2 md:space-y-3 md:rounded-[28px] md:p-4">
+        <div className="relative z-10 space-y-2 rounded-[24px] border border-border/80 bg-[#f7fbf2]/80 p-2 md:space-y-3 md:rounded-[28px] md:p-4">
           <CalcRow
             label="Размер базы целевых компаний"
             value={companies}
@@ -1378,7 +1393,7 @@ function Calculator() {
           />
         </div>
 
-        <div className="relative z-10 mt-3 grid grid-cols-3 overflow-hidden rounded-[22px] border border-border bg-background text-left shadow-[0_16px_36px_rgba(26,46,42,0.035)] md:mt-4 md:rounded-[26px]">
+        <div className="relative z-10 mt-3 grid grid-cols-3 overflow-hidden rounded-[22px] border border-border/80 bg-white/86 text-left shadow-[0_16px_36px_rgba(26,46,42,0.035)] md:mt-4 md:rounded-[26px]">
           <div className="border-r border-border p-3 md:p-4">
             <div className="text-[10px] font-medium uppercase tracking-[0.16em] text-muted-foreground md:text-xs md:tracking-[0.18em]">
               База
@@ -1475,13 +1490,13 @@ function FAQ() {
     <Accordion
       type="single"
       collapsible
-      className="mx-auto max-w-2xl space-y-0.5 rounded-[20px] border border-border bg-muted p-1 md:space-y-1.5 md:rounded-[26px] md:p-1.5"
+      className={`${LIGHT_PANEL_CLASS} mx-auto max-w-3xl space-y-1 p-2 md:space-y-1.5 md:p-2.5`}
     >
       {faqs.map((f, i) => (
         <AccordionItem
           key={i}
           value={String(i)}
-          className="rounded-[16px] border border-transparent bg-card px-3 transition-colors data-[state=open]:border-axcend-action/70 data-[state=open]:bg-axcend-soft md:rounded-[20px] md:px-5"
+          className="rounded-[18px] border border-transparent bg-white/82 px-3 transition-colors data-[state=open]:border-axcend-action/70 data-[state=open]:bg-axcend-soft md:rounded-[22px] md:px-5"
         >
           <AccordionTrigger className="py-2 text-left text-[11px] font-semibold leading-[1.2] text-foreground hover:no-underline md:py-4 md:text-base md:leading-snug [&>svg]:text-muted-foreground">
             {f.q}
@@ -1509,19 +1524,23 @@ function Section({
   center?: boolean;
 }) {
   return (
-    <section id={id} className="border-t border-border">
-      <div className="mx-auto max-w-6xl px-6 py-24 md:py-32">
+    <section id={id} className={LIGHT_SECTION_CLASS}>
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,rgba(26,46,42,0),rgba(26,46,42,0.12),rgba(26,46,42,0))]"
+      />
+      <div className={LIGHT_SECTION_INNER_CLASS}>
         <div className={center ? "mx-auto max-w-3xl text-center" : "max-w-3xl"}>
           {eyebrow && (
-            <div className="mb-4 text-[11px] font-medium uppercase tracking-[0.16em] text-muted-foreground md:mb-5 md:text-xs md:tracking-[0.18em]">
+            <div className="mb-4 text-[11px] font-semibold uppercase tracking-[0.16em] text-axcend-dark/70 md:mb-5 md:text-xs md:tracking-[0.18em]">
               {eyebrow}
             </div>
           )}
-          <h2 className="text-[28px] font-semibold leading-[1.15] text-foreground md:text-5xl">
+          <h2 className="text-[28px] font-semibold leading-[1.12] tracking-tight text-foreground md:text-5xl">
             {title}
           </h2>
         </div>
-        <Reveal className="mt-14 md:mt-20">{children}</Reveal>
+        <Reveal className="mt-10 md:mt-16">{children}</Reveal>
       </div>
     </section>
   );
@@ -1531,8 +1550,12 @@ function TeamSection() {
   const [lead, ...team] = teamMembers;
 
   return (
-    <section id="team" className="border-t border-border bg-background">
-      <div className="mx-auto max-w-6xl px-6 py-24 md:py-32">
+    <section id="team" className={LIGHT_SECTION_CLASS}>
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,rgba(26,46,42,0),rgba(26,46,42,0.12),rgba(26,46,42,0))]"
+      />
+      <div className={LIGHT_SECTION_INNER_CLASS}>
         <div className="mx-auto max-w-3xl text-center">
           <div className="mb-3 inline-flex rounded-full bg-axcend-soft px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-axcend-dark md:mb-4 md:px-4 md:py-1.5 md:text-xs">
             Команда
@@ -1543,7 +1566,9 @@ function TeamSection() {
         </div>
 
         <Reveal className="mt-8 md:mt-14">
-          <div className="grid gap-6 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.35fr)] lg:items-stretch">
+          <div
+            className={`${LIGHT_PANEL_CLASS} grid gap-4 p-3 md:p-4 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.35fr)] lg:items-stretch`}
+          >
             <article className="relative overflow-hidden rounded-[26px] border border-primary-foreground/10 bg-axcend-dark p-3 text-primary-foreground shadow-[0_24px_70px_rgba(26,46,42,0.18)] md:rounded-[30px] md:p-4">
               <div className={`${DARK_SURFACE_GLOW_CLASS} opacity-80`} />
               <div className="relative z-10 grid grid-cols-[92px_minmax(0,1fr)] gap-3 md:block">
@@ -1669,8 +1694,8 @@ function ConversionSystem({ items }: { items: typeof conversionReasons }) {
   }, [active]);
 
   return (
-    <div className="mx-auto grid w-full max-w-3xl gap-4">
-      <div className="grid gap-4">
+    <div className={`${LIGHT_PANEL_CLASS} mx-auto grid w-full max-w-4xl gap-4 p-3 md:p-5`}>
+      <div className="grid gap-3 md:gap-4">
         {items.map((item, index) => {
           const isActive = active === index;
           return (
@@ -1684,8 +1709,10 @@ function ConversionSystem({ items }: { items: typeof conversionReasons }) {
               data-conversion-card={index}
               onClick={() => setActive(index)}
               onFocus={() => setActive(index)}
-              className={`group relative overflow-hidden rounded-[28px] border p-6 text-left transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-axcend-action/40 ${
-                isActive ? "border-axcend-action bg-axcend-soft" : "border-border bg-card"
+              className={`group relative overflow-hidden rounded-[24px] border p-5 text-left transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-axcend-action/40 md:rounded-[28px] md:p-6 ${
+                isActive
+                  ? "border-axcend-action bg-axcend-soft shadow-[0_18px_58px_rgba(26,46,42,0.08)]"
+                  : "border-border/80 bg-white/86 hover:border-axcend-action/60 hover:bg-[#fbfef7]"
               }`}
             >
               <div
@@ -1693,7 +1720,7 @@ function ConversionSystem({ items }: { items: typeof conversionReasons }) {
                   isActive ? "bg-axcend-action opacity-100" : "bg-transparent opacity-0"
                 }`}
               />
-              <div className="flex gap-5">
+              <div className="flex gap-4 md:gap-5">
                 <ConversionGlyph index={index} active={isActive} />
                 <div className="min-w-0 flex-1">
                   <h3 className="text-[15px] font-semibold leading-snug text-foreground md:text-base">
@@ -2152,7 +2179,7 @@ function Index() {
   return (
     <div
       id="top"
-      className="min-h-screen bg-background text-foreground"
+      className="min-h-screen bg-[#fbfcf8] text-foreground"
       style={{ paddingTop: "var(--axcend-header-height, 76px)" }}
     >
       <ContactChoiceDialog open={contactDialogOpen} onOpenChange={setContactDialogOpen} />
@@ -2160,7 +2187,7 @@ function Index() {
       {/* Nav */}
       <header
         ref={headerRef}
-        className="fixed inset-x-0 top-0 z-50 border-b border-border/70 bg-background/80 backdrop-blur"
+        className="fixed inset-x-0 top-0 z-50 border-b border-border/70 bg-[#fbfcf8]/88 backdrop-blur-xl"
       >
         <nav className="mx-auto flex max-w-6xl items-center justify-between gap-x-4 gap-y-2 px-6 py-4 md:py-5">
           <a href="#top" className="text-base font-semibold tracking-tight">
