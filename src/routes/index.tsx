@@ -36,6 +36,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Slider } from "@/components/ui/slider";
+import { cn } from "@/lib/utils";
 
 type LanguageOption = [code: string, name: string, short: string];
 
@@ -90,6 +91,34 @@ const QUICK_LANGUAGES: Array<[code: string, label: string]> = [
   ["kk", "Қазақша"],
   ["uz", "O'zbekcha"],
   ["en", "English"],
+];
+
+const teamMembers = [
+  {
+    name: "Гульназира Сагитова",
+    role: "Основатель и генеральный директор",
+    proof: "15 лет в B2B-продажах, запуск внешних отделов продаж в 7 странах СНГ и MENA",
+    image: "/team/gulnazira.jpg",
+  },
+  {
+    name: "Алёна",
+    role: "Региональный директор",
+    proof: "7+ лет региональный директор B2B и B2C продаж. В продажах более 19 лет.",
+    image: "/team/alena.jpg",
+  },
+  {
+    name: "Дмитрий",
+    role: "Руководитель отдела первой линии B2B продаж",
+    proof: "В B2B-продажах более 5 лет.",
+    image: "/team/dmitry.jpg",
+  },
+  {
+    name: "Айсылу",
+    role: "Старший менеджер B2B-продаж в Центральной Азии",
+    proof:
+      "18 лет в B2B-продажах: сложные продукты (щебень и др.) через холодные продажи, международные продажи.",
+    image: "/team/aisylu.jpg",
+  },
 ];
 
 function Reveal({
@@ -487,13 +516,12 @@ const launchStages = [
     number: "04",
     eyebrow: "Этап 4",
     title: "Презентация и переговоры",
-    summary: "Подготовленный бизнес-диалог с ЛПР — без заученных фраз.",
+    summary: "Подготовленный бизнес-диалог с ЛПР.",
     body: [
-      "Опираясь на проведённый аудит и выверенный оффер, менеджер представляет ваш продукт или услугу, выявляет потребность и ведёт полноценный бизнес-диалог.",
-      "Менеджеры заранее изучают специфику вашей услуги: не читают заученный текст с экрана, но ведут диалог по выверенной структуре. Для нас возражение — это не отказ, а уточняющий вопрос, который часто подтверждает интерес.",
+      "Опираясь на проведённый аудит и выверенный оффер, менеджер представляет ваш продукт или услугу, выявляет потребность (нередко клиент сам не осознаёт, что она у него есть) и ведёт полноценный, деловой диалог с вашим потенциальным клиентом.",
+      "Менеджеры заранее изучают специфику услуги и не читают заученный текст с экрана как в обычных колл-центрах. При этом очень убедительно отрабатывая возражения (возражениями в нашей работе называют уточняющие вопросы) которые косвенно подтверждают интерес к вашему продукту/услуге.",
     ],
-    payment:
-      "За подготовленные переговоры, в которых с вашим потенциальным клиентом говорит человек, разбирающийся в вашем продукте.",
+    payment: "За клиентов которые хотят обсуждать детали и готовы к сделке.",
   },
 ];
 
@@ -826,38 +854,46 @@ function WhatWeDoTabs() {
   );
 }
 
-function LaunchProcess() {
+function LaunchProcess({ dark = false }: { dark?: boolean } = {}) {
   return (
     <div className="mx-auto max-w-5xl">
       <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_390px] lg:items-stretch">
         <div className="flex flex-col justify-center">
-          <p className="max-w-2xl text-sm leading-relaxed text-muted-foreground md:text-base">
-            Мы — внешний отдел продаж в сегменте B2B. Компании передают нам продажи своих услуг, а
-            мы выстраиваем системный процесс: от анализа продукта до живых переговоров с теми, кто
-            реально принимает решения. Ниже — что именно мы делаем на каждом этапе и за что вы
-            платите.
+          <p
+            className={cn(
+              "max-w-2xl text-sm leading-relaxed md:text-base",
+              dark ? "text-primary-foreground/76" : "text-muted-foreground",
+            )}
+          >
+            Компании передают нам продажи своих услуг, а мы выстраиваем системный процесс, от
+            анализа продукта до живых переговоров с теми, кто принимает решения о сотрудничестве.
+            Ниже описано, что именно мы делаем на каждом этапе и за что вы платите.
           </p>
         </div>
-        <div className="relative overflow-hidden rounded-[28px] border border-border bg-card">
-          <img
-            src="https://axcend.pro/assets/callcenter-real-CefSNWWS.jpg"
-            alt="Команда AXCEND в работе"
-            loading="lazy"
-            className="h-full min-h-[220px] w-full object-cover"
-          />
-          <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(26,46,42,0)_35%,rgba(26,46,42,0.62)_100%)]" />
+        <div className="relative z-10 h-full rounded-[34px] bg-white/[0.055] p-2 shadow-[0_34px_92px_rgba(0,0,0,0.36),0_14px_36px_rgba(0,0,0,0.26),0_0_0_1px_rgba(255,255,255,0.08)]">
+          <div className="relative h-full min-h-[220px] overflow-hidden rounded-[28px] bg-muted">
+            <img
+              src="https://axcend.pro/assets/callcenter-real-CefSNWWS.jpg"
+              alt="Команда AXCEND в работе"
+              loading="lazy"
+              className="h-full w-full object-cover"
+            />
+            <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(26,46,42,0)_35%,rgba(26,46,42,0.62)_100%)]" />
+          </div>
         </div>
       </div>
 
-      <div className="mt-10 overflow-hidden rounded-[26px] border border-axcend-action/55 bg-axcend-soft p-0 md:mt-12">
+      <div
+        className={cn(
+          "mt-10 overflow-hidden rounded-[26px] border border-axcend-action/55 bg-axcend-soft p-0 md:mt-12",
+          dark && "shadow-[0_28px_90px_rgba(0,0,0,0.18)]",
+        )}
+      >
         <div className="flex items-stretch">
           <div className="hidden w-1.5 shrink-0 bg-axcend-action md:block" />
           <div className="p-5 md:p-6">
             <div>
-              <div className="inline-flex rounded-full border border-axcend-action/60 bg-card/70 px-3 py-1 text-[10px] font-medium uppercase tracking-[0.18em] text-axcend-dark">
-                Нулевой шаг
-              </div>
-              <h3 className="mt-3 text-lg font-semibold leading-snug text-foreground md:text-xl">
+              <h3 className="text-lg font-semibold leading-snug text-foreground md:text-xl">
                 Старт проекта
               </h3>
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
@@ -874,7 +910,7 @@ function LaunchProcess() {
           <AccordionItem
             key={stage.number}
             value={String(index)}
-            className="overflow-hidden rounded-[26px] border border-border bg-card px-0 transition-colors hover:border-axcend-action/60 hover:bg-axcend-soft/45 data-[state=open]:border-axcend-action/70 data-[state=open]:bg-axcend-soft"
+            className="overflow-hidden rounded-[26px] border border-border bg-card px-0 transition-[border-color,box-shadow] hover:border-axcend-action/70 hover:shadow-[0_18px_50px_rgba(0,0,0,0.08)] data-[state=open]:border-axcend-action/70 data-[state=open]:bg-axcend-soft"
           >
             <AccordionTrigger className="group px-5 py-5 text-left hover:no-underline md:px-6 md:py-6 [&>svg]:hidden">
               <div className="flex min-w-0 flex-1 items-center gap-4 pr-4">
@@ -935,17 +971,32 @@ function LaunchProcess() {
 }
 
 function IndustriesShowcase() {
-  const [active, setActive] = useState(0);
-  const current = industriesData[active];
+  const caseFlow = industriesData.flatMap((industry, industryIndex) =>
+    industry.cases.map((result, caseIndex) => ({
+      industry,
+      industryIndex,
+      result,
+      caseIndex,
+    })),
+  );
+  const [activeFlowIndex, setActiveFlowIndex] = useState(0);
+  const safeFlowIndex = caseFlow.length ? activeFlowIndex % caseFlow.length : 0;
+  const currentItem = caseFlow[safeFlowIndex]!;
+  const current = currentItem.industry;
+  const currentCase = currentItem.result;
   const totalDialogs = current.cases.reduce((s, c) => s + c.total, 0);
   const totalHits = current.cases.reduce((s, c) => s + c.hits, 0);
   const avg = totalDialogs ? (totalHits / totalDialogs) * 100 : 0;
   const best = current.cases.reduce((m, c) => (c.pct > m ? c.pct : m), 0);
+  const globalProgress = ((safeFlowIndex + 1) / caseFlow.length) * 100;
+  const industryProgress = ((currentItem.caseIndex + 1) / current.cases.length) * 100;
+  const caseBar = Math.min(100, Math.max(3, currentCase.pct * 1.6));
+  const isLastCase = safeFlowIndex === caseFlow.length - 1;
+  const goNextCase = () => setActiveFlowIndex((i) => (i + 1) % caseFlow.length);
 
   return (
-    <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,320px)_1fr] lg:gap-12">
-      {/* Left column: stat tile + industries rail */}
-      <div className="flex flex-col gap-4 lg:sticky lg:top-28 lg:self-start">
+    <div className="mx-auto max-w-5xl space-y-6">
+      <div className="grid gap-4 lg:grid-cols-[220px_minmax(0,1fr)] lg:items-stretch">
         <div className="relative overflow-hidden rounded-[30px] border border-border bg-card p-4">
           <div className="flex items-center gap-4">
             <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-axcend-action/60 bg-axcend-soft text-axcend-dark">
@@ -962,54 +1013,46 @@ function IndustriesShowcase() {
           </div>
         </div>
 
-        <div className="relative rounded-[30px] border border-border bg-card p-2">
-          <ul className="flex gap-2 overflow-x-auto pb-1 [scrollbar-width:none] lg:flex-col lg:overflow-visible lg:pb-0 [&::-webkit-scrollbar]:hidden">
-            {industriesData.map((ind, i) => {
-              const isActive = i === active;
-              return (
-                <li key={ind.name} className="relative shrink-0 lg:shrink">
-                  <button
-                    type="button"
-                    onClick={() => setActive(i)}
-                    className={`group relative flex min-h-[46px] min-w-[230px] items-center gap-3 overflow-hidden rounded-[18px] border px-3 py-2 text-left transition-all duration-200 lg:w-full lg:min-w-0 ${
-                      isActive
-                        ? "border-axcend-action/70 bg-axcend-soft text-axcend-dark"
-                        : "border-transparent text-muted-foreground hover:border-border hover:bg-muted/70 hover:text-foreground"
-                    }`}
-                  >
-                    <span
-                      className={`absolute bottom-2 left-0 top-2 w-[3px] rounded-full transition-opacity duration-200 ${
-                        isActive ? "bg-axcend-action opacity-100" : "bg-transparent opacity-0"
-                      }`}
-                    />
-                    <span className="min-w-0 flex-1 truncate text-sm font-medium leading-snug">
-                      {ind.name}
-                    </span>
-                    <span
-                      className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full border transition-all duration-200 ${
-                        isActive
-                          ? "border-axcend-action bg-axcend-action text-axcend-dark opacity-100"
-                          : "border-border bg-card text-muted-foreground opacity-0 group-hover:opacity-100"
-                      }`}
-                    >
-                      <ArrowRight className="h-3.5 w-3.5" />
-                    </span>
-                  </button>
-                </li>
-              );
-            })}
-          </ul>
+        <div className="relative overflow-hidden rounded-[30px] border border-border bg-card p-3 md:p-4">
+          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+            <div className="min-w-0">
+              <div className="text-[10px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
+                Единый поток кейсов
+              </div>
+              <div className="mt-1 text-sm font-semibold leading-snug text-foreground">
+                Кейсы идут подряд. После последнего кейса отрасли открывается следующая отрасль.
+              </div>
+            </div>
+            <div className="shrink-0 rounded-2xl border border-axcend-action/45 bg-axcend-soft px-4 py-3 text-axcend-dark">
+              <div className="text-[10px] font-medium uppercase tracking-[0.18em] opacity-70">
+                Кейс
+              </div>
+              <div className="mt-1 text-lg font-semibold tabular-nums">
+                {String(safeFlowIndex + 1).padStart(2, "0")} /{" "}
+                {String(caseFlow.length).padStart(2, "0")}
+              </div>
+            </div>
+          </div>
+          <div className="mt-4 h-1.5 overflow-hidden rounded-full bg-muted">
+            <div
+              className="h-full rounded-full bg-axcend-action transition-all duration-500"
+              style={{ width: `${globalProgress}%` }}
+            />
+          </div>
         </div>
       </div>
 
-      {/* Right detail panel */}
-      <div key={active} className={`${DARK_SURFACE_BASE_CLASS} rounded-[30px] p-5 sm:p-7 md:p-9`}>
+      <div
+        key={current.name}
+        className={`${DARK_SURFACE_BASE_CLASS} rounded-[30px] p-5 sm:p-7 md:p-9`}
+      >
         <div className={`${DARK_SURFACE_GLOW_CLASS} hidden md:block`} />
         <div className="relative z-10">
           <div className="grid gap-5 border-b border-primary-foreground/15 pb-6 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
             <div className="min-w-0">
               <div className="text-xs font-medium uppercase tracking-[0.18em] text-axcend-action/80">
-                Отрасль
+                Текущая отрасль · {String(currentItem.industryIndex + 1).padStart(2, "0")} /{" "}
+                {String(industriesData.length).padStart(2, "0")}
               </div>
               <h3 className="mt-2 text-[22px] font-semibold leading-tight text-primary-foreground sm:text-2xl md:text-[32px]">
                 {current.name}
@@ -1035,37 +1078,61 @@ function IndustriesShowcase() {
             </div>
           </div>
 
-          <ul className="mt-6 max-h-[460px] space-y-3 overflow-y-auto pr-2 [scrollbar-color:var(--axcend-action)_rgba(255,255,255,0.12)] [scrollbar-width:thin] [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-axcend-action/70 [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-track]:bg-primary-foreground/10">
-            {current.cases.map((c) => {
-              const bar = Math.min(100, Math.max(3, c.pct * 1.6));
-              return (
-                <li
-                  key={c.client}
-                  className="rounded-2xl border border-primary-foreground/10 bg-primary-foreground/[0.045] px-4 py-3.5 transition-colors hover:border-axcend-action/40 hover:bg-primary-foreground/[0.08]"
-                >
-                  <div className="flex items-start justify-between gap-4">
-                    <div className="min-w-0 flex-1 text-sm font-medium leading-snug text-primary-foreground">
-                      {c.client}
-                    </div>
-                    <div className="shrink-0 text-base font-semibold tabular-nums text-axcend-action">
-                      {c.pct.toFixed(1)}%
-                    </div>
-                  </div>
-                  <div className="mt-2 flex items-center gap-3">
-                    <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-primary-foreground/10">
-                      <div
-                        className="h-full rounded-full bg-axcend-action"
-                        style={{ width: `${bar}%` }}
-                      />
-                    </div>
-                    <div className="shrink-0 text-[11px] tabular-nums text-primary-foreground/60">
-                      {c.hits.toLocaleString("ru-RU")} из {c.total.toLocaleString("ru-RU")} диалогов
-                    </div>
-                  </div>
-                </li>
-              );
-            })}
-          </ul>
+          <div className="mt-6 rounded-[26px] border border-primary-foreground/10 bg-primary-foreground/[0.045] p-4 md:p-5">
+            <div className="flex items-start justify-between gap-4">
+              <div className="min-w-0">
+                <div className="text-[10px] font-medium uppercase tracking-[0.18em] text-primary-foreground/50">
+                  Кейс {String(safeFlowIndex + 1).padStart(2, "0")} /{" "}
+                  {String(caseFlow.length).padStart(2, "0")}
+                </div>
+                <div className="mt-3 text-lg font-semibold leading-snug text-primary-foreground md:text-xl">
+                  {currentCase.client}
+                </div>
+              </div>
+              <div className="shrink-0 text-3xl font-semibold tabular-nums text-axcend-action md:text-4xl">
+                {currentCase.pct.toFixed(1)}%
+              </div>
+            </div>
+
+            <div className="mt-5">
+              <div className="h-2 overflow-hidden rounded-full bg-primary-foreground/10">
+                <div
+                  className="h-full rounded-full bg-axcend-action transition-all duration-500"
+                  style={{ width: `${caseBar}%` }}
+                />
+              </div>
+              <div className="mt-3 text-sm tabular-nums text-primary-foreground/65">
+                {currentCase.hits.toLocaleString("ru-RU")} из{" "}
+                {currentCase.total.toLocaleString("ru-RU")} диалогов
+              </div>
+            </div>
+
+            <div className="mt-6 flex flex-col gap-4 border-t border-primary-foreground/10 pt-4 md:flex-row md:items-center md:justify-between">
+              <div className="min-w-0 flex-1">
+                <div className="flex items-center justify-between gap-3 text-[11px] font-medium uppercase tracking-[0.16em] text-primary-foreground/50">
+                  <span>Кейсы внутри отрасли</span>
+                  <span className="tabular-nums">
+                    {currentItem.caseIndex + 1} / {current.cases.length}
+                  </span>
+                </div>
+                <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-primary-foreground/10">
+                  <div
+                    className="h-full rounded-full bg-axcend-action transition-all duration-500"
+                    style={{ width: `${industryProgress}%` }}
+                  />
+                </div>
+              </div>
+              <button
+                type="button"
+                aria-label="Следующий кейс"
+                onClick={goNextCase}
+                className="inline-flex h-11 shrink-0 items-center justify-center gap-2 rounded-full bg-axcend-action px-5 text-sm font-semibold text-axcend-dark transition-opacity hover:opacity-85"
+              >
+                {isLastCase ? "Начать сначала" : "Следующий кейс"}
+                <ArrowRight className="h-4 w-4" />
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -1493,6 +1560,52 @@ function Section({
           </h2>
         </div>
         <Reveal className="mt-14 md:mt-20">{children}</Reveal>
+      </div>
+    </section>
+  );
+}
+
+function TeamSection() {
+  return (
+    <section id="team" className="border-t border-border bg-background">
+      <div className="mx-auto max-w-6xl px-6 py-24 md:py-32">
+        <div className="mx-auto max-w-3xl text-center">
+          <div className="mb-4 inline-flex rounded-full bg-[#e7edf4] px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.08em] text-[#06418f]">
+            Команда
+          </div>
+          <h2 className="text-[28px] font-semibold leading-[1.15] text-foreground md:text-5xl">
+            Кто отвечает за результат
+          </h2>
+        </div>
+
+        <Reveal className="mt-12 md:mt-14">
+          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+            {teamMembers.map((member) => (
+              <article
+                key={member.name}
+                className="flex h-full flex-col rounded-[10px] border border-border bg-card p-5 text-center"
+              >
+                <img
+                  src={member.image}
+                  alt={member.name}
+                  loading="lazy"
+                  className="aspect-square w-full rounded-lg object-cover"
+                />
+                <div className="flex flex-1 flex-col pt-5">
+                  <h3 className="text-lg font-semibold leading-snug text-foreground">
+                    {member.name}
+                  </h3>
+                  <p className="mt-3 min-h-[48px] text-base leading-snug text-muted-foreground">
+                    {member.role}
+                  </p>
+                  <div className="mt-auto border-t border-border pt-4 text-sm font-semibold leading-snug text-[#06418f]">
+                    {member.proof}
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </Reveal>
       </div>
     </section>
   );
@@ -2239,14 +2352,31 @@ function Index() {
       </Section>
 
       {/* Work stages */}
-      <Section
+      <section
         id="work"
-        eyebrow="Что входит в работу"
-        title="Как мы работаем: этапы запуска продаж"
-        center
+        className="relative overflow-hidden border-t border-primary-foreground/10 bg-axcend-dark text-primary-foreground"
       >
-        <LaunchProcess />
-      </Section>
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -right-72 top-12 h-[42rem] w-[62rem] rounded-full bg-[radial-gradient(ellipse_at_center,rgba(200,240,160,0.13)_0%,rgba(200,240,160,0.065)_34%,rgba(200,240,160,0.025)_58%,rgba(200,240,160,0)_82%)] blur-[96px]"
+        />
+        <div className="relative mx-auto max-w-6xl px-6 py-24 md:py-32">
+          <div className="mx-auto max-w-3xl text-center">
+            <div className="mb-4 text-[11px] font-medium uppercase tracking-[0.16em] text-primary-foreground/66 md:mb-5 md:text-xs md:tracking-[0.18em]">
+              Что входит в работу
+            </div>
+            <h2 className="text-[28px] font-semibold leading-[1.15] text-primary-foreground md:text-5xl">
+              Как мы работаем: этапы запуска продаж
+            </h2>
+          </div>
+          <Reveal className="mt-14 md:mt-20">
+            <LaunchProcess dark />
+          </Reveal>
+        </div>
+      </section>
+
+      {/* Team */}
+      <TeamSection />
 
       {/* Industries & conversion */}
       <Section id="industries" eyebrow="Отрасли и конверсии" title="Результаты AXCEND" center>
