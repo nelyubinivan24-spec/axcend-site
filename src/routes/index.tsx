@@ -196,7 +196,7 @@ function ProofGrid({ items }: { items: typeof proofs }) {
   return (
     <div
       ref={wrapRef}
-      className={`${EDITORIAL_SURFACE_CLASS} grid grid-cols-1 gap-3 p-3 md:grid-cols-2 md:gap-4 md:p-4`}
+      className={`${EDITORIAL_SURFACE_CLASS} mx-auto grid max-w-5xl grid-cols-1 gap-2 overflow-hidden p-2 md:grid-cols-2 md:p-3`}
     >
       {items.map((p, i) => {
         const Icon = p.icon;
@@ -214,10 +214,10 @@ function ProofGrid({ items }: { items: typeof proofs }) {
             onMouseEnter={() => setHover(i)}
             onMouseLeave={() => setHover(null)}
             style={{ transitionDelay: `${i * 60}ms` }}
-            className={`group relative flex min-h-[220px] flex-col overflow-hidden rounded-[24px] border p-5 text-left transition-all duration-300 md:min-h-[250px] md:rounded-[28px] md:p-7 ${
+            className={`group relative flex min-h-[190px] flex-col overflow-hidden rounded-[22px] border p-5 text-left transition-all duration-300 md:min-h-[218px] md:rounded-[26px] md:p-6 ${
               lifted
-                ? "border-axcend-action bg-axcend-soft shadow-[0_22px_70px_rgba(26,46,42,0.09)]"
-                : "border-border/80 bg-white/92 shadow-[0_12px_42px_rgba(26,46,42,0.035)] hover:border-axcend-action/70 hover:bg-[#fbfef7]"
+                ? "border-axcend-action bg-axcend-soft shadow-[0_18px_54px_rgba(26,46,42,0.075)]"
+                : "border-transparent bg-white/72 hover:border-axcend-action/55 hover:bg-white/92"
             } ${inView ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"}`}
           >
             <div
@@ -226,7 +226,7 @@ function ProofGrid({ items }: { items: typeof proofs }) {
               }`}
             />
             <div
-              className={`absolute bottom-8 left-0 top-8 w-1 rounded-r-full transition-opacity duration-300 ${
+              className={`absolute bottom-7 left-0 top-7 w-1 rounded-r-full transition-opacity duration-300 ${
                 lifted ? "bg-axcend-action opacity-100" : "opacity-0"
               }`}
             />
@@ -1472,8 +1472,10 @@ function Calculator() {
   const meetings = Math.round((companies * conversion) / 100);
   const revenue = meetings * avgDeal;
   return (
-    <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_420px] lg:items-start">
-      <div className={`${EDITORIAL_SURFACE_CLASS} relative overflow-hidden p-4 md:p-6`}>
+    <div
+      className={`${EDITORIAL_SURFACE_CLASS} mx-auto grid max-w-6xl grid-cols-1 gap-3 overflow-hidden p-2 md:p-3 lg:grid-cols-[minmax(0,1fr)_420px] lg:items-stretch`}
+    >
+      <div className="relative overflow-hidden rounded-[26px] border border-border/75 bg-white/76 p-4 md:rounded-[30px] md:p-6">
         <div className="pointer-events-none absolute -right-28 -top-28 h-80 w-80 rounded-full bg-[radial-gradient(circle,rgba(200,240,160,0.32)_0%,rgba(200,240,160,0.10)_52%,rgba(200,240,160,0)_78%)] blur-3xl" />
         <div className="relative z-10 mb-4 flex flex-col gap-2 text-left sm:flex-row sm:items-end sm:justify-between md:mb-5">
           <div>
@@ -1542,9 +1544,7 @@ function Calculator() {
         </div>
       </div>
 
-      <div
-        className={`${DARK_SURFACE_BASE_CLASS} self-start rounded-[26px] p-4 md:rounded-[30px] md:p-8 lg:sticky lg:top-28`}
-      >
+      <div className={`${DARK_SURFACE_BASE_CLASS} rounded-[26px] p-4 md:rounded-[30px] md:p-8`}>
         <div className={`${DARK_SURFACE_GLOW_CLASS} hidden md:block`} />
         <div className="relative z-10">
           <div className="text-[10px] font-medium uppercase tracking-[0.16em] text-primary-foreground/60 md:text-xs md:tracking-[0.18em]">
@@ -1611,18 +1611,18 @@ function FAQ() {
     <Accordion
       type="single"
       collapsible
-      className={`${EDITORIAL_SURFACE_CLASS} mx-auto max-w-4xl space-y-1 p-2 md:space-y-1.5 md:p-3`}
+      className={`${EDITORIAL_SURFACE_CLASS} mx-auto max-w-5xl divide-y divide-border/70 overflow-hidden p-0`}
     >
       {faqs.map((f, i) => (
         <AccordionItem
           key={i}
           value={String(i)}
-          className="rounded-[18px] border border-transparent bg-white/88 px-3 transition-colors hover:border-border data-[state=open]:border-axcend-action/70 data-[state=open]:bg-axcend-soft md:rounded-[22px] md:px-5"
+          className="border-0 bg-white/72 px-4 transition-colors hover:bg-white/95 data-[state=open]:bg-axcend-soft md:px-6"
         >
-          <AccordionTrigger className="py-2 text-left text-[11px] font-semibold leading-[1.2] text-foreground hover:no-underline md:py-4 md:text-base md:leading-snug [&>svg]:text-axcend-dark/70">
+          <AccordionTrigger className="py-3 text-left text-[11px] font-semibold leading-[1.2] text-foreground hover:no-underline md:py-5 md:text-base md:leading-snug [&>svg]:text-axcend-dark/70">
             {f.q}
           </AccordionTrigger>
-          <AccordionContent className="pb-2 pr-5 text-[11px] leading-relaxed text-muted-foreground md:pb-4 md:pr-8 md:text-sm">
+          <AccordionContent className="pb-3 pr-5 text-[11px] leading-relaxed text-muted-foreground md:pb-5 md:pr-10 md:text-sm">
             {f.a}
           </AccordionContent>
         </AccordionItem>
