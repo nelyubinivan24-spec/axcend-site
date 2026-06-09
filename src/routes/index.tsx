@@ -1528,8 +1528,6 @@ function Section({
 }
 
 function TeamSection() {
-  const [lead, ...team] = teamMembers;
-
   return (
     <section id="team" className="border-t border-border bg-background">
       <div className="mx-auto max-w-6xl px-6 py-24 md:py-32">
@@ -1543,56 +1541,31 @@ function TeamSection() {
         </div>
 
         <Reveal className="mt-8 md:mt-14">
-          <div className="grid gap-6 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.35fr)] lg:items-stretch">
-            <article className="relative overflow-hidden rounded-[26px] border border-primary-foreground/10 bg-axcend-dark p-3 text-primary-foreground shadow-[0_24px_70px_rgba(26,46,42,0.18)] md:rounded-[30px] md:p-4">
-              <div className={`${DARK_SURFACE_GLOW_CLASS} opacity-80`} />
-              <div className="relative z-10 grid grid-cols-[92px_minmax(0,1fr)] gap-3 md:block">
+          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+            {teamMembers.map((member) => (
+              <article
+                key={member.name}
+                className="group grid grid-cols-[88px_minmax(0,1fr)] gap-3 rounded-[22px] border border-border bg-card p-3 transition-colors hover:border-axcend-action/70 md:flex md:h-full md:flex-col md:rounded-[26px] md:p-4"
+              >
                 <img
-                  src={lead.image}
-                  alt={lead.name}
+                  src={member.image}
+                  alt={member.name}
                   loading="lazy"
-                  className="h-28 w-[92px] rounded-[18px] object-cover md:aspect-[4/3] md:h-auto md:w-full md:rounded-[22px]"
+                  className="h-[104px] w-[88px] rounded-[16px] object-cover md:aspect-[4/3] md:h-auto md:w-full md:rounded-[20px]"
                 />
-                <div className="min-w-0 p-0 md:p-4 md:pt-7">
-                  <h3 className="text-lg font-semibold leading-tight text-primary-foreground md:text-2xl">
-                    {lead.name}
+                <div className="flex min-w-0 flex-col md:flex-1 md:px-1 md:pt-2">
+                  <h3 className="text-base font-semibold leading-snug text-foreground md:text-lg">
+                    {member.name}
                   </h3>
-                  <p className="mt-1 text-[13px] leading-snug text-primary-foreground/72 md:mt-3 md:text-base md:leading-relaxed">
-                    {lead.role}
+                  <p className="mt-1 text-[12px] leading-snug text-muted-foreground md:text-sm">
+                    {member.role}
                   </p>
-                  <div className="mt-3 border-t border-primary-foreground/14 pt-3 text-xs font-semibold leading-relaxed text-axcend-action md:mt-7 md:pt-5 md:text-sm">
-                    {lead.proof}
+                  <div className="mt-3 border-t border-border pt-3 text-[11px] font-semibold leading-relaxed text-axcend-dark md:mt-auto md:pt-4 md:text-xs">
+                    {member.proof}
                   </div>
                 </div>
-              </div>
-            </article>
-
-            <div className="grid gap-3 md:gap-4">
-              {team.map((member) => (
-                <article
-                  key={member.name}
-                  className="group grid grid-cols-[82px_minmax(0,1fr)] gap-3 rounded-[22px] border border-border bg-card p-3 transition-colors hover:border-axcend-action/70 md:grid-cols-[148px_minmax(0,1fr)] md:items-center md:gap-4 md:rounded-[26px] md:p-5"
-                >
-                  <img
-                    src={member.image}
-                    alt={member.name}
-                    loading="lazy"
-                    className="h-[98px] w-[82px] rounded-[16px] object-cover md:aspect-square md:h-auto md:w-[148px] md:rounded-[20px]"
-                  />
-                  <div className="min-w-0">
-                    <h3 className="text-base font-semibold leading-snug text-foreground md:text-xl">
-                      {member.name}
-                    </h3>
-                    <p className="mt-1 text-[12px] leading-snug text-muted-foreground md:mt-2 md:text-base">
-                      {member.role}
-                    </p>
-                    <div className="mt-3 border-t border-border pt-3 text-[11px] font-semibold leading-relaxed text-axcend-dark md:mt-5 md:pt-4 md:text-sm">
-                      {member.proof}
-                    </div>
-                  </div>
-                </article>
-              ))}
-            </div>
+              </article>
+            ))}
           </div>
         </Reveal>
       </div>
