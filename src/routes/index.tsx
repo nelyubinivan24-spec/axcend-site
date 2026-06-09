@@ -1651,8 +1651,6 @@ function Section({
 }
 
 function TeamSection() {
-  const [lead, ...team] = teamMembers;
-
   return (
     <section id="team" className={LIGHT_SECTION_CLASS}>
       <div
@@ -1670,50 +1668,31 @@ function TeamSection() {
         </div>
 
         <Reveal className="mt-8 md:mt-14">
-          <div className="relative grid overflow-hidden border-y border-[#dbe7d8] lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.35fr)] lg:items-stretch">
-            <article className="relative overflow-hidden bg-axcend-dark p-4 text-primary-foreground md:p-5 lg:p-6">
-              <div className={`${DARK_SURFACE_GLOW_CLASS} opacity-80`} />
-              <div className="relative z-10 grid grid-cols-[92px_minmax(0,1fr)] gap-3 md:block">
-                <img
-                  src={lead.image}
-                  alt={lead.name}
-                  loading="lazy"
-                  className="h-28 w-[92px] rounded-[18px] object-cover md:aspect-[4/3] md:h-auto md:w-full md:rounded-[22px]"
-                />
-                <div className="min-w-0 p-0 md:p-4 md:pt-7">
-                  <h3 className="text-lg font-semibold leading-tight text-primary-foreground md:text-2xl">
-                    {lead.name}
-                  </h3>
-                  <p className="mt-1 text-[13px] leading-snug text-primary-foreground/72 md:mt-3 md:text-base md:leading-relaxed">
-                    {lead.role}
-                  </p>
-                  <div className="mt-3 border-t border-primary-foreground/14 pt-3 text-xs font-semibold leading-relaxed text-axcend-action md:mt-7 md:pt-5 md:text-sm">
-                    {lead.proof}
+          <div className="relative overflow-hidden rounded-[30px] bg-axcend-dark text-primary-foreground md:rounded-[34px]">
+            <div className={`${DARK_SURFACE_GLOW_CLASS} hidden opacity-55 md:block`} />
+            <div className="relative z-10 grid grid-cols-1 divide-y divide-primary-foreground/12 md:grid-cols-2 md:divide-x md:divide-y-0 xl:grid-cols-4">
+              {teamMembers.map((member) => (
+                <article key={member.name} className="group flex min-h-full flex-col">
+                  <div className="relative aspect-[4/3] overflow-hidden bg-primary-foreground/6 md:aspect-[3/4]">
+                    <img
+                      src={member.image}
+                      alt={member.name}
+                      loading="lazy"
+                      className="h-full w-full object-cover object-top opacity-95 transition-transform duration-500 group-hover:scale-[1.025]"
+                    />
+                    <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-[linear-gradient(180deg,rgba(26,46,42,0)_0%,rgba(26,46,42,0.78)_100%)]" />
+                    <div className="absolute bottom-4 left-4 right-4 md:bottom-5 md:left-5 md:right-5">
+                      <div className="mb-3 h-1 w-10 rounded-full bg-axcend-action/85" />
+                      <h3 className="text-xl font-semibold leading-tight text-primary-foreground md:text-2xl">
+                        {member.name}
+                      </h3>
+                    </div>
                   </div>
-                </div>
-              </div>
-            </article>
-
-            <div className="relative bg-transparent">
-              {team.map((member) => (
-                <article
-                  key={member.name}
-                  className="group grid grid-cols-[82px_minmax(0,1fr)] gap-3 border-b border-[#dbe7d8] p-4 transition-colors last:border-b-0 hover:bg-white/62 md:grid-cols-[128px_minmax(0,1fr)] md:items-center md:gap-5 md:p-6"
-                >
-                  <img
-                    src={member.image}
-                    alt={member.name}
-                    loading="lazy"
-                    className="h-[98px] w-[82px] rounded-[16px] object-cover md:aspect-square md:h-auto md:w-[128px] md:rounded-[20px]"
-                  />
-                  <div className="min-w-0">
-                    <h3 className="text-base font-semibold leading-snug text-foreground md:text-xl">
-                      {member.name}
-                    </h3>
-                    <p className="mt-1 text-[12px] leading-snug text-muted-foreground md:mt-2 md:text-base">
+                  <div className="flex flex-1 flex-col p-5 md:p-6">
+                    <p className="text-sm leading-relaxed text-primary-foreground/70 md:text-base">
                       {member.role}
                     </p>
-                    <div className="mt-3 border-t border-border pt-3 text-[11px] font-semibold leading-relaxed text-axcend-dark md:mt-5 md:pt-4 md:text-sm">
+                    <div className="mt-5 border-t border-primary-foreground/14 pt-4 text-xs font-semibold leading-relaxed text-axcend-action md:mt-auto md:pt-5 md:text-sm">
                       {member.proof}
                     </div>
                   </div>
