@@ -62,18 +62,16 @@ const DARK_SURFACE_GLOW_CLASS =
   "pointer-events-none absolute -right-32 -top-28 h-[28rem] w-[44rem] rounded-full bg-[radial-gradient(ellipse_at_70%_30%,rgba(200,240,160,0.20)_0%,rgba(200,240,160,0.085)_42%,rgba(200,240,160,0.025)_66%,rgba(200,240,160,0)_84%)] blur-[72px]";
 
 const LIGHT_SECTION_CLASS =
-  "relative isolate overflow-hidden border-t border-[#dde9dd] bg-[#fbfcf8]";
+  "relative isolate overflow-hidden border-t border-[#e2eadf] bg-[#fbfcf8]";
 
-const LIGHT_SECTION_INNER_CLASS = "relative z-10 mx-auto max-w-6xl px-5 py-16 md:px-6 md:py-24";
+const LIGHT_SECTION_INNER_CLASS = "relative z-10 mx-auto max-w-6xl px-5 py-14 md:px-6 md:py-20";
 
-const EDITORIAL_SURFACE_CLASS =
-  "rounded-[30px] border border-[#d9e7da] bg-[linear-gradient(180deg,rgba(255,255,255,0.94)_0%,rgba(248,252,244,0.82)_100%)] shadow-[0_18px_58px_rgba(26,46,42,0.045)]";
+const EDITORIAL_SURFACE_CLASS = "rounded-[22px] border border-[#dbe7d8] bg-white/72";
 
-const QUIET_SURFACE_CLASS =
-  "rounded-[24px] border border-[#d9e7da]/85 bg-white/76 shadow-[0_8px_28px_rgba(26,46,42,0.025)]";
+const QUIET_SURFACE_CLASS = "rounded-[18px] border border-[#dbe7d8] bg-white/64";
 
 const DARK_PANEL_CLASS =
-  "rounded-[30px] border border-primary-foreground/12 bg-primary-foreground/[0.06] shadow-[0_24px_74px_rgba(0,0,0,0.2)]";
+  "rounded-[24px] border border-primary-foreground/12 bg-primary-foreground/[0.055]";
 
 const CONTACT_WHATSAPP_URL = "https://wa.me/77085077371";
 const CONTACT_WHATSAPP_FOOTER_URL = `${CONTACT_WHATSAPP_URL}?text=${encodeURIComponent(
@@ -196,7 +194,7 @@ function ProofGrid({ items }: { items: typeof proofs }) {
   return (
     <div
       ref={wrapRef}
-      className={`${EDITORIAL_SURFACE_CLASS} mx-auto grid max-w-5xl grid-cols-1 gap-1.5 overflow-hidden p-1.5 md:grid-cols-2 md:p-2`}
+      className="mx-auto grid max-w-5xl grid-cols-1 overflow-hidden border-y border-[#dbe7d8] md:grid-cols-2"
     >
       {items.map((p, i) => {
         const Icon = p.icon;
@@ -214,28 +212,21 @@ function ProofGrid({ items }: { items: typeof proofs }) {
             onMouseEnter={() => setHover(i)}
             onMouseLeave={() => setHover(null)}
             style={{ transitionDelay: `${i * 60}ms` }}
-            className={`group relative flex min-h-[184px] flex-col overflow-hidden rounded-[20px] border p-5 text-left transition-all duration-300 md:min-h-[210px] md:rounded-[24px] md:p-6 ${
-              lifted
-                ? "border-axcend-action bg-axcend-soft shadow-[0_14px_40px_rgba(26,46,42,0.055)]"
-                : "border-transparent bg-white/56 hover:border-[#d9e7da] hover:bg-white/78"
+            className={`group relative flex min-h-[172px] flex-col overflow-hidden border-b border-[#dbe7d8] p-5 text-left transition-colors duration-300 last:border-b-0 md:min-h-[196px] md:border-b-0 md:border-r md:p-7 md:[&:nth-child(2n)]:border-r-0 md:[&:nth-child(n+3)]:border-t ${
+              lifted ? "bg-white" : "bg-transparent hover:bg-white/56"
             } ${inView ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"}`}
           >
             <div
-              className={`pointer-events-none absolute -right-24 -top-24 h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(200,240,160,0.28),rgba(200,240,160,0.08)_46%,rgba(200,240,160,0)_74%)] blur-2xl transition-opacity duration-300 ${
-                lifted ? "opacity-100" : "opacity-0"
-              }`}
-            />
-            <div
-              className={`absolute bottom-7 left-0 top-7 w-1 rounded-r-full transition-opacity duration-300 ${
+              className={`absolute bottom-6 left-0 top-6 w-[3px] rounded-r-full transition-opacity duration-300 ${
                 lifted ? "bg-axcend-action opacity-100" : "opacity-0"
               }`}
             />
             <div className="relative flex h-full gap-4 md:gap-5">
               <div
-                className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border transition-all duration-300 ${
+                className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full border transition-colors duration-300 ${
                   lifted
                     ? "border-axcend-action bg-axcend-action text-axcend-dark"
-                    : "border-[#d9e7da] bg-axcend-soft/70 text-muted-foreground"
+                    : "border-[#dbe7d8] bg-[#eef8e6] text-muted-foreground"
                 }`}
               >
                 <Icon className="h-5 w-5" strokeWidth={1.9} />
@@ -843,14 +834,14 @@ function WhatWeDoTabs() {
   return (
     <Tabs
       defaultValue="0"
-      className="mx-auto grid w-full max-w-6xl gap-4 lg:grid-cols-[320px_minmax(0,1fr)] lg:items-start"
+      className="mx-auto grid w-full max-w-6xl gap-6 lg:grid-cols-[300px_minmax(0,1fr)] lg:items-start"
     >
-      <TabsList className="grid h-auto w-full grid-cols-2 items-stretch gap-1.5 rounded-[22px] border border-[#d9e7da] bg-white/70 p-1.5 md:grid-cols-3 md:gap-2 lg:sticky lg:top-28 lg:grid-cols-1 lg:rounded-[26px] lg:bg-white/72 lg:p-2">
+      <TabsList className="grid h-auto w-full grid-cols-2 items-stretch gap-1 border-y border-[#dbe7d8] bg-transparent py-2 md:grid-cols-3 lg:sticky lg:top-28 lg:grid-cols-1 lg:gap-0 lg:py-0">
         {whatWeDo.map((s, i) => (
           <TabsTrigger
             key={s.title}
             value={String(i)}
-            className="min-h-[34px] w-full whitespace-normal rounded-full border border-transparent bg-transparent px-2 py-1 text-center text-[10px] leading-[1.12] text-muted-foreground transition-colors hover:bg-axcend-soft/70 hover:text-foreground data-[state=active]:border-axcend-action data-[state=active]:bg-axcend-action data-[state=active]:text-axcend-dark data-[state=active]:shadow-none md:min-h-[38px] md:px-3 md:py-2 md:text-xs md:leading-snug lg:min-h-[50px] lg:justify-start lg:rounded-[18px] lg:px-4 lg:py-3 lg:text-left lg:text-sm"
+            className="min-h-[34px] w-full whitespace-normal rounded-none border border-transparent bg-transparent px-2 py-1 text-center text-[10px] leading-[1.12] text-muted-foreground transition-colors hover:bg-white/60 hover:text-foreground data-[state=active]:border-transparent data-[state=active]:bg-axcend-soft data-[state=active]:text-axcend-dark data-[state=active]:shadow-none md:min-h-[38px] md:px-3 md:py-2 md:text-xs md:leading-snug lg:min-h-[52px] lg:justify-start lg:border-b lg:border-[#dbe7d8] lg:px-4 lg:py-3 lg:text-left lg:text-sm lg:last:border-b-0 lg:data-[state=active]:border-l-2 lg:data-[state=active]:border-l-axcend-action"
           >
             {s.title}
           </TabsTrigger>
@@ -858,11 +849,8 @@ function WhatWeDoTabs() {
       </TabsList>
       {whatWeDo.map((s, i) => (
         <TabsContent key={s.title} value={String(i)} className="mt-0 lg:col-start-2 lg:row-start-1">
-          <div
-            className={`${EDITORIAL_SURFACE_CLASS} relative min-h-[240px] overflow-hidden p-6 md:min-h-[300px] md:p-9 lg:p-10`}
-          >
-            <div className="pointer-events-none absolute -left-24 -top-28 h-64 w-80 rounded-full bg-[radial-gradient(ellipse_at_center,rgba(200,240,160,0.22)_0%,rgba(200,240,160,0.075)_50%,rgba(200,240,160,0)_78%)] blur-3xl" />
-            <div className="pointer-events-none absolute bottom-0 left-0 top-0 w-1 rounded-full bg-axcend-action" />
+          <div className="relative min-h-[228px] border-y border-[#dbe7d8] py-6 pl-5 pr-2 md:min-h-[280px] md:py-9 md:pl-8 lg:pr-8">
+            <div className="pointer-events-none absolute bottom-5 left-0 top-5 w-[3px] rounded-r-full bg-axcend-action" />
             <div className="relative">
               <h3 className="text-xl font-semibold leading-tight text-foreground md:text-[34px]">
                 {s.title}
@@ -894,8 +882,8 @@ function LaunchProcess({ dark = false }: { dark?: boolean } = {}) {
             Ниже описано, что именно мы делаем на каждом этапе и за что вы платите.
           </p>
         </div>
-        <div className="relative z-10 hidden h-full rounded-[34px] bg-white/[0.055] p-2 shadow-[0_34px_92px_rgba(0,0,0,0.36),0_14px_36px_rgba(0,0,0,0.26),0_0_0_1px_rgba(255,255,255,0.08)] md:block">
-          <div className="relative h-full min-h-[220px] overflow-hidden rounded-[28px] bg-muted">
+        <div className="relative z-10 hidden h-full rounded-[24px] border border-primary-foreground/10 bg-white/[0.045] p-2 md:block">
+          <div className="relative h-full min-h-[220px] overflow-hidden rounded-[20px] bg-muted">
             <img
               src="https://axcend.pro/assets/callcenter-real-CefSNWWS.jpg"
               alt="Команда AXCEND в работе"
@@ -909,8 +897,10 @@ function LaunchProcess({ dark = false }: { dark?: boolean } = {}) {
 
       <div
         className={cn(
-          "mt-6 overflow-hidden rounded-[24px] border p-0 md:mt-12 md:rounded-[26px]",
-          dark ? DARK_PANEL_CLASS : "border-axcend-action/55 bg-axcend-soft",
+          "mt-6 overflow-hidden border-y p-0 md:mt-12",
+          dark
+            ? "border-primary-foreground/12 bg-transparent"
+            : "border-axcend-action/55 bg-axcend-soft",
         )}
       >
         <div className="flex items-stretch">
@@ -945,10 +935,10 @@ function LaunchProcess({ dark = false }: { dark?: boolean } = {}) {
             key={stage.number}
             value={String(index)}
             className={cn(
-              "overflow-hidden rounded-[22px] border px-0 transition-[border-color,box-shadow] md:rounded-[26px]",
+              "overflow-hidden border px-0 transition-colors",
               dark
-                ? "border-primary-foreground/12 bg-primary-foreground/[0.055] hover:border-axcend-action/60 hover:shadow-[0_22px_70px_rgba(0,0,0,0.22)] data-[state=open]:border-axcend-action/70 data-[state=open]:bg-primary-foreground/[0.085]"
-                : "border-border bg-card hover:border-axcend-action/70 hover:shadow-[0_18px_50px_rgba(0,0,0,0.08)] data-[state=open]:border-axcend-action/70 data-[state=open]:bg-axcend-soft",
+                ? "border-primary-foreground/12 bg-primary-foreground/[0.035] hover:border-axcend-action/50 data-[state=open]:border-axcend-action/70 data-[state=open]:bg-primary-foreground/[0.065]"
+                : "border-border bg-card hover:border-axcend-action/70 data-[state=open]:border-axcend-action/70 data-[state=open]:bg-axcend-soft",
             )}
           >
             <AccordionTrigger className="group px-4 py-4 text-left hover:no-underline md:px-6 md:py-6 [&>svg]:hidden">
@@ -1009,10 +999,8 @@ function LaunchProcess({ dark = false }: { dark?: boolean } = {}) {
                   {stage.result && (
                     <div
                       className={cn(
-                        "rounded-2xl border p-3 md:p-4",
-                        dark
-                          ? "border-primary-foreground/12 bg-primary-foreground/[0.05]"
-                          : "border-border bg-card/80",
+                        "border-l-2 border-axcend-action pl-3 md:pl-4",
+                        dark ? "" : "bg-transparent",
                       )}
                     >
                       <div
@@ -1034,7 +1022,7 @@ function LaunchProcess({ dark = false }: { dark?: boolean } = {}) {
                       </p>
                     </div>
                   )}
-                  <div className="rounded-2xl border border-axcend-action/50 bg-axcend-action/15 p-3 md:p-4">
+                  <div className="border-l-2 border-axcend-action bg-axcend-action/10 pl-3 md:pl-4">
                     <div
                       className={cn(
                         "flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.14em] md:text-xs",
@@ -1095,17 +1083,15 @@ function IndustriesShowcase() {
   const activeBarWidth = Math.min(100, Math.max(8, activeItem.result.pct * 1.45));
 
   return (
-    <div
-      className={`${DARK_SURFACE_BASE_CLASS} mx-auto max-w-6xl rounded-[30px] p-3 shadow-[0_24px_72px_rgba(26,46,42,0.14)] md:p-5`}
-    >
+    <div className={`${DARK_SURFACE_BASE_CLASS} mx-auto max-w-6xl rounded-[26px] p-4 md:p-6`}>
       <div className={`${DARK_SURFACE_GLOW_CLASS} hidden opacity-75 md:block`} />
       <div className="relative z-10 mb-4 grid gap-4 md:mb-5 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
         <p className="max-w-2xl text-[13px] leading-relaxed text-primary-foreground/72 md:text-base">
           Реальные результаты по разным B2B-сегментам. Каждый кейс показывает не количество звонков,
           а долю компаний, которые дошли до предметного разговора.
         </p>
-        <div className="grid grid-cols-3 gap-1.5 rounded-[20px] border border-primary-foreground/12 bg-primary-foreground/[0.045] p-1.5 md:gap-2 md:rounded-[22px] md:p-2">
-          <div className="rounded-2xl px-2.5 py-2.5 md:px-3 md:py-3">
+        <div className="grid grid-cols-3 divide-x divide-primary-foreground/12 border-y border-primary-foreground/12 md:min-w-[360px]">
+          <div className="px-2.5 py-2.5 md:px-4 md:py-3">
             <div className="text-[9px] font-medium uppercase tracking-[0.14em] text-primary-foreground/55 md:text-[10px] md:tracking-[0.16em]">
               Отрасли
             </div>
@@ -1113,7 +1099,7 @@ function IndustriesShowcase() {
               {industriesData.length}+
             </div>
           </div>
-          <div className="rounded-2xl px-2.5 py-2.5 md:px-3 md:py-3">
+          <div className="px-2.5 py-2.5 md:px-4 md:py-3">
             <div className="text-[9px] font-medium uppercase tracking-[0.14em] text-primary-foreground/55 md:text-[10px] md:tracking-[0.16em]">
               Кейсы
             </div>
@@ -1121,7 +1107,7 @@ function IndustriesShowcase() {
               {totalCaseCount}
             </div>
           </div>
-          <div className="rounded-2xl border border-axcend-action/45 bg-axcend-action/12 px-2.5 py-2.5 md:px-3 md:py-3">
+          <div className="bg-axcend-action/10 px-2.5 py-2.5 md:px-4 md:py-3">
             <div className="text-[9px] font-medium uppercase tracking-[0.14em] text-primary-foreground/55 md:text-[10px] md:tracking-[0.16em]">
               Средняя
             </div>
@@ -1132,8 +1118,8 @@ function IndustriesShowcase() {
         </div>
       </div>
 
-      <div className="relative z-10 grid gap-2.5 lg:grid-cols-[minmax(0,1.25fr)_minmax(280px,0.75fr)] lg:gap-3">
-        <article className="rounded-[24px] border border-axcend-action/30 bg-primary-foreground/[0.07] p-5 shadow-[0_18px_52px_rgba(0,0,0,0.12)] md:rounded-[28px] md:p-6">
+      <div className="relative z-10 grid gap-6 border-y border-primary-foreground/12 py-5 lg:grid-cols-[minmax(0,1.25fr)_minmax(280px,0.75fr)] lg:gap-8">
+        <article className="p-0">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
             <div>
               <div className="inline-flex rounded-full border border-axcend-action/25 bg-axcend-action/12 px-3 py-1 text-[10px] font-semibold text-axcend-action md:text-[11px]">
@@ -1143,7 +1129,7 @@ function IndustriesShowcase() {
                 {activeItem.result.client}
               </h3>
             </div>
-            <div className="shrink-0 rounded-[22px] border border-primary-foreground/12 bg-primary-foreground/[0.065] px-4 py-3 text-left sm:text-right">
+            <div className="shrink-0 border-l border-primary-foreground/12 pl-4 text-left sm:text-right">
               <div className="text-[9px] font-medium uppercase tracking-[0.16em] text-primary-foreground/52 md:text-[10px]">
                 Конверсия
               </div>
@@ -1170,13 +1156,13 @@ function IndustriesShowcase() {
           </div>
         </article>
 
-        <div className="grid gap-2">
+        <div className="border-t border-primary-foreground/12 lg:border-l lg:border-t-0 lg:pl-6">
           {previewCases.map((item) => (
             <button
               key={`${item.industry.name}-${item.result.client}-${item.flowIndex}`}
               type="button"
               onClick={() => setActiveFlowIndex(item.flowIndex)}
-              className="group rounded-[20px] border border-primary-foreground/10 bg-primary-foreground/[0.04] p-3 text-left transition-colors hover:border-axcend-action/55 hover:bg-primary-foreground/[0.07] md:p-3.5"
+              className="group w-full border-b border-primary-foreground/12 py-3 text-left transition-colors last:border-b-0 hover:bg-primary-foreground/[0.035] md:py-4"
             >
               <div className="flex items-start justify-between gap-3">
                 <div className="min-w-0">
@@ -1191,7 +1177,7 @@ function IndustriesShowcase() {
                   {item.result.pct.toFixed(1)}%
                 </div>
               </div>
-              <div className="mt-3 h-1 overflow-hidden rounded-full bg-primary-foreground/10">
+              <div className="mt-3 h-px overflow-hidden bg-primary-foreground/10">
                 <div
                   className="h-full rounded-full bg-axcend-action/85 transition-all duration-500"
                   style={{ width: `${Math.min(100, Math.max(8, item.result.pct * 1.45))}%` }}
@@ -1423,7 +1409,7 @@ function CalcRow({
   fmt: (n: number) => string;
 }) {
   return (
-    <div className="rounded-[18px] border border-transparent bg-white/58 px-3 py-3 transition-colors hover:border-[#d9e7da] hover:bg-white/78 md:px-4 md:py-4">
+    <div className="border-b border-[#dbe7d8] py-4 last:border-b-0 md:py-5">
       <div className="mb-2.5 grid gap-2 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center sm:gap-5 md:mb-3">
         <label className="min-w-0 whitespace-nowrap text-[12px] font-semibold leading-none text-foreground md:max-w-[340px] md:text-sm md:leading-snug">
           {label}
@@ -1472,11 +1458,8 @@ function Calculator() {
   const meetings = Math.round((companies * conversion) / 100);
   const revenue = meetings * avgDeal;
   return (
-    <div
-      className={`${EDITORIAL_SURFACE_CLASS} mx-auto grid max-w-6xl grid-cols-1 gap-2 overflow-hidden p-1.5 md:p-2 lg:grid-cols-[minmax(0,1fr)_400px] lg:items-stretch`}
-    >
-      <div className="relative overflow-hidden rounded-[24px] bg-white/58 p-4 md:rounded-[28px] md:p-6">
-        <div className="pointer-events-none absolute -right-28 -top-28 h-80 w-80 rounded-full bg-[radial-gradient(circle,rgba(200,240,160,0.20)_0%,rgba(200,240,160,0.065)_54%,rgba(200,240,160,0)_80%)] blur-3xl" />
+    <div className="mx-auto grid max-w-6xl grid-cols-1 overflow-hidden border-y border-[#dbe7d8] lg:grid-cols-[minmax(0,1fr)_400px] lg:items-stretch">
+      <div className="relative overflow-hidden bg-transparent p-4 md:p-7 lg:border-r lg:border-[#dbe7d8]">
         <div className="relative z-10 mb-4 flex flex-col gap-2 text-left sm:flex-row sm:items-end sm:justify-between md:mb-5">
           <div>
             <div className="text-lg font-semibold text-foreground md:text-xl">Параметры</div>
@@ -1485,7 +1468,7 @@ function Calculator() {
             5% в договоре
           </div>
         </div>
-        <div className="relative z-10 space-y-1.5 rounded-[22px] bg-[#f6faf2]/72 p-1.5 md:space-y-2 md:rounded-[26px] md:p-2">
+        <div className="relative z-10 border-y border-[#dbe7d8]">
           <CalcRow
             label="Размер базы целевых компаний"
             value={companies}
@@ -1516,7 +1499,7 @@ function Calculator() {
           />
         </div>
 
-        <div className="relative z-10 mt-3 grid grid-cols-3 overflow-hidden rounded-[20px] border border-[#d9e7da] bg-white/78 text-left md:mt-4 md:rounded-[24px]">
+        <div className="relative z-10 mt-4 grid grid-cols-3 overflow-hidden border border-[#dbe7d8] bg-white/62 text-left md:mt-5">
           <div className="border-r border-border p-3 md:p-4">
             <div className="text-[10px] font-medium uppercase tracking-[0.16em] text-muted-foreground md:text-xs md:tracking-[0.18em]">
               База
@@ -1544,7 +1527,7 @@ function Calculator() {
         </div>
       </div>
 
-      <div className={`${DARK_SURFACE_BASE_CLASS} rounded-[24px] p-4 md:rounded-[28px] md:p-7`}>
+      <div className={`${DARK_SURFACE_BASE_CLASS} p-4 md:p-7`}>
         <div className={`${DARK_SURFACE_GLOW_CLASS} hidden md:block`} />
         <div className="relative z-10">
           <div className="text-[10px] font-medium uppercase tracking-[0.16em] text-primary-foreground/60 md:text-xs md:tracking-[0.18em]">
@@ -1611,18 +1594,18 @@ function FAQ() {
     <Accordion
       type="single"
       collapsible
-      className={`${EDITORIAL_SURFACE_CLASS} mx-auto max-w-5xl divide-y divide-border/70 overflow-hidden p-0`}
+      className="mx-auto max-w-5xl divide-y divide-[#dbe7d8] overflow-hidden border-y border-[#dbe7d8]"
     >
       {faqs.map((f, i) => (
         <AccordionItem
           key={i}
           value={String(i)}
-          className="border-0 bg-white/72 px-4 transition-colors hover:bg-white/95 data-[state=open]:bg-axcend-soft md:px-6"
+          className="border-0 bg-transparent px-2 transition-colors hover:bg-white/54 data-[state=open]:bg-white/72 md:px-4"
         >
-          <AccordionTrigger className="py-3 text-left text-[11px] font-semibold leading-[1.2] text-foreground hover:no-underline md:py-5 md:text-base md:leading-snug [&>svg]:text-axcend-dark/70">
+          <AccordionTrigger className="py-3 text-left text-[11px] font-semibold leading-[1.2] text-foreground hover:no-underline md:py-4 md:text-base md:leading-snug [&>svg]:text-axcend-dark/70">
             {f.q}
           </AccordionTrigger>
-          <AccordionContent className="pb-3 pr-5 text-[11px] leading-relaxed text-muted-foreground md:pb-5 md:pr-10 md:text-sm">
+          <AccordionContent className="pb-3 pr-5 text-[11px] leading-relaxed text-muted-foreground md:pb-4 md:pr-10 md:text-sm">
             {f.a}
           </AccordionContent>
         </AccordionItem>
@@ -1687,14 +1670,8 @@ function TeamSection() {
         </div>
 
         <Reveal className="mt-8 md:mt-14">
-          <div
-            className={`${EDITORIAL_SURFACE_CLASS} relative grid gap-2 overflow-hidden p-1.5 md:p-2 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.35fr)] lg:items-stretch`}
-          >
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute -right-28 -top-28 h-72 w-96 rounded-full bg-[radial-gradient(ellipse_at_center,rgba(200,240,160,0.11)_0%,rgba(200,240,160,0.04)_50%,rgba(200,240,160,0)_80%)] blur-3xl"
-            />
-            <article className="relative overflow-hidden rounded-[24px] border border-primary-foreground/10 bg-axcend-dark p-3 text-primary-foreground shadow-[0_20px_58px_rgba(26,46,42,0.14)] md:rounded-[28px] md:p-4">
+          <div className="relative grid overflow-hidden border-y border-[#dbe7d8] lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.35fr)] lg:items-stretch">
+            <article className="relative overflow-hidden bg-axcend-dark p-4 text-primary-foreground md:p-5 lg:p-6">
               <div className={`${DARK_SURFACE_GLOW_CLASS} opacity-80`} />
               <div className="relative z-10 grid grid-cols-[92px_minmax(0,1fr)] gap-3 md:block">
                 <img
@@ -1717,11 +1694,11 @@ function TeamSection() {
               </div>
             </article>
 
-            <div className="relative rounded-[24px] bg-white/58 p-1.5 md:rounded-[28px] md:p-2">
+            <div className="relative bg-transparent">
               {team.map((member) => (
                 <article
                   key={member.name}
-                  className="group grid grid-cols-[82px_minmax(0,1fr)] gap-3 rounded-[20px] border border-transparent p-3 transition-colors hover:border-axcend-action/55 hover:bg-axcend-soft/68 md:grid-cols-[128px_minmax(0,1fr)] md:items-center md:gap-4 md:p-4"
+                  className="group grid grid-cols-[82px_minmax(0,1fr)] gap-3 border-b border-[#dbe7d8] p-4 transition-colors last:border-b-0 hover:bg-white/62 md:grid-cols-[128px_minmax(0,1fr)] md:items-center md:gap-5 md:p-6"
                 >
                   <img
                     src={member.image}
@@ -1819,10 +1796,8 @@ function ConversionSystem({ items }: { items: typeof conversionReasons }) {
   }, [active]);
 
   return (
-    <div
-      className={`${EDITORIAL_SURFACE_CLASS} mx-auto w-full max-w-5xl overflow-hidden p-2 md:p-3`}
-    >
-      <div className="grid gap-1 md:gap-2">
+    <div className="mx-auto w-full max-w-5xl overflow-hidden border-y border-[#dbe7d8]">
+      <div className="grid">
         {items.map((item, index) => {
           const isActive = active === index;
           return (
@@ -1836,14 +1811,12 @@ function ConversionSystem({ items }: { items: typeof conversionReasons }) {
               data-conversion-card={index}
               onClick={() => setActive(index)}
               onFocus={() => setActive(index)}
-              className={`group relative overflow-hidden rounded-[24px] border p-5 text-left transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-axcend-action/40 md:p-6 ${
-                isActive
-                  ? "border-axcend-action/70 bg-axcend-soft"
-                  : "border-transparent bg-white/62 hover:border-axcend-action/50 hover:bg-white"
+              className={`group relative overflow-hidden border-b border-[#dbe7d8] p-5 text-left transition-colors duration-300 last:border-b-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-axcend-action/40 md:p-7 ${
+                isActive ? "bg-white" : "bg-transparent hover:bg-white/56"
               }`}
             >
               <div
-                className={`pointer-events-none absolute bottom-5 left-0 top-5 w-1 rounded-full transition-opacity duration-300 ${
+                className={`pointer-events-none absolute bottom-6 left-0 top-6 w-[3px] rounded-r-full transition-opacity duration-300 ${
                   isActive ? "bg-axcend-action opacity-100" : "bg-transparent opacity-0"
                 }`}
               />
@@ -1883,10 +1856,10 @@ function ConversionGlyph({ index, active }: { index: number; active: boolean }) 
   const Icon = Check;
   return (
     <span
-      className={`relative mt-0.5 flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border transition-all duration-300 ${
+      className={`relative mt-0.5 flex h-11 w-11 shrink-0 items-center justify-center rounded-full border transition-colors duration-300 ${
         active
           ? "border-axcend-action bg-axcend-action text-axcend-dark"
-          : "border-border bg-axcend-soft text-muted-foreground"
+          : "border-[#dbe7d8] bg-[#eef8e6] text-muted-foreground"
       }`}
       aria-hidden
     >
