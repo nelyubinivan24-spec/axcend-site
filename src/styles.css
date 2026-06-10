@@ -131,12 +131,12 @@
   --destructive-foreground: #1a2e2a;
   --success: #c8f0a0;
   --success-foreground: #1a2e2a;
-  --border: rgba(200,240,160,0.24);
-  --input: rgba(200,240,160,0.24);
+  --border: rgba(200, 240, 160, 0.24);
+  --input: rgba(200, 240, 160, 0.24);
   --ring: #c8f0a0;
   --chart-1: #c8f0a0;
   --chart-2: #b8c5be;
-  --chart-3: rgba(200,240,160,0.24);
+  --chart-3: rgba(200, 240, 160, 0.24);
   --chart-4: #ffffff;
   --chart-5: #152723;
   --sidebar: #1a2e2a;
@@ -145,7 +145,7 @@
   --sidebar-primary-foreground: #1a2e2a;
   --sidebar-accent: #203b35;
   --sidebar-accent-foreground: #ffffff;
-  --sidebar-border: rgba(200,240,160,0.24);
+  --sidebar-border: rgba(200, 240, 160, 0.24);
   --sidebar-ring: #c8f0a0;
 }
 
@@ -174,7 +174,10 @@
     text-rendering: optimizeLegibility;
   }
 
-  h1, h2, h3, h4 {
+  h1,
+  h2,
+  h3,
+  h4 {
     letter-spacing: -0.02em;
   }
 
@@ -182,6 +185,118 @@
     html,
     body {
       overflow-x: hidden;
+    }
+  }
+}
+
+@layer components {
+  .ax-section {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    border-top: 1px solid rgba(26, 46, 42, 0.1);
+    background: #fbfcf8;
+  }
+
+  .ax-section-inner {
+    position: relative;
+    z-index: 10;
+    width: min(100% - 2.5rem, 72rem);
+    margin-inline: auto;
+    padding-block: clamp(4rem, 8vw, 7rem);
+  }
+
+  .ax-section-heading {
+    max-width: 52rem;
+  }
+
+  .ax-section-heading.center {
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .ax-eyebrow {
+    margin-bottom: 1rem;
+    color: rgba(26, 46, 42, 0.64);
+    font-size: 0.72rem;
+    font-weight: 650;
+    line-height: 1;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .ax-title {
+    color: var(--foreground);
+    font-size: clamp(1.9rem, 4.2vw, 3.9rem);
+    font-weight: 650;
+    line-height: 1.02;
+    letter-spacing: -0.035em;
+  }
+
+  .ax-dark-anchor {
+    position: relative;
+    overflow: hidden;
+    background:
+      radial-gradient(ellipse at 84% 18%, rgba(200, 240, 160, 0.13), transparent 46%),
+      linear-gradient(145deg, #1a2e2a 0%, #10221e 100%);
+    color: #ffffff;
+  }
+
+  .ax-dark-glow {
+    pointer-events: none;
+    position: absolute;
+    right: -16rem;
+    top: -14rem;
+    width: 58rem;
+    height: 42rem;
+    border-radius: 999px;
+    background: radial-gradient(
+      ellipse at center,
+      rgba(200, 240, 160, 0.16) 0%,
+      rgba(200, 240, 160, 0.08) 36%,
+      rgba(200, 240, 160, 0.03) 62%,
+      rgba(200, 240, 160, 0) 84%
+    );
+    filter: blur(90px);
+  }
+
+  .ax-editorial {
+    border-block: 1px solid rgba(26, 46, 42, 0.14);
+    background: transparent;
+  }
+
+  .ax-ledger {
+    border-block: 1px solid rgba(26, 46, 42, 0.14);
+    background: rgba(255, 255, 255, 0.34);
+  }
+
+  .ax-brand-field {
+    background: #c8f0a0;
+    color: #1a2e2a;
+  }
+
+  .ax-soft-field {
+    background: #eef8e6;
+    color: #1a2e2a;
+  }
+
+  .ax-divider {
+    border-color: rgba(26, 46, 42, 0.14);
+  }
+
+  .ax-quiet-border {
+    border-color: rgba(26, 46, 42, 0.12);
+  }
+
+  @media (max-width: 767px) {
+    .ax-section-inner {
+      width: min(100% - 2rem, 72rem);
+      padding-block: 3.5rem;
+    }
+
+    .ax-eyebrow {
+      font-size: 0.66rem;
+      letter-spacing: 0.15em;
     }
   }
 }
@@ -243,7 +358,9 @@ header nav .hidden.gap-8 > a[href="#what"] {
   line-height: 1;
   white-space: nowrap;
   cursor: pointer;
-  transition: background-color 0.18s ease, color 0.18s ease;
+  transition:
+    background-color 0.18s ease,
+    color 0.18s ease;
 }
 
 .axcend-lang-quick-option:hover {
@@ -270,7 +387,10 @@ header nav .hidden.gap-8 > a[href="#what"] {
   font-weight: 600;
   line-height: 1;
   cursor: pointer;
-  transition: border-color 0.18s ease, background-color 0.18s ease, color 0.18s ease;
+  transition:
+    border-color 0.18s ease,
+    background-color 0.18s ease,
+    color 0.18s ease;
 }
 
 .axcend-lang-button:hover {
@@ -294,7 +414,9 @@ header nav .hidden.gap-8 > a[href="#what"] {
   opacity: 0;
   transform: translateY(-4px);
   pointer-events: none;
-  transition: opacity 0.16s ease, transform 0.16s ease;
+  transition:
+    opacity 0.16s ease,
+    transform 0.16s ease;
 }
 
 .axcend-lang-switcher[data-open="true"] .axcend-lang-menu {

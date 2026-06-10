@@ -55,23 +55,19 @@ declare global {
   }
 }
 
-const DARK_SURFACE_BASE_CLASS =
-  "relative overflow-hidden bg-axcend-dark bg-[linear-gradient(145deg,#1a2e2a_0%,#11231f_100%)] text-primary-foreground";
+const DARK_SURFACE_BASE_CLASS = "ax-dark-anchor";
 
-const DARK_SURFACE_GLOW_CLASS =
-  "pointer-events-none absolute -right-36 -top-32 h-[34rem] w-[52rem] rounded-full bg-[radial-gradient(ellipse_at_70%_30%,rgba(200,240,160,0.16)_0%,rgba(200,240,160,0.075)_42%,rgba(200,240,160,0.024)_66%,rgba(200,240,160,0)_84%)] blur-[88px]";
+const DARK_SURFACE_GLOW_CLASS = "ax-dark-glow";
 
-const LIGHT_SECTION_CLASS =
-  "relative isolate overflow-hidden border-t border-[#e2eadf] bg-[#fbfcf8]";
+const LIGHT_SECTION_CLASS = "ax-section";
 
-const LIGHT_SECTION_INNER_CLASS = "relative z-10 mx-auto max-w-6xl px-5 py-16 md:px-6 md:py-24";
+const LIGHT_SECTION_INNER_CLASS = "ax-section-inner";
 
-const EDITORIAL_SURFACE_CLASS = "rounded-[22px] border border-[#dbe7d8] bg-white/72";
+const EDITORIAL_SURFACE_CLASS = "ax-editorial";
 
-const QUIET_SURFACE_CLASS = "rounded-[18px] border border-[#dbe7d8] bg-white/64";
+const QUIET_SURFACE_CLASS = "ax-ledger";
 
-const DARK_PANEL_CLASS =
-  "rounded-[24px] border border-primary-foreground/12 bg-primary-foreground/[0.055]";
+const DARK_PANEL_CLASS = "border-y border-primary-foreground/14 bg-primary-foreground/[0.045]";
 
 const CONTACT_WHATSAPP_URL = "https://wa.me/77085077371";
 const CONTACT_WHATSAPP_FOOTER_URL = `${CONTACT_WHATSAPP_URL}?text=${encodeURIComponent(
@@ -175,6 +171,7 @@ function ProofGrid({ items }: { items: typeof proofs }) {
   const [hover, setHover] = useState<number | null>(null);
   const [inView, setInView] = useState(false);
   const wrapRef = useRef<HTMLDivElement>(null);
+  const itemRefs = useRef<Array<HTMLButtonElement | null>>([]);
 
   useEffect(() => {
     if (!wrapRef.current) return;
@@ -191,10 +188,61 @@ function ProofGrid({ items }: { items: typeof proofs }) {
     return () => obs.disconnect();
   }, []);
 
+  useEffect(() => {
+    let frame = 0;
+
+    const updateActive = () => {
+      frame = 0;
+      const headerHeight =
+        parseFloat(
+          getComputedStyle(document.documentElement).getPropertyValue("--axcend-header-height"),
+        ) || 76;
+      const readingLine = Math.min(
+        window.innerHeight - 1,
+        headerHeight + Math.max(220, Math.min(340, (window.innerHeight - headerHeight) * 0.44)),
+      );
+      let nextActive: number | null = null;
+      let nextDistance = Number.POSITIVE_INFINITY;
+
+      itemRefs.current.forEach((item, index) => {
+        if (!item) return;
+        const rect = item.getBoundingClientRect();
+        if (rect.bottom < headerHeight || rect.top > window.innerHeight) return;
+        const containsReadingLine = rect.top <= readingLine && rect.bottom >= readingLine;
+        const distance = containsReadingLine
+          ? 0
+          : Math.min(Math.abs(rect.top - readingLine), Math.abs(rect.bottom - readingLine));
+
+        if (distance < nextDistance) {
+          nextDistance = distance;
+          nextActive = index;
+        }
+      });
+
+      if (nextActive !== null) {
+        setActive((current) => (current === nextActive ? current : nextActive));
+      }
+    };
+
+    const schedule = () => {
+      if (frame) return;
+      frame = window.requestAnimationFrame(updateActive);
+    };
+
+    schedule();
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
+    return () => {
+      if (frame) window.cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
+    };
+  }, [items.length]);
+
   return (
     <div
       ref={wrapRef}
-      className="mx-auto grid max-w-6xl grid-cols-1 border-y border-[#d5e4d4] md:grid-cols-2"
+      className="mx-auto grid max-w-6xl grid-cols-1 border-y ax-divider md:grid-cols-2"
     >
       {items.map((p, i) => {
         const Icon = p.icon;
@@ -204,6 +252,9 @@ function ProofGrid({ items }: { items: typeof proofs }) {
         return (
           <button
             key={p.title}
+            ref={(node) => {
+              itemRefs.current[i] = node;
+            }}
             type="button"
             aria-pressed={isActive}
             onClick={() => setActive(i)}
@@ -212,32 +263,32 @@ function ProofGrid({ items }: { items: typeof proofs }) {
             onMouseEnter={() => setHover(i)}
             onMouseLeave={() => setHover(null)}
             style={{ transitionDelay: `${i * 60}ms` }}
-            className={`group relative flex min-h-[160px] flex-col border-b border-[#d5e4d4] p-5 text-left transition-colors duration-300 last:border-b-0 md:min-h-[184px] md:border-b-0 md:border-r md:p-7 md:[&:nth-child(2n)]:border-r-0 md:[&:nth-child(n+3)]:border-t ${
-              lifted ? "bg-axcend-action/18" : "bg-transparent hover:bg-white/54"
+            className={`group relative flex min-h-[170px] flex-col border-b ax-divider p-5 text-left transition-colors duration-300 last:border-b-0 md:min-h-[210px] md:border-b-0 md:border-r md:p-8 md:[&:nth-child(2n)]:border-r-0 md:[&:nth-child(n+3)]:border-t ${
+              lifted ? "bg-axcend-action/28" : "bg-transparent hover:bg-white/40"
             } ${inView ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"}`}
           >
             <div
-              className={`absolute bottom-5 left-0 top-5 w-[3px] rounded-r-full transition-opacity duration-300 ${
+              className={`absolute bottom-5 left-0 top-5 w-1 transition-opacity duration-300 ${
                 lifted ? "bg-axcend-action opacity-100" : "opacity-0"
               }`}
             />
-            <div className="relative flex h-full gap-4 md:gap-6">
+            <div className="relative grid h-full gap-4 md:grid-cols-[56px_minmax(0,1fr)] md:gap-6">
               <div
-                className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full border transition-colors duration-300 md:h-11 md:w-11 ${
+                className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full transition-colors duration-300 md:h-12 md:w-12 ${
                   lifted
-                    ? "border-axcend-action bg-axcend-action text-axcend-dark"
-                    : "border-[#d5e4d4] bg-transparent text-muted-foreground"
+                    ? "bg-axcend-action text-axcend-dark"
+                    : "bg-axcend-soft text-muted-foreground"
                 }`}
               >
                 <Icon className="h-4 w-4 md:h-5 md:w-5" strokeWidth={1.8} />
               </div>
 
               <div className="min-w-0 flex-1">
-                <div className="text-[15px] font-semibold leading-snug text-foreground md:text-base">
+                <div className="text-base font-semibold leading-snug text-foreground md:text-xl">
                   {p.title}
                 </div>
-                <div className="mt-4 h-px w-full bg-[#d5e4d4]" />
-                <div className="mt-3 text-[12px] leading-relaxed text-muted-foreground md:mt-4 md:text-sm">
+                <div className="mt-4 h-px w-full bg-axcend-dark/12" />
+                <div className="mt-3 text-sm leading-relaxed text-muted-foreground md:mt-4 md:text-base">
                   {p.text}
                 </div>
               </div>
@@ -834,14 +885,14 @@ function WhatWeDoTabs() {
   return (
     <Tabs
       defaultValue="0"
-      className="mx-auto grid w-full max-w-6xl gap-6 lg:grid-cols-[320px_minmax(0,1fr)] lg:items-start"
+      className="mx-auto grid w-full max-w-6xl gap-7 lg:grid-cols-[340px_minmax(0,1fr)] lg:items-start"
     >
-      <TabsList className="grid h-auto w-full grid-cols-2 items-stretch gap-1 border-y border-[#d5e4d4] bg-transparent py-2 md:grid-cols-3 lg:sticky lg:top-28 lg:grid-cols-1 lg:gap-0 lg:py-0">
+      <TabsList className="grid h-auto w-full grid-cols-2 items-stretch gap-1 border-y ax-divider bg-transparent py-2 md:grid-cols-3 lg:sticky lg:top-28 lg:grid-cols-1 lg:gap-0 lg:py-0">
         {whatWeDo.map((s, i) => (
           <TabsTrigger
             key={s.title}
             value={String(i)}
-            className="min-h-[34px] w-full whitespace-normal rounded-none border border-transparent bg-transparent px-2 py-1 text-center text-[10px] leading-[1.12] text-muted-foreground transition-colors hover:bg-white/60 hover:text-foreground data-[state=active]:border-transparent data-[state=active]:bg-axcend-action data-[state=active]:text-axcend-dark data-[state=active]:shadow-none md:min-h-[38px] md:px-3 md:py-2 md:text-xs md:leading-snug lg:min-h-[52px] lg:justify-start lg:border-b lg:border-[#d5e4d4] lg:px-4 lg:py-3 lg:text-left lg:text-sm lg:last:border-b-0 lg:data-[state=active]:border-l-2 lg:data-[state=active]:border-l-axcend-dark"
+            className="min-h-[34px] w-full whitespace-normal rounded-none border border-transparent bg-transparent px-2 py-1 text-center text-[10px] leading-[1.12] text-muted-foreground transition-colors hover:bg-white/50 hover:text-foreground data-[state=active]:border-transparent data-[state=active]:bg-axcend-action data-[state=active]:text-axcend-dark data-[state=active]:shadow-none md:min-h-[38px] md:px-3 md:py-2 md:text-xs md:leading-snug lg:min-h-[56px] lg:justify-start lg:border-b lg:border-[#d5e4d4] lg:px-4 lg:py-3 lg:text-left lg:text-sm lg:last:border-b-0 lg:data-[state=active]:border-l-4 lg:data-[state=active]:border-l-axcend-dark"
           >
             {s.title}
           </TabsTrigger>
@@ -849,13 +900,13 @@ function WhatWeDoTabs() {
       </TabsList>
       {whatWeDo.map((s, i) => (
         <TabsContent key={s.title} value={String(i)} className="mt-0 lg:col-start-2 lg:row-start-1">
-          <div className="relative min-h-[228px] border-y border-[#d5e4d4] bg-white/42 py-6 pl-5 pr-2 md:min-h-[280px] md:py-9 md:pl-8 lg:pr-8">
-            <div className="pointer-events-none absolute bottom-5 left-0 top-5 w-[4px] rounded-r-full bg-axcend-action" />
-            <div className="relative">
-              <h3 className="text-xl font-semibold leading-tight text-foreground md:text-[34px]">
+          <div className="relative min-h-[228px] border-y ax-divider bg-transparent py-6 pl-5 pr-2 md:min-h-[280px] md:py-10 md:pl-9 lg:pr-8">
+            <div className="pointer-events-none absolute bottom-6 left-0 top-6 w-1 bg-axcend-action md:bottom-10 md:top-10" />
+            <div className="relative max-w-4xl">
+              <h3 className="text-2xl font-semibold leading-tight text-foreground md:text-[38px]">
                 {s.title}
               </h3>
-              <p className="mt-4 max-w-4xl text-sm leading-relaxed text-muted-foreground md:mt-6 md:text-base">
+              <p className="mt-5 text-sm leading-relaxed text-muted-foreground md:mt-7 md:text-lg">
                 {s.text}
               </p>
             </div>
@@ -868,12 +919,12 @@ function WhatWeDoTabs() {
 
 function LaunchProcess({ dark = false }: { dark?: boolean } = {}) {
   return (
-    <div className="mx-auto max-w-5xl">
-      <div className="grid gap-5 md:gap-8 lg:grid-cols-[minmax(0,1fr)_390px] lg:items-stretch">
+    <div className="mx-auto max-w-6xl">
+      <div className="grid gap-7 md:gap-10 lg:grid-cols-[minmax(0,1fr)_390px] lg:items-stretch">
         <div className="flex flex-col justify-center">
           <p
             className={cn(
-              "max-w-2xl text-[13px] leading-relaxed md:text-base",
+              "max-w-3xl text-sm leading-relaxed md:text-lg",
               dark ? "text-primary-foreground/76" : "text-muted-foreground",
             )}
           >
@@ -882,8 +933,8 @@ function LaunchProcess({ dark = false }: { dark?: boolean } = {}) {
             Ниже описано, что именно мы делаем на каждом этапе и за что вы платите.
           </p>
         </div>
-        <div className="relative z-10 hidden h-full overflow-hidden rounded-[22px] bg-primary-foreground/[0.04] p-2 md:block">
-          <div className="relative h-full min-h-[220px] overflow-hidden rounded-[18px] bg-muted">
+        <div className="relative z-10 hidden h-full overflow-hidden border-y border-primary-foreground/12 bg-primary-foreground/[0.04] md:block">
+          <div className="relative h-full min-h-[240px] overflow-hidden bg-muted">
             <img
               src="https://axcend.pro/assets/callcenter-real-CefSNWWS.jpg"
               alt="Команда AXCEND в работе"
@@ -897,19 +948,19 @@ function LaunchProcess({ dark = false }: { dark?: boolean } = {}) {
 
       <div
         className={cn(
-          "mt-6 overflow-hidden border-y p-0 md:mt-12",
+          "mt-7 overflow-hidden border-y p-0 md:mt-12",
           dark
-            ? "border-axcend-action/30 bg-axcend-action/[0.075]"
+            ? "border-axcend-action/35 bg-axcend-action/[0.09]"
             : "border-axcend-action/55 bg-axcend-soft",
         )}
       >
         <div className="flex items-stretch">
-          <div className="hidden w-1.5 shrink-0 bg-axcend-action md:block" />
-          <div className="p-4 md:p-6">
+          <div className="hidden w-2 shrink-0 bg-axcend-action md:block" />
+          <div className="p-5 md:p-7">
             <div>
               <h3
                 className={cn(
-                  "text-base font-semibold leading-snug md:text-xl",
+                  "text-lg font-semibold leading-snug md:text-2xl",
                   dark ? "text-primary-foreground" : "text-foreground",
                 )}
               >
@@ -917,7 +968,7 @@ function LaunchProcess({ dark = false }: { dark?: boolean } = {}) {
               </h3>
               <p
                 className={cn(
-                  "mt-2 text-[13px] leading-relaxed md:mt-3 md:text-sm",
+                  "mt-3 max-w-4xl text-sm leading-relaxed md:text-base",
                   dark ? "text-primary-foreground/68" : "text-muted-foreground",
                 )}
               >
@@ -946,23 +997,21 @@ function LaunchProcess({ dark = false }: { dark?: boolean } = {}) {
             className={cn(
               "overflow-hidden px-0 transition-colors",
               dark
-                ? "border-0 bg-transparent hover:bg-primary-foreground/[0.035] data-[state=open]:bg-primary-foreground/[0.06]"
+                ? "border-0 bg-transparent hover:bg-primary-foreground/[0.035] data-[state=open]:bg-primary-foreground/[0.055]"
                 : "border border-border bg-card hover:border-axcend-action/70 data-[state=open]:border-axcend-action/70 data-[state=open]:bg-axcend-soft",
             )}
           >
             <AccordionTrigger className="group px-4 py-4 text-left hover:no-underline md:px-6 md:py-6 [&>svg]:hidden">
-              <div className="flex min-w-0 flex-1 items-center gap-3 pr-2 md:gap-4 md:pr-4">
+              <div className="grid min-w-0 flex-1 grid-cols-[72px_minmax(0,1fr)_auto] items-center gap-3 pr-1 md:grid-cols-[92px_minmax(0,1fr)_auto] md:gap-5 md:pr-4">
+                <div
+                  className={cn(
+                    "font-mono text-xs font-semibold tabular-nums tracking-[0.08em]",
+                    dark ? "text-axcend-action" : "text-axcend-dark",
+                  )}
+                >
+                  {index + 1} шаг
+                </div>
                 <div className="min-w-0 flex-1">
-                  <div
-                    className={cn(
-                      "mb-1.5 inline-flex rounded-full border border-axcend-action/50 px-2.5 py-0.5 text-[9px] font-medium tracking-[0.04em] md:mb-2 md:px-3 md:py-1 md:text-[10px]",
-                      dark
-                        ? "bg-axcend-action/12 text-axcend-action"
-                        : "bg-axcend-soft text-axcend-dark",
-                    )}
-                  >
-                    {index + 1} шаг
-                  </div>
                   <div
                     className={cn(
                       "text-[15px] font-semibold leading-snug md:text-xl",
@@ -980,7 +1029,7 @@ function LaunchProcess({ dark = false }: { dark?: boolean } = {}) {
                     {stage.summary}
                   </div>
                 </div>
-                <div className="ml-auto flex h-9 w-9 shrink-0 items-center justify-center gap-2 rounded-full border border-axcend-action bg-axcend-action text-[11px] font-medium text-axcend-dark transition-colors group-hover:bg-axcend-action/85 group-data-[state=open]:bg-axcend-action md:h-auto md:w-auto md:px-3 md:py-2">
+                <div className="ml-auto flex h-9 w-9 shrink-0 items-center justify-center gap-2 rounded-full bg-axcend-action text-[11px] font-medium text-axcend-dark transition-colors group-hover:bg-axcend-action/85 group-data-[state=open]:bg-axcend-action md:h-auto md:w-auto md:px-3 md:py-2">
                   <span className="hidden md:inline group-data-[state=open]:!hidden">Раскрыть</span>
                   <span className="hidden md:group-data-[state=open]:inline">Свернуть</span>
                   <Plus className="h-3.5 w-3.5 transition-transform group-data-[state=open]:rotate-45" />
@@ -1092,13 +1141,13 @@ function IndustriesShowcase() {
   const activeBarWidth = Math.min(100, Math.max(8, activeItem.result.pct * 1.45));
 
   return (
-    <div className="mx-auto max-w-6xl border-y border-[#d5e4d4]">
-      <div className="grid gap-5 border-b border-[#d5e4d4] py-5 md:grid-cols-[minmax(0,1fr)_auto] md:items-end md:py-6">
+    <div className="mx-auto max-w-6xl border-y ax-divider bg-white/28">
+      <div className="grid gap-5 border-b ax-divider py-5 md:grid-cols-[minmax(0,1fr)_auto] md:items-end md:py-6">
         <p className="max-w-2xl text-[13px] leading-relaxed text-muted-foreground md:text-base">
           Реальные результаты по разным B2B-сегментам. Каждый кейс показывает не количество звонков,
           а долю компаний, которые дошли до предметного разговора.
         </p>
-        <div className="grid grid-cols-3 divide-x divide-[#d5e4d4] border-y border-[#d5e4d4] md:min-w-[360px]">
+        <div className="grid grid-cols-3 divide-x divide-[#d5e4d4] border-y ax-divider md:min-w-[390px]">
           <div className="px-2.5 py-2.5 md:px-4 md:py-3">
             <div className="text-[9px] font-medium uppercase tracking-[0.14em] text-muted-foreground md:text-[10px] md:tracking-[0.16em]">
               Отрасли
@@ -1115,7 +1164,7 @@ function IndustriesShowcase() {
               {totalCaseCount}
             </div>
           </div>
-          <div className="bg-axcend-action px-2.5 py-2.5 md:px-4 md:py-3">
+          <div className="ax-brand-field px-2.5 py-2.5 md:px-4 md:py-3">
             <div className="text-[9px] font-medium uppercase tracking-[0.14em] text-axcend-dark/65 md:text-[10px] md:tracking-[0.16em]">
               Средняя
             </div>
@@ -1126,18 +1175,18 @@ function IndustriesShowcase() {
         </div>
       </div>
 
-      <div className="grid gap-0 lg:grid-cols-[minmax(0,1.25fr)_minmax(280px,0.75fr)]">
-        <article className="py-6 pr-0 md:py-8 lg:pr-8">
+      <div className="grid gap-0 lg:grid-cols-[minmax(0,1.28fr)_minmax(300px,0.72fr)]">
+        <article className="py-6 pr-0 md:py-9 lg:pr-9">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
             <div>
-              <div className="inline-flex rounded-full bg-axcend-action px-3 py-1 text-[10px] font-semibold text-axcend-dark md:text-[11px]">
+              <div className="inline-flex bg-axcend-action px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.1em] text-axcend-dark md:text-[11px]">
                 {activeItem.industry.name}
               </div>
-              <h3 className="mt-4 text-2xl font-semibold leading-tight text-foreground md:mt-5 md:text-[34px]">
+              <h3 className="mt-4 text-3xl font-semibold leading-tight text-foreground md:mt-5 md:text-[42px]">
                 {activeItem.result.client}
               </h3>
             </div>
-            <div className="shrink-0 border-l border-[#d5e4d4] pl-4 text-left sm:text-right">
+            <div className="shrink-0 border-l ax-divider pl-4 text-left sm:text-right">
               <div className="text-[9px] font-medium uppercase tracking-[0.16em] text-muted-foreground md:text-[10px]">
                 Конверсия
               </div>
@@ -1146,7 +1195,7 @@ function IndustriesShowcase() {
               </div>
             </div>
           </div>
-          <div className="mt-7 flex items-end justify-between gap-4 border-t border-[#d5e4d4] pt-5 md:mt-8 md:pt-6">
+          <div className="mt-7 flex items-end justify-between gap-4 border-t ax-divider pt-5 md:mt-8 md:pt-6">
             <div className="text-xs tabular-nums text-muted-foreground md:text-sm">
               {activeItem.result.hits.toLocaleString("ru-RU")} из{" "}
               {activeItem.result.total.toLocaleString("ru-RU")}
@@ -1156,7 +1205,7 @@ function IndustriesShowcase() {
               {String(totalCaseCount).padStart(2, "0")}
             </div>
           </div>
-          <div className="mt-4 h-2 overflow-hidden rounded-full bg-[#e7efe4]">
+          <div className="mt-4 h-2 overflow-hidden bg-[#e7efe4]">
             <div
               className="h-full rounded-full bg-axcend-dark transition-all duration-500"
               style={{ width: `${activeBarWidth}%` }}
@@ -1164,13 +1213,13 @@ function IndustriesShowcase() {
           </div>
         </article>
 
-        <div className="border-t border-[#d5e4d4] lg:border-l lg:border-t-0 lg:pl-6">
+        <div className="border-t ax-divider lg:border-l lg:border-t-0 lg:pl-6">
           {previewCases.map((item) => (
             <button
               key={`${item.industry.name}-${item.result.client}-${item.flowIndex}`}
               type="button"
               onClick={() => setActiveFlowIndex(item.flowIndex)}
-              className="group w-full border-b border-[#d5e4d4] py-3 text-left transition-colors last:border-b-0 hover:bg-axcend-action/16 md:py-4"
+              className="group w-full border-b ax-divider py-3 text-left transition-colors last:border-b-0 hover:bg-axcend-action/18 md:py-4"
             >
               <div className="flex items-start justify-between gap-3">
                 <div className="min-w-0">
@@ -1187,7 +1236,7 @@ function IndustriesShowcase() {
               </div>
               <div className="mt-3 h-px overflow-hidden bg-[#e7efe4]">
                 <div
-                  className="h-full rounded-full bg-axcend-dark transition-all duration-500"
+                  className="h-full bg-axcend-dark transition-all duration-500"
                   style={{ width: `${Math.min(100, Math.max(8, item.result.pct * 1.45))}%` }}
                 />
               </div>
@@ -1196,7 +1245,7 @@ function IndustriesShowcase() {
         </div>
       </div>
 
-      <div className="flex flex-col gap-3 border-t border-[#d5e4d4] py-5 md:flex-row md:items-center md:justify-between md:gap-4 md:py-6">
+      <div className="flex flex-col gap-3 border-t ax-divider py-5 md:flex-row md:items-center md:justify-between md:gap-4 md:py-6">
         <div className="text-sm text-muted-foreground">
           Кейс{" "}
           <span className="font-semibold tabular-nums text-foreground">
@@ -1212,7 +1261,7 @@ function IndustriesShowcase() {
             type="button"
             aria-label="Предыдущий кейс"
             onClick={goPrevCase}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[#d5e4d4] bg-white/60 text-foreground transition-colors hover:border-axcend-action hover:bg-axcend-action hover:text-axcend-dark md:h-11 md:w-11"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full border ax-quiet-border bg-white/60 text-foreground transition-colors hover:border-axcend-action hover:bg-axcend-action hover:text-axcend-dark md:h-11 md:w-11"
           >
             <ArrowRight className="h-4 w-4 rotate-180" />
           </button>
@@ -1417,7 +1466,7 @@ function CalcRow({
   fmt: (n: number) => string;
 }) {
   return (
-    <div className="border-b border-[#dbe7d8] py-4 last:border-b-0 md:py-5">
+    <div className="border-b ax-divider py-4 last:border-b-0 md:py-5">
       <div className="mb-2.5 grid gap-2 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center sm:gap-5 md:mb-3">
         <label className="min-w-0 whitespace-nowrap text-[12px] font-semibold leading-none text-foreground md:max-w-[340px] md:text-sm md:leading-snug">
           {label}
@@ -1426,18 +1475,18 @@ function CalcRow({
           <button
             type="button"
             onClick={() => set(Math.max(min, value - step))}
-            className="flex h-8 w-8 items-center justify-center rounded-full border border-border bg-background/90 text-muted-foreground transition-colors hover:border-axcend-action hover:bg-axcend-soft hover:text-foreground md:h-9 md:w-9"
+            className="flex h-8 w-8 items-center justify-center rounded-full border border-border bg-background/80 text-muted-foreground transition-colors hover:border-axcend-action hover:bg-axcend-action hover:text-axcend-dark md:h-9 md:w-9"
             aria-label="Уменьшить"
           >
             <Minus className="h-3 w-3" />
           </button>
-          <span className="min-w-[92px] rounded-full border border-border bg-background px-3 py-1.5 text-center text-[13px] font-semibold tabular-nums text-foreground md:min-w-[108px] md:py-2 md:text-sm">
+          <span className="min-w-[92px] rounded-full border border-border bg-background/80 px-3 py-1.5 text-center text-[13px] font-semibold tabular-nums text-foreground md:min-w-[108px] md:py-2 md:text-sm">
             {fmt(value)} {unit}
           </span>
           <button
             type="button"
             onClick={() => set(Math.min(max, value + step))}
-            className="flex h-8 w-8 items-center justify-center rounded-full border border-border bg-background/90 text-muted-foreground transition-colors hover:border-axcend-action hover:bg-axcend-soft hover:text-foreground md:h-9 md:w-9"
+            className="flex h-8 w-8 items-center justify-center rounded-full border border-border bg-background/80 text-muted-foreground transition-colors hover:border-axcend-action hover:bg-axcend-action hover:text-axcend-dark md:h-9 md:w-9"
             aria-label="Увеличить"
           >
             <Plus className="h-3 w-3" />
@@ -1466,17 +1515,17 @@ function Calculator() {
   const meetings = Math.round((companies * conversion) / 100);
   const revenue = meetings * avgDeal;
   return (
-    <div className="mx-auto grid max-w-6xl grid-cols-1 overflow-hidden border-y border-[#dbe7d8] lg:grid-cols-[minmax(0,1fr)_400px] lg:items-stretch">
+    <div className="mx-auto grid max-w-6xl grid-cols-1 overflow-hidden border-y ax-divider bg-white/28 lg:grid-cols-[minmax(0,1fr)_410px] lg:items-stretch">
       <div className="relative overflow-hidden bg-transparent p-4 md:p-7 lg:border-r lg:border-[#dbe7d8]">
         <div className="relative z-10 mb-4 flex flex-col gap-2 text-left sm:flex-row sm:items-end sm:justify-between md:mb-5">
           <div>
             <div className="text-lg font-semibold text-foreground md:text-xl">Параметры</div>
           </div>
-          <div className="rounded-full border border-axcend-action/40 bg-axcend-soft px-3 py-1.5 text-xs font-semibold text-axcend-dark md:px-4 md:py-2 md:text-sm">
+          <div className="bg-axcend-action px-3 py-1.5 text-xs font-semibold text-axcend-dark md:px-4 md:py-2 md:text-sm">
             5% в договоре
           </div>
         </div>
-        <div className="relative z-10 border-y border-[#dbe7d8]">
+        <div className="relative z-10 border-y ax-divider">
           <CalcRow
             label="Размер базы целевых компаний"
             value={companies}
@@ -1507,8 +1556,8 @@ function Calculator() {
           />
         </div>
 
-        <div className="relative z-10 mt-4 grid grid-cols-3 overflow-hidden border border-[#dbe7d8] bg-white/62 text-left md:mt-5">
-          <div className="border-r border-border p-3 md:p-4">
+        <div className="relative z-10 mt-4 grid grid-cols-3 overflow-hidden border-y ax-divider text-left md:mt-5">
+          <div className="border-r border-border bg-white/30 p-3 md:p-4">
             <div className="text-[10px] font-medium uppercase tracking-[0.16em] text-muted-foreground md:text-xs md:tracking-[0.18em]">
               База
             </div>
@@ -1516,7 +1565,7 @@ function Calculator() {
               {fmt(companies)}
             </div>
           </div>
-          <div className="border-r border-border p-3 md:p-4">
+          <div className="border-r border-border bg-white/30 p-3 md:p-4">
             <div className="text-[10px] font-medium uppercase tracking-[0.16em] text-muted-foreground md:text-xs md:tracking-[0.18em]">
               Гарантия
             </div>
@@ -1524,7 +1573,7 @@ function Calculator() {
               {guaranteeRate}%
             </div>
           </div>
-          <div className="bg-axcend-soft p-3 md:p-4">
+          <div className="ax-brand-field p-3 md:p-4">
             <div className="text-[10px] font-medium uppercase tracking-[0.16em] text-muted-foreground md:text-xs md:tracking-[0.18em]">
               Минимум
             </div>
@@ -1535,7 +1584,7 @@ function Calculator() {
         </div>
       </div>
 
-      <div className={`${DARK_SURFACE_BASE_CLASS} p-4 md:p-7`}>
+      <div className={`${DARK_SURFACE_BASE_CLASS} p-5 md:p-8`}>
         <div className={`${DARK_SURFACE_GLOW_CLASS} hidden md:block`} />
         <div className="relative z-10">
           <div className="text-[10px] font-medium uppercase tracking-[0.16em] text-primary-foreground/60 md:text-xs md:tracking-[0.18em]">
@@ -1547,7 +1596,7 @@ function Calculator() {
               <div className="flex items-start justify-between gap-4">
                 <div>
                   <div className="mt-1 flex items-end gap-1.5 md:mt-3 md:gap-2">
-                    <span className="text-3xl font-semibold leading-none tabular-nums text-axcend-action md:text-5xl">
+                    <span className="text-4xl font-semibold leading-none tabular-nums text-axcend-action md:text-6xl">
                       {fmt(guaranteeMeetings)}
                     </span>
                     <span className="pb-0.5 text-xs font-medium text-primary-foreground/70 md:pb-1 md:text-sm">
@@ -1602,15 +1651,15 @@ function FAQ() {
     <Accordion
       type="single"
       collapsible
-      className="mx-auto max-w-5xl divide-y divide-[#d5e4d4] overflow-hidden border-y border-[#d5e4d4]"
+      className="mx-auto max-w-5xl divide-y divide-[#d5e4d4] overflow-hidden border-y ax-divider"
     >
       {faqs.map((f, i) => (
         <AccordionItem
           key={i}
           value={String(i)}
-          className="border-0 bg-transparent px-2 transition-colors hover:bg-white/54 data-[state=open]:bg-axcend-action/12 md:px-4"
+          className="border-0 bg-transparent px-2 transition-colors hover:bg-white/42 data-[state=open]:bg-axcend-action/16 md:px-4"
         >
-          <AccordionTrigger className="py-3 text-left text-[11px] font-semibold leading-[1.2] text-foreground hover:no-underline md:py-4 md:text-base md:leading-snug [&>svg]:text-axcend-dark/70">
+          <AccordionTrigger className="py-3 text-left text-[11px] font-semibold leading-[1.2] text-foreground hover:no-underline md:py-4 md:text-[15px] md:leading-snug [&>svg]:text-axcend-dark/70">
             {f.q}
           </AccordionTrigger>
           <AccordionContent className="pb-3 pr-5 text-[11px] leading-relaxed text-muted-foreground md:pb-4 md:pr-10 md:text-sm">
@@ -1637,22 +1686,12 @@ function Section({
 }) {
   return (
     <section id={id} className={LIGHT_SECTION_CLASS}>
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,rgba(26,46,42,0),rgba(26,46,42,0.12),rgba(26,46,42,0))]"
-      />
       <div className={LIGHT_SECTION_INNER_CLASS}>
-        <div className={center ? "mx-auto max-w-3xl text-center" : "max-w-3xl"}>
-          {eyebrow && (
-            <div className="mb-4 text-[11px] font-semibold uppercase tracking-[0.16em] text-axcend-dark/64 md:mb-5 md:text-xs md:tracking-[0.18em]">
-              {eyebrow}
-            </div>
-          )}
-          <h2 className="text-[28px] font-semibold leading-[1.08] tracking-tight text-foreground md:text-5xl">
-            {title}
-          </h2>
+        <div className={cn("ax-section-heading", center && "center")}>
+          {eyebrow && <div className="ax-eyebrow">{eyebrow}</div>}
+          <h2 className="ax-title">{title}</h2>
         </div>
-        <Reveal className="mt-8 md:mt-12">{children}</Reveal>
+        <Reveal className="mt-9 md:mt-14">{children}</Reveal>
       </div>
     </section>
   );
@@ -1661,46 +1700,43 @@ function Section({
 function TeamSection() {
   return (
     <section id="team" className={LIGHT_SECTION_CLASS}>
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,rgba(26,46,42,0),rgba(26,46,42,0.12),rgba(26,46,42,0))]"
-      />
       <div className={LIGHT_SECTION_INNER_CLASS}>
-        <div className="mx-auto max-w-3xl text-center">
-          <div className="mb-3 inline-flex rounded-full bg-axcend-soft px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-axcend-dark md:mb-4 md:px-4 md:py-1.5 md:text-xs">
-            Команда
-          </div>
-          <h2 className="text-[26px] font-semibold leading-[1.15] text-foreground md:text-5xl">
-            Кто отвечает за результат
-          </h2>
+        <div className="ax-section-heading center">
+          <div className="ax-eyebrow inline-flex bg-axcend-soft px-4 py-1.5">Команда</div>
+          <h2 className="ax-title">Кто отвечает за результат</h2>
         </div>
 
         <Reveal className="mt-8 md:mt-14">
-          <div className="relative overflow-hidden border-y border-[#d5e4d4] bg-[#f7faf4] text-foreground">
-            <div className="grid grid-cols-1 divide-y divide-[#d5e4d4] md:grid-cols-2 md:divide-x md:divide-y-0 xl:grid-cols-4">
+          <div className="relative overflow-hidden border-y ax-divider bg-[#f6faf1] text-foreground">
+            <div className="grid grid-cols-1 divide-y ax-divider md:grid-cols-2 md:divide-x md:divide-y-0 xl:grid-cols-4">
               {teamMembers.map((member) => (
                 <article
                   key={member.name}
-                  className="group grid min-h-full grid-rows-[minmax(360px,auto)_auto] overflow-hidden"
+                  className="group grid min-h-full grid-rows-[minmax(360px,auto)_auto] overflow-hidden bg-[#f6faf1]"
                 >
-                  <div className="relative h-[360px] overflow-hidden bg-[#eef5ea] md:h-[380px] xl:h-[410px]">
+                  <div className="relative h-[360px] overflow-hidden bg-[#eef5ea] md:h-[400px] xl:h-[440px]">
                     <img
                       src={member.image}
                       alt={member.name}
                       loading="lazy"
-                      className="h-full w-full object-cover object-top saturate-[0.98] transition-transform duration-700 group-hover:scale-[1.018]"
+                      className="h-full w-full object-cover object-top saturate-[0.96] transition-transform duration-700 group-hover:scale-[1.012]"
                     />
+                    <div className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-[linear-gradient(180deg,rgba(246,250,241,0)_0%,rgba(246,250,241,0.82)_100%)]" />
                   </div>
-                  <div className="grid min-h-[250px] grid-rows-[4px_64px_74px_1fr] border-t border-[#d5e4d4] bg-[#f7faf4] px-5 py-5 md:px-6 md:py-6 xl:min-h-[278px]">
-                    <div className="h-1 w-12 rounded-full bg-axcend-action" />
-                    <h3 className="mt-4 text-[22px] font-semibold leading-tight text-foreground md:text-2xl">
-                      {member.name}
-                    </h3>
-                    <p className="mt-3 text-sm leading-relaxed text-muted-foreground md:text-base">
-                      {member.role}
-                    </p>
-                    <div className="border-t border-[#cbdcc8] pt-4 text-xs font-semibold leading-relaxed text-axcend-dark md:text-sm">
-                      <span>{member.proof}</span>
+                  <div className="grid min-h-[258px] grid-rows-[6px_68px_78px_1fr] border-t border-[#d5e4d4] bg-[#f6faf1]">
+                    <div className="bg-axcend-action" />
+                    <div className="flex items-end px-5 pb-3 pt-4 md:px-6">
+                      <h3 className="text-[22px] font-semibold leading-tight text-foreground md:text-2xl">
+                        {member.name}
+                      </h3>
+                    </div>
+                    <div className="border-t border-[#d5e4d4] px-5 py-3 md:px-6">
+                      <p className="text-sm leading-relaxed text-muted-foreground md:text-base">
+                        {member.role}
+                      </p>
+                    </div>
+                    <div className="border-t border-[#d5e4d4] bg-white/38 px-5 py-4 text-xs font-semibold leading-relaxed text-axcend-dark md:px-6 md:text-sm">
+                      {member.proof}
                     </div>
                   </div>
                 </article>
@@ -1782,8 +1818,8 @@ function ConversionSystem({ items }: { items: typeof conversionReasons }) {
   }, [active]);
 
   return (
-    <div className="w-full overflow-hidden border-y border-[#d5e4d4]">
-      <div className="grid">
+    <div className="w-full overflow-hidden border-y ax-divider">
+      <div className="grid divide-y ax-divider">
         {items.map((item, index) => {
           const isActive = active === index;
           return (
@@ -1797,20 +1833,22 @@ function ConversionSystem({ items }: { items: typeof conversionReasons }) {
               data-conversion-card={index}
               onClick={() => setActive(index)}
               onFocus={() => setActive(index)}
-              className={`group relative overflow-hidden border-b border-[#d5e4d4] p-5 text-left transition-colors duration-300 last:border-b-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-axcend-action/40 md:p-7 ${
-                isActive ? "bg-axcend-action/18" : "bg-transparent hover:bg-white/56"
+              className={`group relative overflow-hidden p-5 text-left transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-axcend-action/50 md:p-7 ${
+                isActive ? "bg-axcend-action/28" : "bg-transparent hover:bg-white/40"
               }`}
             >
               <div
-                className={`pointer-events-none absolute bottom-5 left-0 top-5 w-[3px] rounded-r-full transition-opacity duration-300 ${
+                className={`pointer-events-none absolute bottom-5 left-0 top-5 w-1 transition-opacity duration-300 ${
                   isActive ? "bg-axcend-action opacity-100" : "bg-transparent opacity-0"
                 }`}
               />
-              <div className="flex gap-4 md:gap-5">
-                <ConversionGlyph index={index} active={isActive} />
+              <div className="grid gap-4 md:grid-cols-[70px_minmax(0,1fr)] md:gap-7">
+                <div className="font-mono text-xs font-semibold tabular-nums tracking-[0.12em] text-muted-foreground md:pt-1">
+                  {String(index + 1).padStart(2, "0")}
+                </div>
                 <div className="min-w-0 flex-1">
                   <h3
-                    className={`text-[15px] font-semibold leading-snug md:text-base ${
+                    className={`text-base font-semibold leading-snug md:text-lg ${
                       isActive ? "text-foreground" : "text-foreground"
                     }`}
                   >
@@ -1818,11 +1856,11 @@ function ConversionSystem({ items }: { items: typeof conversionReasons }) {
                   </h3>
                   <div
                     className={`mt-4 h-px w-full ${
-                      isActive ? "bg-axcend-action/35" : "bg-border/70"
+                      isActive ? "bg-axcend-dark/20" : "bg-axcend-dark/12"
                     }`}
                   />
                   <p
-                    className={`mt-3 text-[11px] leading-relaxed md:mt-4 md:text-sm ${
+                    className={`mt-3 text-sm leading-relaxed md:mt-4 md:text-base ${
                       isActive ? "text-muted-foreground" : "text-muted-foreground"
                     }`}
                   >
@@ -1835,22 +1873,6 @@ function ConversionSystem({ items }: { items: typeof conversionReasons }) {
         })}
       </div>
     </div>
-  );
-}
-
-function ConversionGlyph({ index, active }: { index: number; active: boolean }) {
-  const Icon = Check;
-  return (
-    <span
-      className={`relative mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border transition-colors duration-300 md:h-11 md:w-11 ${
-        active
-          ? "border-axcend-action bg-axcend-action text-axcend-dark"
-          : "border-[#d5e4d4] bg-transparent text-muted-foreground"
-      }`}
-      aria-hidden
-    >
-      <Icon className="h-5 w-5" strokeWidth={1.9} />
-    </span>
   );
 }
 
@@ -2383,8 +2405,9 @@ function Index() {
       </section>
 
       {/* Hero */}
-      <section className="relative isolate overflow-hidden bg-axcend-dark text-white">
-        <div className="mx-auto max-w-6xl px-6 pb-20 pt-20 md:pb-28 md:pt-28">
+      <section className={DARK_SURFACE_BASE_CLASS}>
+        <div className={`${DARK_SURFACE_GLOW_CLASS} hidden md:block`} />
+        <div className="relative z-10 mx-auto max-w-6xl px-6 pb-20 pt-20 md:pb-28 md:pt-28">
           <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-16">
             <div className="lg:col-span-7">
               <h1 className="max-w-4xl text-balance text-[34px] font-semibold leading-[1.06] tracking-tight text-white md:text-6xl">
@@ -2447,41 +2470,14 @@ function Index() {
         </div>
       </section>
 
-      {/* Guarantee */}
-      <section
-        id="guarantee"
-        className="relative overflow-hidden border-t border-primary-foreground/10 bg-axcend-dark text-primary-foreground"
-      >
-        <div className="pointer-events-none absolute -right-[18%] -top-40 hidden h-[30rem] w-[70rem] rounded-full bg-[radial-gradient(ellipse_at_62%_32%,rgba(200,240,160,0.22)_0%,rgba(200,240,160,0.12)_36%,rgba(200,240,160,0.05)_62%,rgba(200,240,160,0)_84%)] blur-[72px] md:block" />
-        <div className="relative z-10 mx-auto max-w-6xl px-6 py-14 text-center md:py-20">
-          <div className="mb-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-primary-foreground/80 md:text-xs">
-            Гарантия
-          </div>
-          <h2 className="mx-auto max-w-4xl text-[24px] font-semibold leading-[1.12] tracking-tight text-primary-foreground md:text-5xl md:leading-[1.15]">
-            Гарантия от 5% конверсии в договоре
-          </h2>
-          <p className="mx-auto mt-6 max-w-3xl text-sm leading-relaxed text-primary-foreground/78 md:mt-7 md:text-base">
-            Не менее 5% обработанной базы переходят в прямое обсуждение сделки с заказчиком. Если
-            заявленные 5% не достигнуты, мы запускаем проект повторно за свой счёт и работаем до тех
-            пор, пока не выйдем на зафиксированный в договоре результат.
-          </p>
-        </div>
-      </section>
-
       {/* What we do */}
       <Section id="what" eyebrow="Что вы получаете" title="Работая с AXCEND" center>
         <WhatWeDoTabs />
       </Section>
 
       {/* Work stages */}
-      <section
-        id="work"
-        className="relative overflow-hidden border-t border-primary-foreground/10 bg-axcend-dark text-primary-foreground"
-      >
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute -right-72 top-12 h-[42rem] w-[62rem] rounded-full bg-[radial-gradient(ellipse_at_center,rgba(200,240,160,0.13)_0%,rgba(200,240,160,0.065)_34%,rgba(200,240,160,0.025)_58%,rgba(200,240,160,0)_82%)] blur-[96px]"
-        />
+      <section id="work" className={DARK_SURFACE_BASE_CLASS}>
+        <div className={`${DARK_SURFACE_GLOW_CLASS} hidden md:block`} />
         <div className="relative mx-auto max-w-6xl px-5 py-16 md:px-6 md:py-32">
           <div className="mx-auto max-w-3xl text-center">
             <div className="mb-3 text-[10px] font-medium uppercase tracking-[0.16em] text-primary-foreground/66 md:mb-5 md:text-xs md:tracking-[0.18em]">
@@ -2510,6 +2506,24 @@ function Index() {
         <ProofGrid items={proofs} />
       </Section>
 
+      {/* Guarantee */}
+      <section id="guarantee" className={DARK_SURFACE_BASE_CLASS}>
+        <div className={`${DARK_SURFACE_GLOW_CLASS} hidden md:block`} />
+        <div className="relative z-10 mx-auto max-w-6xl px-6 py-14 text-center md:py-20">
+          <div className="mb-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-primary-foreground/80 md:text-xs">
+            Гарантия
+          </div>
+          <h2 className="mx-auto max-w-4xl text-[24px] font-semibold leading-[1.12] tracking-tight text-primary-foreground md:text-5xl md:leading-[1.15]">
+            Гарантия от 5% конверсии в договоре
+          </h2>
+          <p className="mx-auto mt-6 max-w-3xl text-sm leading-relaxed text-primary-foreground/78 md:mt-7 md:text-base">
+            Не менее 5% обработанной базы переходят в прямое обсуждение сделки с заказчиком. Если
+            заявленные 5% не достигнуты, мы запускаем проект повторно за свой счёт и работаем до тех
+            пор, пока не выйдем на зафиксированный в договоре результат.
+          </p>
+        </div>
+      </section>
+
       {/* Calculator */}
       <Section
         id="calc"
@@ -2526,14 +2540,8 @@ function Index() {
       </Section>
 
       {/* CTA */}
-      <section
-        id="contact"
-        className="relative overflow-hidden border-t border-primary-foreground/10 bg-axcend-dark text-primary-foreground"
-      >
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute -right-72 bottom-[-22rem] h-[56rem] w-[64rem] rounded-full bg-[radial-gradient(ellipse_at_center,rgba(200,240,160,0.14)_0%,rgba(200,240,160,0.072)_30%,rgba(200,240,160,0.03)_52%,rgba(200,240,160,0.01)_70%,rgba(200,240,160,0)_88%)] blur-[104px]"
-        />
+      <section id="contact" className={DARK_SURFACE_BASE_CLASS}>
+        <div className={`${DARK_SURFACE_GLOW_CLASS} hidden md:block`} />
         <div className="relative z-10 mx-auto grid max-w-6xl gap-10 px-6 py-20 md:gap-12 md:py-32 lg:grid-cols-[minmax(0,1fr)_420px] lg:items-center">
           <div>
             <h2 className="text-[28px] font-semibold leading-[1.12] tracking-tight text-primary-foreground md:text-5xl">
