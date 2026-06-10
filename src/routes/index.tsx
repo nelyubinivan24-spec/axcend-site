@@ -1676,30 +1676,30 @@ function TeamSection() {
         </div>
 
         <Reveal className="mt-8 md:mt-14">
-          <div className="relative overflow-hidden border-y border-[#d5e4d4] bg-transparent text-foreground">
+          <div className="relative overflow-hidden border-y border-[#d5e4d4] bg-[#f7faf4] text-foreground">
             <div className="grid grid-cols-1 divide-y divide-[#d5e4d4] md:grid-cols-2 md:divide-x md:divide-y-0 xl:grid-cols-4">
               {teamMembers.map((member) => (
                 <article
                   key={member.name}
-                  className="group grid grid-cols-[104px_minmax(0,1fr)] md:flex md:min-h-full md:flex-col"
+                  className="group grid min-h-full grid-rows-[minmax(360px,auto)_auto] overflow-hidden"
                 >
-                  <div className="relative min-h-[150px] overflow-hidden bg-[#eef8e6]/55 md:aspect-[4/3] md:min-h-0 xl:aspect-[1/1]">
+                  <div className="relative h-[360px] overflow-hidden bg-[#eef5ea] md:h-[380px] xl:h-[410px]">
                     <img
                       src={member.image}
                       alt={member.name}
                       loading="lazy"
-                      className="h-full w-full object-cover object-top saturate-[0.96] transition-transform duration-500 group-hover:scale-[1.015]"
+                      className="h-full w-full object-cover object-top saturate-[0.98] transition-transform duration-700 group-hover:scale-[1.018]"
                     />
                   </div>
-                  <div className="grid flex-1 grid-rows-[auto_auto_auto_1fr] p-4 md:grid-rows-[auto_minmax(54px,auto)_minmax(78px,auto)_1fr] md:p-6">
+                  <div className="grid min-h-[250px] grid-rows-[4px_64px_74px_1fr] border-t border-[#d5e4d4] bg-[#f7faf4] px-5 py-5 md:px-6 md:py-6 xl:min-h-[278px]">
                     <div className="h-1 w-12 rounded-full bg-axcend-action" />
-                    <h3 className="mt-4 text-xl font-semibold leading-tight text-foreground md:text-2xl">
+                    <h3 className="mt-4 text-[22px] font-semibold leading-tight text-foreground md:text-2xl">
                       {member.name}
                     </h3>
                     <p className="mt-3 text-sm leading-relaxed text-muted-foreground md:text-base">
                       {member.role}
                     </p>
-                    <div className="-mx-4 mt-4 border-t border-[#d5e4d4] bg-axcend-action/18 px-4 py-3 text-xs font-semibold leading-relaxed text-axcend-dark md:-mx-6 md:mt-5 md:px-6 md:py-4 md:text-sm">
+                    <div className="border-t border-[#cbdcc8] pt-4 text-xs font-semibold leading-relaxed text-axcend-dark md:text-sm">
                       <span>{member.proof}</span>
                     </div>
                   </div>
