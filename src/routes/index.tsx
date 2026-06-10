@@ -2175,79 +2175,64 @@ function AxcendConceptPrototype({
 
       <main>
         <section className="relative overflow-hidden bg-axcend-dark text-white">
-          <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-1/2 bg-[linear-gradient(90deg,rgba(26,46,42,0)_0%,rgba(200,240,160,0.08)_38%,rgba(200,240,160,0.18)_100%)] md:block" />
-          <div className="relative mx-auto grid max-w-7xl gap-10 px-5 py-14 md:grid-cols-[minmax(0,0.96fr)_minmax(440px,1.04fr)] md:px-8 md:py-20 lg:py-24">
-            <div className="flex min-h-[590px] flex-col justify-between border-y border-white/12 py-8 md:py-10">
+          <div className="absolute inset-y-0 right-0 hidden w-[38%] bg-axcend-action md:block" />
+          <div className="relative mx-auto grid max-w-7xl gap-10 px-5 py-14 md:grid-cols-[minmax(0,1.05fr)_minmax(360px,0.95fr)] md:px-8 md:py-20 lg:py-24">
+            <div className="flex min-h-[560px] flex-col justify-between">
               <div>
-                <div className="mb-8 flex flex-wrap items-center gap-3 text-xs font-semibold uppercase tracking-[0.18em] text-white/55">
+                <div className="mb-8 flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-white/55">
                   <span>Внешний отдел B2B-продаж</span>
-                  <span className="h-2 w-2 rounded-full bg-axcend-action" />
+                  <span className="h-px w-10 bg-axcend-action" />
                   <span>Центральная Азия</span>
                 </div>
-                <h1 className="max-w-4xl text-[42px] font-semibold leading-[0.94] tracking-tight md:text-[72px] lg:text-[90px]">
+                <h1 className="max-w-4xl text-[42px] font-semibold leading-[0.96] tracking-tight md:text-[72px] lg:text-[88px]">
                   Внешний отдел B2B&#8209;продаж Центральная Азия
                 </h1>
-                <p className="mt-8 max-w-2xl text-base leading-relaxed text-white/72 md:text-lg">
+                <p className="mt-8 max-w-2xl text-base leading-relaxed text-white/72 md:text-xl">
                   AXCEND выстраивает полный цикл B2B-продаж. Находим потенциальных клиентов, выходим
                   на профильных руководителей, ведём переговоры и передаём готовых к сделке
                   клиентов.
                 </p>
-                <button
-                  type="button"
-                  onClick={() => onContactDialogOpenChange(true)}
-                  className="mt-9 inline-flex items-center gap-2 bg-axcend-action px-6 py-3 text-sm font-semibold text-axcend-dark transition-opacity hover:opacity-90"
-                >
-                  Обсудить задачу <ArrowRight className="h-4 w-4" />
-                </button>
               </div>
 
-              <div className="mt-10 grid gap-0 border border-white/12 sm:grid-cols-4">
+              <div className="mt-10 grid gap-5 border-y border-white/14 py-6 sm:grid-cols-4">
                 {[
                   { value: "170+", label: "компаниям помогли" },
                   { value: "50 000+", label: "B2B-диалогов в месяц" },
                   { value: "11+", label: "языков продаж" },
                   { value: "84+", label: "менеджеров в команде" },
                 ].map((item) => (
-                  <div
-                    key={item.label}
-                    className="border-b border-white/12 p-4 last:border-b-0 sm:border-b-0 sm:border-r sm:last:border-r-0"
-                  >
-                    <div className="text-2xl font-semibold text-axcend-action md:text-3xl">
-                      {item.value}
-                    </div>
-                    <div className="mt-2 text-xs leading-snug text-white/62">{item.label}</div>
+                  <div key={item.label}>
+                    <div className="text-2xl font-semibold text-axcend-action">{item.value}</div>
+                    <div className="mt-1 text-xs leading-snug text-white/62">{item.label}</div>
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="relative md:pl-4">
-              <div className="grid h-full min-h-[590px] grid-cols-[1fr_0.58fr] gap-4">
-                <div className="relative overflow-hidden border border-white/12 bg-white/5 p-2">
+            <div className="relative md:pl-8">
+              <div className="grid h-full min-h-[560px] grid-cols-[1fr_0.72fr] gap-3">
+                <div className="relative overflow-hidden">
                   <img
                     src={heroSlides[0].src}
                     alt={heroSlides[0].country}
-                    className="h-full w-full object-cover grayscale-[0.08]"
+                    className="h-full w-full object-cover"
                   />
-                  <div className="absolute inset-x-2 bottom-2 bg-axcend-dark/82 p-4 backdrop-blur">
-                    <span className="text-sm font-semibold text-axcend-action">
+                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-axcend-dark/72 to-transparent p-5">
+                    <span className="text-sm font-semibold text-white">
                       {heroSlides[0].country}
                     </span>
                   </div>
                 </div>
                 <div className="grid gap-3">
                   {heroSlides.slice(1, 4).map((slide) => (
-                    <div
-                      key={slide.country}
-                      className="relative overflow-hidden border border-white/12 bg-white/5 p-1.5"
-                    >
+                    <div key={slide.country} className="relative overflow-hidden">
                       <img
                         src={slide.src}
                         alt={slide.country}
-                        className="h-full w-full object-cover grayscale-[0.12]"
+                        className="h-full w-full object-cover"
                       />
-                      <div className="absolute inset-x-1.5 bottom-1.5 bg-axcend-dark/76 px-3 py-2 backdrop-blur">
-                        <span className="text-xs font-semibold text-white/86">{slide.country}</span>
+                      <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-axcend-dark/70 to-transparent p-3">
+                        <span className="text-xs font-semibold text-white">{slide.country}</span>
                       </div>
                     </div>
                   ))}
@@ -2257,33 +2242,28 @@ function AxcendConceptPrototype({
           </div>
         </section>
 
-        <section id="why" className="border-b border-axcend-dark/10 bg-[#f6f8f1]">
-          <div className="mx-auto grid max-w-7xl gap-8 px-5 py-16 md:grid-cols-[0.68fr_1.32fr] md:px-8 md:py-24">
-            <div className="border-y border-axcend-dark bg-axcend-action px-6 py-8 md:px-9 md:py-10">
-              <div className="text-xs font-semibold uppercase tracking-[0.18em] text-axcend-dark/64">
+        <section id="why" className="border-b border-axcend-dark/10">
+          <div className="mx-auto grid max-w-7xl gap-8 px-5 py-16 md:grid-cols-[0.72fr_1.28fr] md:px-8 md:py-24">
+            <div className="bg-axcend-action p-7 md:p-10">
+              <div className="text-xs font-semibold uppercase tracking-[0.18em] text-axcend-dark/62">
                 Почему AXCEND
               </div>
-              <div className="mt-8 text-[86px] font-semibold leading-none tracking-tight md:text-[150px]">
+              <div className="mt-8 text-[82px] font-semibold leading-none tracking-tight md:text-[132px]">
                 32%
               </div>
-              <div className="mt-4 max-w-sm text-3xl font-semibold leading-[1.04]">
+              <div className="mt-4 max-w-sm text-3xl font-semibold leading-tight">
                 средний процент конверсии
               </div>
             </div>
-            <div className="divide-y divide-axcend-dark/12 border-y border-axcend-dark/16">
+            <div className="divide-y divide-axcend-dark/12 border-y border-axcend-dark/12">
               {conversionReasons.map((item, index) => (
-                <div
-                  key={item.title}
-                  className="grid gap-5 py-7 transition-colors hover:bg-axcend-action/22 md:grid-cols-[90px_minmax(0,1fr)] md:px-5"
-                >
-                  <div className="text-xs font-semibold uppercase tracking-[0.18em] text-axcend-dark/42">
+                <div key={item.title} className="grid gap-5 py-7 md:grid-cols-[90px_minmax(0,1fr)]">
+                  <div className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
                     0{index + 1}
                   </div>
                   <div>
-                    <h3 className="text-2xl font-semibold leading-tight md:text-[28px]">
-                      {item.title}
-                    </h3>
-                    <p className="mt-4 max-w-3xl text-base leading-relaxed text-muted-foreground md:text-[17px]">
+                    <h3 className="text-2xl font-semibold leading-tight">{item.title}</h3>
+                    <p className="mt-4 max-w-3xl text-base leading-relaxed text-muted-foreground">
                       {item.text}
                     </p>
                   </div>
@@ -2306,33 +2286,28 @@ function AxcendConceptPrototype({
               </div>
             </div>
 
-            <div className="grid gap-px bg-axcend-dark/14 md:grid-cols-4">
+            <div className="grid border-y border-axcend-dark/14 md:grid-cols-4">
               {teamMembers.map((member) => (
                 <article
                   key={member.name}
-                  className="group relative min-h-[640px] overflow-hidden bg-[#f8faf4]"
+                  className="group border-b border-axcend-dark/14 bg-[#f8faf4] md:border-b-0 md:border-r md:last:border-r-0"
                 >
-                  <div className="absolute inset-0">
+                  <div className="relative h-[420px] overflow-hidden md:h-[520px]">
                     <img
                       src={member.image}
                       alt={member.name}
                       className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.025]"
                     />
-                    <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(248,250,244,0)_36%,rgba(248,250,244,0.58)_63%,rgba(248,250,244,0.96)_82%,#f8faf4_100%)]" />
                   </div>
-                  <div className="relative z-10 flex min-h-[640px] flex-col justify-end p-5 md:p-6">
-                    <div className="bg-[#f8faf4]/90 pt-5 backdrop-blur-sm">
-                      <div className="mb-5 h-2 w-20 bg-axcend-action" />
-                      <h3 className="min-h-[64px] text-2xl font-semibold leading-tight">
-                        {member.name}
-                      </h3>
-                      <p className="mt-4 min-h-[52px] text-sm leading-snug text-muted-foreground">
-                        {member.role}
-                      </p>
-                      <p className="mt-5 min-h-[104px] border-t border-axcend-dark/12 pt-5 text-sm font-semibold leading-relaxed">
-                        {member.proof}
-                      </p>
+                  <div className="grid min-h-[245px] grid-rows-[auto_56px_1fr] p-5 md:p-6">
+                    <div>
+                      <div className="mb-4 h-2 w-16 bg-axcend-action" />
+                      <h3 className="text-2xl font-semibold leading-tight">{member.name}</h3>
                     </div>
+                    <p className="mt-4 text-sm leading-snug text-muted-foreground">{member.role}</p>
+                    <p className="mt-5 border-t border-axcend-dark/12 pt-5 text-sm font-semibold leading-relaxed">
+                      {member.proof}
+                    </p>
                   </div>
                 </article>
               ))}
@@ -2367,15 +2342,15 @@ function AxcendConceptPrototype({
               </div>
 
               <div className="border-y border-axcend-dark/14">
-                <div className="grid gap-6 bg-axcend-dark px-5 py-6 text-white md:grid-cols-[1fr_auto] md:px-7">
+                <div className="grid grid-cols-[1fr_auto] gap-6 bg-axcend-dark px-5 py-5 text-white md:px-7">
                   <div>
                     <div className="text-xs uppercase tracking-[0.18em] text-white/52">
                       {leadCase.industry}
                     </div>
-                    <div className="mt-3 text-3xl font-semibold">{leadCase.client}</div>
+                    <div className="mt-2 text-2xl font-semibold">{leadCase.client}</div>
                   </div>
                   <div className="text-right">
-                    <div className="text-5xl font-semibold text-axcend-action">
+                    <div className="text-4xl font-semibold text-axcend-action">
                       {leadCase.pct.toFixed(1)}%
                     </div>
                     <div className="mt-1 text-xs text-white/58">
@@ -2387,7 +2362,7 @@ function AxcendConceptPrototype({
                   {visibleCases.map((item) => (
                     <div
                       key={`${item.industry}-${item.client}`}
-                      className="grid items-center gap-4 px-5 py-4 transition-colors hover:bg-axcend-action/18 md:grid-cols-[1fr_130px_180px] md:px-7"
+                      className="grid items-center gap-4 px-5 py-4 md:grid-cols-[1fr_130px_180px] md:px-7"
                     >
                       <div>
                         <div className="text-xs uppercase tracking-[0.14em] text-muted-foreground">
