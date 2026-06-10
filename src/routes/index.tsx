@@ -2138,9 +2138,262 @@ function LanguageSwitcher() {
   );
 }
 
+function AxcendConceptPrototype({
+  contactDialogOpen,
+  onContactDialogOpenChange,
+}: {
+  contactDialogOpen: boolean;
+  onContactDialogOpenChange: (open: boolean) => void;
+}) {
+  const ledgerCases = industriesData.flatMap((industry) =>
+    industry.cases.map((item) => ({ ...item, industry: industry.name })),
+  );
+  const leadCase = ledgerCases[0];
+  const visibleCases = ledgerCases.slice(0, 8);
+
+  return (
+    <div id="top" className="min-h-screen bg-[#f6f8f1] text-axcend-dark">
+      <ContactChoiceDialog open={contactDialogOpen} onOpenChange={onContactDialogOpenChange} />
+
+      <header className="sticky top-0 z-50 border-b border-axcend-dark/10 bg-[#f6f8f1]/88 backdrop-blur-xl">
+        <nav className="mx-auto flex max-w-7xl items-center justify-between gap-5 px-5 py-4 md:px-8">
+          <a href="#top" className="text-base font-semibold tracking-tight">
+            AXCEND
+          </a>
+          <div className="hidden text-sm text-muted-foreground md:block">
+            ТОО «RETRAND» · БИН 241140036858.
+          </div>
+          <button
+            type="button"
+            onClick={() => onContactDialogOpenChange(true)}
+            className="rounded-full bg-axcend-action px-5 py-2.5 text-sm font-semibold text-axcend-dark transition-opacity hover:opacity-90"
+          >
+            Обсудить задачу
+          </button>
+        </nav>
+      </header>
+
+      <main>
+        <section className="relative overflow-hidden bg-axcend-dark text-white">
+          <div className="absolute inset-y-0 right-0 hidden w-[38%] bg-axcend-action md:block" />
+          <div className="relative mx-auto grid max-w-7xl gap-10 px-5 py-14 md:grid-cols-[minmax(0,1.05fr)_minmax(360px,0.95fr)] md:px-8 md:py-20 lg:py-24">
+            <div className="flex min-h-[560px] flex-col justify-between">
+              <div>
+                <div className="mb-8 flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-white/55">
+                  <span>Внешний отдел B2B-продаж</span>
+                  <span className="h-px w-10 bg-axcend-action" />
+                  <span>Центральная Азия</span>
+                </div>
+                <h1 className="max-w-4xl text-[42px] font-semibold leading-[0.96] tracking-tight md:text-[72px] lg:text-[88px]">
+                  Внешний отдел B2B&#8209;продаж Центральная Азия
+                </h1>
+                <p className="mt-8 max-w-2xl text-base leading-relaxed text-white/72 md:text-xl">
+                  AXCEND выстраивает полный цикл B2B-продаж. Находим потенциальных клиентов, выходим
+                  на профильных руководителей, ведём переговоры и передаём готовых к сделке
+                  клиентов.
+                </p>
+              </div>
+
+              <div className="mt-10 grid gap-5 border-y border-white/14 py-6 sm:grid-cols-4">
+                {[
+                  { value: "170+", label: "компаниям помогли" },
+                  { value: "50 000+", label: "B2B-диалогов в месяц" },
+                  { value: "11+", label: "языков продаж" },
+                  { value: "84+", label: "менеджеров в команде" },
+                ].map((item) => (
+                  <div key={item.label}>
+                    <div className="text-2xl font-semibold text-axcend-action">{item.value}</div>
+                    <div className="mt-1 text-xs leading-snug text-white/62">{item.label}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="relative md:pl-8">
+              <div className="grid h-full min-h-[560px] grid-cols-[1fr_0.72fr] gap-3">
+                <div className="relative overflow-hidden">
+                  <img
+                    src={heroSlides[0].src}
+                    alt={heroSlides[0].country}
+                    className="h-full w-full object-cover"
+                  />
+                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-axcend-dark/72 to-transparent p-5">
+                    <span className="text-sm font-semibold text-white">
+                      {heroSlides[0].country}
+                    </span>
+                  </div>
+                </div>
+                <div className="grid gap-3">
+                  {heroSlides.slice(1, 4).map((slide) => (
+                    <div key={slide.country} className="relative overflow-hidden">
+                      <img
+                        src={slide.src}
+                        alt={slide.country}
+                        className="h-full w-full object-cover"
+                      />
+                      <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-axcend-dark/70 to-transparent p-3">
+                        <span className="text-xs font-semibold text-white">{slide.country}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="why" className="border-b border-axcend-dark/10">
+          <div className="mx-auto grid max-w-7xl gap-8 px-5 py-16 md:grid-cols-[0.72fr_1.28fr] md:px-8 md:py-24">
+            <div className="bg-axcend-action p-7 md:p-10">
+              <div className="text-xs font-semibold uppercase tracking-[0.18em] text-axcend-dark/62">
+                Почему AXCEND
+              </div>
+              <div className="mt-8 text-[82px] font-semibold leading-none tracking-tight md:text-[132px]">
+                32%
+              </div>
+              <div className="mt-4 max-w-sm text-3xl font-semibold leading-tight">
+                средний процент конверсии
+              </div>
+            </div>
+            <div className="divide-y divide-axcend-dark/12 border-y border-axcend-dark/12">
+              {conversionReasons.map((item, index) => (
+                <div key={item.title} className="grid gap-5 py-7 md:grid-cols-[90px_minmax(0,1fr)]">
+                  <div className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+                    0{index + 1}
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-semibold leading-tight">{item.title}</h3>
+                    <p className="mt-4 max-w-3xl text-base leading-relaxed text-muted-foreground">
+                      {item.text}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section id="team" className="bg-[#eef8e6]">
+          <div className="mx-auto max-w-7xl px-5 py-16 md:px-8 md:py-24">
+            <div className="mb-10 flex items-end justify-between gap-6 border-b border-axcend-dark/14 pb-8">
+              <div>
+                <div className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+                  Команда
+                </div>
+                <h2 className="mt-4 text-[42px] font-semibold leading-none tracking-tight md:text-[68px]">
+                  Кто отвечает за результат
+                </h2>
+              </div>
+            </div>
+
+            <div className="grid border-y border-axcend-dark/14 md:grid-cols-4">
+              {teamMembers.map((member) => (
+                <article
+                  key={member.name}
+                  className="group border-b border-axcend-dark/14 bg-[#f8faf4] md:border-b-0 md:border-r md:last:border-r-0"
+                >
+                  <div className="relative h-[420px] overflow-hidden md:h-[520px]">
+                    <img
+                      src={member.image}
+                      alt={member.name}
+                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.025]"
+                    />
+                  </div>
+                  <div className="grid min-h-[245px] grid-rows-[auto_56px_1fr] p-5 md:p-6">
+                    <div>
+                      <div className="mb-4 h-2 w-16 bg-axcend-action" />
+                      <h3 className="text-2xl font-semibold leading-tight">{member.name}</h3>
+                    </div>
+                    <p className="mt-4 text-sm leading-snug text-muted-foreground">{member.role}</p>
+                    <p className="mt-5 border-t border-axcend-dark/12 pt-5 text-sm font-semibold leading-relaxed">
+                      {member.proof}
+                    </p>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section id="industries" className="bg-[#f6f8f1]">
+          <div className="mx-auto max-w-7xl px-5 py-16 md:px-8 md:py-24">
+            <div className="grid gap-10 md:grid-cols-[0.76fr_1.24fr]">
+              <div>
+                <div className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+                  Отрасли и конверсии
+                </div>
+                <h2 className="mt-4 text-[42px] font-semibold leading-none tracking-tight md:text-[68px]">
+                  Результаты AXCEND
+                </h2>
+                <div className="mt-10 grid grid-cols-2 border-y border-axcend-dark/12">
+                  <div className="border-r border-axcend-dark/12 py-5 pr-5">
+                    <div className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
+                      отраслей в работе
+                    </div>
+                    <div className="mt-2 text-4xl font-semibold">13+</div>
+                  </div>
+                  <div className="py-5 pl-5">
+                    <div className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
+                      Лучший результат
+                    </div>
+                    <div className="mt-2 text-4xl font-semibold">{leadCase.pct.toFixed(1)}%</div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="border-y border-axcend-dark/14">
+                <div className="grid grid-cols-[1fr_auto] gap-6 bg-axcend-dark px-5 py-5 text-white md:px-7">
+                  <div>
+                    <div className="text-xs uppercase tracking-[0.18em] text-white/52">
+                      {leadCase.industry}
+                    </div>
+                    <div className="mt-2 text-2xl font-semibold">{leadCase.client}</div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-4xl font-semibold text-axcend-action">
+                      {leadCase.pct.toFixed(1)}%
+                    </div>
+                    <div className="mt-1 text-xs text-white/58">
+                      {leadCase.hits} из {leadCase.total} диалогов
+                    </div>
+                  </div>
+                </div>
+                <div className="divide-y divide-axcend-dark/10">
+                  {visibleCases.map((item) => (
+                    <div
+                      key={`${item.industry}-${item.client}`}
+                      className="grid items-center gap-4 px-5 py-4 md:grid-cols-[1fr_130px_180px] md:px-7"
+                    >
+                      <div>
+                        <div className="text-xs uppercase tracking-[0.14em] text-muted-foreground">
+                          {item.industry}
+                        </div>
+                        <div className="mt-1 font-semibold">{item.client}</div>
+                      </div>
+                      <div className="text-2xl font-semibold">{item.pct.toFixed(1)}%</div>
+                      <div className="text-sm text-muted-foreground">
+                        {item.hits} из {item.total} диалогов
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  );
+}
+
 function Index() {
   const headerRef = useRef<HTMLElement>(null);
   const [contactDialogOpen, setContactDialogOpen] = useState(false);
+  const [isConceptPrototype, setIsConceptPrototype] = useState(false);
+
+  useEffect(() => {
+    setIsConceptPrototype(new URLSearchParams(window.location.search).has("concept-2026"));
+  }, []);
 
   useEffect(() => {
     const previousScrollRestoration =
@@ -2273,6 +2526,15 @@ function Index() {
       document.documentElement.style.removeProperty("--axcend-header-height");
     };
   }, []);
+
+  if (isConceptPrototype) {
+    return (
+      <AxcendConceptPrototype
+        contactDialogOpen={contactDialogOpen}
+        onContactDialogOpenChange={setContactDialogOpen}
+      />
+    );
+  }
 
   return (
     <div
