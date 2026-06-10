@@ -1681,9 +1681,9 @@ function TeamSection() {
               {teamMembers.map((member) => (
                 <article
                   key={member.name}
-                  className="group grid min-h-full grid-cols-[104px_minmax(0,1fr)] md:flex md:flex-col"
+                  className="group grid grid-cols-[104px_minmax(0,1fr)] md:flex md:min-h-full md:flex-col"
                 >
-                  <div className="relative min-h-full overflow-hidden bg-[#eef8e6]/55 md:aspect-[3/4]">
+                  <div className="relative min-h-[150px] overflow-hidden bg-[#eef8e6]/55 md:aspect-[4/3] md:min-h-0 xl:aspect-[1/1]">
                     <img
                       src={member.image}
                       alt={member.name}
@@ -1691,7 +1691,7 @@ function TeamSection() {
                       className="h-full w-full object-cover object-top saturate-[0.96] transition-transform duration-500 group-hover:scale-[1.015]"
                     />
                   </div>
-                  <div className="grid flex-1 grid-rows-[auto_auto_auto_1fr] p-4 md:grid-rows-[auto_minmax(56px,auto)_minmax(86px,auto)_1fr] md:p-6">
+                  <div className="grid flex-1 grid-rows-[auto_auto_auto_1fr] p-4 md:grid-rows-[auto_minmax(54px,auto)_minmax(78px,auto)_1fr] md:p-6">
                     <div className="h-1 w-12 rounded-full bg-axcend-action" />
                     <h3 className="mt-4 text-xl font-semibold leading-tight text-foreground md:text-2xl">
                       {member.name}
