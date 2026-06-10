@@ -2138,6 +2138,496 @@ function LanguageSwitcher() {
   );
 }
 
+function AxcendConceptPrototypeV2({
+  contactDialogOpen,
+  onContactDialogOpenChange,
+}: {
+  contactDialogOpen: boolean;
+  onContactDialogOpenChange: (open: boolean) => void;
+}) {
+  const ledgerCases = industriesData.flatMap((industry) =>
+    industry.cases.map((item) => ({ ...item, industry: industry.name })),
+  );
+  const [caseIndex, setCaseIndex] = useState(0);
+  const activeCase = ledgerCases[caseIndex % ledgerCases.length];
+  const caseWindow = Array.from({ length: 6 }, (_, offset) => {
+    const index = (caseIndex + offset) % ledgerCases.length;
+    return { ...ledgerCases[index], index };
+  });
+  const featuredSlide = heroSlides[0];
+  const secondarySlides = [heroSlides[1], heroSlides[5], heroSlides[2]];
+
+  return (
+    <div id="top" className="min-h-screen bg-[#f4f6ef] text-axcend-dark">
+      <ContactChoiceDialog open={contactDialogOpen} onOpenChange={onContactDialogOpenChange} />
+
+      <header className="sticky top-0 z-50 border-b border-axcend-dark/10 bg-[#f4f6ef]/90 backdrop-blur-xl">
+        <nav className="mx-auto flex max-w-[1440px] items-center justify-between gap-5 px-5 py-4 md:px-8">
+          <a href="#top" className="text-base font-semibold tracking-tight">
+            AXCEND
+          </a>
+          <div className="hidden text-sm text-muted-foreground md:block">
+            ТОО «RETRAND» · БИН 241140036858.
+          </div>
+          <button
+            type="button"
+            onClick={() => onContactDialogOpenChange(true)}
+            className="rounded-full bg-axcend-action px-5 py-2.5 text-sm font-semibold text-axcend-dark transition-opacity hover:opacity-90"
+          >
+            Обсудить задачу
+          </button>
+        </nav>
+      </header>
+
+      <main>
+        <section className="bg-axcend-dark text-white">
+          <div className="mx-auto grid min-h-[calc(100vh-70px)] max-w-[1440px] gap-10 px-5 py-10 md:grid-cols-[minmax(0,0.92fr)_minmax(520px,1.08fr)] md:px-8 md:py-14">
+            <div className="flex flex-col justify-between gap-12">
+              <div>
+                <div className="mb-7 flex flex-wrap items-center gap-3 text-xs font-semibold uppercase tracking-[0.18em] text-white/55">
+                  <span>Внешний отдел B2B-продаж</span>
+                  <span className="h-px w-12 bg-axcend-action" />
+                  <span>Центральная Азия</span>
+                </div>
+                <h1 className="max-w-4xl text-[46px] font-semibold leading-[0.93] tracking-tight md:text-[78px] xl:text-[98px]">
+                  Внешний отдел B2B&#8209;продаж Центральная Азия
+                </h1>
+                <p className="mt-8 max-w-2xl text-base leading-relaxed text-white/70 md:text-xl">
+                  AXCEND выстраивает полный цикл B2B-продаж. Находим потенциальных клиентов, выходим
+                  на профильных руководителей, ведём переговоры и передаём готовых к сделке
+                  клиентов.
+                </p>
+                <button
+                  type="button"
+                  onClick={() => onContactDialogOpenChange(true)}
+                  className="mt-9 inline-flex items-center gap-3 rounded-full bg-axcend-action px-6 py-3 text-sm font-semibold text-axcend-dark transition-opacity hover:opacity-90"
+                >
+                  Обсудить задачу <ArrowRight className="h-4 w-4" />
+                </button>
+              </div>
+
+              <div className="grid grid-cols-2 gap-x-6 gap-y-5 border-y border-white/12 py-6 sm:grid-cols-4">
+                {[
+                  { value: "170+", label: "компаниям помогли" },
+                  { value: "50 000+", label: "B2B-диалогов в месяц" },
+                  { value: "11+", label: "языков продаж" },
+                  { value: "84+", label: "менеджеров в команде" },
+                ].map((item) => (
+                  <div key={item.label}>
+                    <div className="text-2xl font-semibold text-axcend-action">{item.value}</div>
+                    <div className="mt-1 text-xs leading-snug text-white/58">{item.label}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="grid min-h-[620px] gap-3 md:grid-cols-[1.12fr_0.88fr]">
+              <div className="relative overflow-hidden">
+                <img
+                  src={featuredSlide.src}
+                  alt={featuredSlide.country}
+                  className="h-full w-full object-cover"
+                />
+                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-axcend-dark/76 via-axcend-dark/20 to-transparent p-5">
+                  <span className="rounded-full bg-white/14 px-3 py-1 text-sm font-semibold backdrop-blur">
+                    {featuredSlide.country}
+                  </span>
+                </div>
+              </div>
+              <div className="grid gap-3">
+                {secondarySlides.map((slide) => (
+                  <div key={slide.country} className="relative overflow-hidden">
+                    <img
+                      src={slide.src}
+                      alt={slide.country}
+                      className="h-full w-full object-cover"
+                    />
+                    <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-axcend-dark/72 to-transparent p-4">
+                      <span className="text-sm font-semibold">{slide.country}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="why" className="bg-[#f4f6ef]">
+          <div className="mx-auto grid max-w-[1440px] gap-10 px-5 py-16 md:grid-cols-[0.8fr_1.2fr] md:px-8 md:py-24">
+            <div className="md:sticky md:top-28 md:self-start">
+              <div className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+                Почему AXCEND
+              </div>
+              <div className="mt-8 text-[104px] font-semibold leading-none tracking-tight text-axcend-dark md:text-[168px]">
+                32%
+              </div>
+              <h2 className="mt-4 max-w-lg text-[34px] font-semibold leading-[1.02] tracking-tight md:text-[58px]">
+                средний процент конверсии
+              </h2>
+            </div>
+            <div className="divide-y divide-axcend-dark/14 border-y border-axcend-dark/14">
+              {conversionReasons.map((item, index) => (
+                <article
+                  key={item.title}
+                  className="grid gap-5 py-8 md:grid-cols-[88px_minmax(0,1fr)]"
+                >
+                  <div className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+                    0{index + 1}
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-semibold leading-tight">{item.title}</h3>
+                    <p className="mt-4 max-w-3xl text-base leading-relaxed text-muted-foreground">
+                      {item.text}
+                    </p>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section id="what" className="bg-white">
+          <div className="mx-auto max-w-[1440px] px-5 py-16 md:px-8 md:py-24">
+            <div className="grid gap-10 border-y border-axcend-dark/14 py-10 md:grid-cols-[0.7fr_1.3fr]">
+              <div>
+                <div className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+                  Что вы получаете
+                </div>
+                <h2 className="mt-4 text-[38px] font-semibold leading-none tracking-tight md:text-[64px]">
+                  Работая с AXCEND
+                </h2>
+              </div>
+              <div className="grid gap-px bg-axcend-dark/12 md:grid-cols-2">
+                {whatWeDo.map((item, index) => (
+                  <article key={item.title} className="bg-white p-5 md:p-7">
+                    <div className="mb-8 flex items-center justify-between">
+                      <span className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+                        0{index + 1}
+                      </span>
+                      <span className="h-2 w-12 rounded-full bg-axcend-action" />
+                    </div>
+                    <h3 className="text-xl font-semibold leading-tight">{item.title}</h3>
+                    <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+                      {item.text}
+                    </p>
+                  </article>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="work" className="bg-axcend-dark text-white">
+          <div className="mx-auto max-w-[1440px] px-5 py-16 md:px-8 md:py-24">
+            <div className="grid gap-12 md:grid-cols-[0.72fr_1.28fr]">
+              <div>
+                <div className="text-xs font-semibold uppercase tracking-[0.18em] text-white/55">
+                  Что входит в работу
+                </div>
+                <h2 className="mt-4 text-[38px] font-semibold leading-none tracking-tight md:text-[64px]">
+                  Как мы работаем: этапы запуска продаж
+                </h2>
+              </div>
+              <Accordion
+                type="single"
+                collapsible
+                className="divide-y divide-white/12 border-y border-white/12"
+              >
+                {launchStages.map((stage) => (
+                  <AccordionItem key={stage.number} value={stage.number} className="border-0">
+                    <AccordionTrigger className="py-6 text-left hover:no-underline [&>svg]:text-axcend-action">
+                      <span className="grid w-full gap-3 md:grid-cols-[92px_minmax(0,1fr)]">
+                        <span className="text-xs font-semibold uppercase tracking-[0.18em] text-axcend-action">
+                          {stage.eyebrow}
+                        </span>
+                        <span>
+                          <span className="block text-2xl font-semibold">{stage.title}</span>
+                          <span className="mt-2 block text-sm font-normal leading-relaxed text-white/62">
+                            {stage.summary}
+                          </span>
+                        </span>
+                      </span>
+                    </AccordionTrigger>
+                    <AccordionContent className="pb-7 md:pl-[92px]">
+                      <div className="max-w-3xl space-y-4 text-sm leading-relaxed text-white/70">
+                        {stage.body.map((paragraph) => (
+                          <p key={paragraph}>{paragraph}</p>
+                        ))}
+                        {stage.result && (
+                          <p className="border-t border-white/12 pt-4 text-white">{stage.result}</p>
+                        )}
+                        <p className="bg-axcend-action px-4 py-3 font-semibold text-axcend-dark">
+                          {stage.payment}
+                        </p>
+                      </div>
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+            </div>
+          </div>
+        </section>
+
+        <section id="team" className="bg-[#f4f6ef]">
+          <div className="mx-auto max-w-[1440px] px-5 py-16 md:px-8 md:py-24">
+            <div className="mb-10 flex flex-col justify-between gap-6 border-b border-axcend-dark/14 pb-8 md:flex-row md:items-end">
+              <div>
+                <div className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+                  Команда
+                </div>
+                <h2 className="mt-4 text-[38px] font-semibold leading-none tracking-tight md:text-[64px]">
+                  Кто отвечает за результат
+                </h2>
+              </div>
+            </div>
+
+            <div className="grid gap-px bg-axcend-dark/14 md:grid-cols-4">
+              {teamMembers.map((member) => (
+                <article key={member.name} className="grid bg-[#f4f6ef]">
+                  <div className="relative h-[520px] overflow-hidden bg-[#e9efe5] md:h-[640px]">
+                    <img
+                      src={member.image}
+                      alt={member.name}
+                      loading="lazy"
+                      className="h-full w-full object-cover object-top saturate-[0.98]"
+                    />
+                  </div>
+                  <div className="grid min-h-[252px] grid-rows-[64px_74px_1fr] bg-white/68 p-5 md:p-6">
+                    <h3 className="flex items-end text-2xl font-semibold leading-tight">
+                      {member.name}
+                    </h3>
+                    <p className="border-b border-axcend-dark/12 pb-5 pt-3 text-sm leading-relaxed text-muted-foreground">
+                      {member.role}
+                    </p>
+                    <p className="pt-5 text-sm font-semibold leading-relaxed text-axcend-dark">
+                      {member.proof}
+                    </p>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section id="industries" className="bg-white">
+          <div className="mx-auto grid max-w-[1440px] gap-10 px-5 py-16 md:grid-cols-[0.68fr_1.32fr] md:px-8 md:py-24">
+            <div>
+              <div className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+                Отрасли и конверсии
+              </div>
+              <h2 className="mt-4 text-[38px] font-semibold leading-none tracking-tight md:text-[64px]">
+                Результаты AXCEND
+              </h2>
+              <div className="mt-10 grid grid-cols-2 border-y border-axcend-dark/14">
+                <div className="border-r border-axcend-dark/14 py-5 pr-5">
+                  <div className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
+                    отраслей в работе
+                  </div>
+                  <div className="mt-2 text-4xl font-semibold">{industriesData.length}+</div>
+                </div>
+                <div className="py-5 pl-5">
+                  <div className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
+                    кейсов
+                  </div>
+                  <div className="mt-2 text-4xl font-semibold">{ledgerCases.length}</div>
+                </div>
+              </div>
+            </div>
+
+            <div className="border-y border-axcend-dark/14">
+              <div className="grid gap-6 bg-axcend-action px-5 py-6 text-axcend-dark md:grid-cols-[1fr_auto] md:px-7">
+                <div>
+                  <div className="text-xs font-semibold uppercase tracking-[0.18em] text-axcend-dark/60">
+                    {activeCase.industry}
+                  </div>
+                  <h3 className="mt-2 text-3xl font-semibold">{activeCase.client}</h3>
+                </div>
+                <div className="md:text-right">
+                  <div className="text-5xl font-semibold tabular-nums">
+                    {activeCase.pct.toFixed(1)}%
+                  </div>
+                  <div className="mt-1 text-xs font-semibold text-axcend-dark/62">
+                    {activeCase.hits.toLocaleString("ru-RU")} из{" "}
+                    {activeCase.total.toLocaleString("ru-RU")} диалогов
+                  </div>
+                </div>
+              </div>
+              <div className="divide-y divide-axcend-dark/10">
+                {caseWindow.map((item) => (
+                  <button
+                    key={`${item.industry}-${item.client}-${item.index}`}
+                    type="button"
+                    onClick={() => setCaseIndex(item.index)}
+                    className={`grid w-full gap-4 px-5 py-4 text-left transition-colors md:grid-cols-[1fr_120px_180px] md:px-7 ${
+                      item.index === caseIndex ? "bg-[#f4f6ef]" : "bg-white hover:bg-[#f4f6ef]"
+                    }`}
+                  >
+                    <span>
+                      <span className="block text-xs uppercase tracking-[0.14em] text-muted-foreground">
+                        {item.industry}
+                      </span>
+                      <span className="mt-1 block font-semibold">{item.client}</span>
+                    </span>
+                    <span className="text-2xl font-semibold tabular-nums">
+                      {item.pct.toFixed(1)}%
+                    </span>
+                    <span className="text-sm text-muted-foreground">
+                      {item.hits.toLocaleString("ru-RU")} из {item.total.toLocaleString("ru-RU")}{" "}
+                      диалогов
+                    </span>
+                  </button>
+                ))}
+              </div>
+              <div className="flex items-center justify-between border-t border-axcend-dark/14 px-5 py-4 md:px-7">
+                <div className="text-xs tabular-nums text-muted-foreground">
+                  {String(caseIndex + 1).padStart(2, "0")} /{" "}
+                  {String(ledgerCases.length).padStart(2, "0")}
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setCaseIndex((value) => (value + 1) % ledgerCases.length)}
+                  className="inline-flex items-center gap-2 rounded-full bg-axcend-dark px-4 py-2 text-sm font-semibold text-white"
+                >
+                  Следующий кейс <ArrowRight className="h-4 w-4" />
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="proof" className="bg-[#f4f6ef]">
+          <div className="mx-auto max-w-[1440px] px-5 py-16 md:px-8 md:py-24">
+            <div className="grid gap-10 md:grid-cols-[0.7fr_1.3fr]">
+              <div>
+                <div className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+                  Принципы работы
+                </div>
+                <h2 className="mt-4 text-[38px] font-semibold leading-none tracking-tight md:text-[64px]">
+                  Что отличает AXCEND
+                </h2>
+              </div>
+              <div className="grid gap-px bg-axcend-dark/14 md:grid-cols-2">
+                {proofs.map((item, index) => (
+                  <article key={item.title} className="bg-[#f4f6ef] p-6 md:p-8">
+                    <div className="mb-8 flex items-center justify-between">
+                      <span className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+                        0{index + 1}
+                      </span>
+                      {index === 0 && <span className="h-8 w-24 bg-axcend-action" />}
+                    </div>
+                    <h3 className="text-2xl font-semibold leading-tight">{item.title}</h3>
+                    <p className="mt-5 text-sm leading-relaxed text-muted-foreground">
+                      {item.text}
+                    </p>
+                  </article>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="guarantee" className="bg-axcend-dark text-white">
+          <div className="mx-auto max-w-[1440px] px-5 py-16 text-center md:px-8 md:py-24">
+            <div className="text-xs font-semibold uppercase tracking-[0.18em] text-axcend-action">
+              Гарантия
+            </div>
+            <h2 className="mx-auto mt-5 max-w-4xl text-[38px] font-semibold leading-tight tracking-tight md:text-[58px]">
+              Гарантия от 5% конверсии в договоре
+            </h2>
+            <p className="mx-auto mt-7 max-w-4xl text-base leading-relaxed text-white/68 md:text-xl">
+              Не менее 5% обработанной базы переходят в прямое обсуждение сделки с заказчиком. Если
+              заявленные 5% не достигнуты, мы запускаем проект повторно за свой счёт и работаем до
+              тех пор, пока не выйдем на зафиксированный в договоре результат.
+            </p>
+          </div>
+        </section>
+
+        <section id="calc" className="bg-white">
+          <div className="mx-auto max-w-[1440px] px-5 py-16 md:px-8 md:py-24">
+            <div className="mb-10 max-w-3xl">
+              <div className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+                Калькулятор результата
+              </div>
+              <h2 className="mt-4 text-[38px] font-semibold leading-none tracking-tight md:text-[64px]">
+                Оцените потенциал внешнего отдела продаж
+              </h2>
+            </div>
+            <Calculator />
+          </div>
+        </section>
+
+        <section id="faq" className="bg-[#f4f6ef]">
+          <div className="mx-auto max-w-[1120px] px-5 py-16 md:px-8 md:py-24">
+            <div className="mb-10 text-center">
+              <div className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+                FAQ
+              </div>
+              <h2 className="mt-4 text-[38px] font-semibold leading-none tracking-tight md:text-[64px]">
+                Частые вопросы
+              </h2>
+            </div>
+            <FAQ />
+          </div>
+        </section>
+
+        <section id="contact" className="bg-axcend-dark text-white">
+          <div className="mx-auto grid max-w-[1440px] gap-10 px-5 py-16 md:grid-cols-[1fr_0.74fr] md:px-8 md:py-24">
+            <div>
+              <h2 className="max-w-3xl text-[40px] font-semibold leading-tight tracking-tight md:text-[68px]">
+                Подключите AXEND для увеличения продаж
+              </h2>
+              <p className="mt-7 max-w-2xl text-lg leading-relaxed text-white/68">
+                Расскажите о продукте и мы покажем, какой результат реалистично получить и как будет
+                устроена работа.
+              </p>
+              <a
+                href={CONTACT_WHATSAPP_FOOTER_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="mt-9 inline-flex items-center gap-3 rounded-full bg-axcend-action px-6 py-3 text-sm font-semibold text-axcend-dark transition-opacity hover:opacity-90"
+              >
+                Написать в AXCEND <ArrowRight className="h-4 w-4" />
+              </a>
+            </div>
+            <div className="border-l border-white/12 pl-8">
+              <div className="text-xs font-semibold uppercase tracking-[0.18em] text-axcend-action">
+                Контакты
+              </div>
+              <div className="mt-7 grid gap-3 text-lg font-semibold">
+                <a href="mailto:axcend.kz@retrand.com">axcend.kz@retrand.com</a>
+                <a href="mailto:retrand.plus@gmail.com">retrand.plus@gmail.com</a>
+                <a href="tel:+77085077371">+7 708 507 73 71</a>
+                <a href="tel:+77714976731">+7 771 497 67 31</a>
+                <a href="tel:+77004592902">+7 700 459 29 02</a>
+              </div>
+              <div className="mt-9 flex gap-3">
+                <a
+                  href={CONTACT_WHATSAPP_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="WhatsApp"
+                  className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-white/18 text-white transition-colors hover:border-axcend-action hover:bg-axcend-action hover:text-axcend-dark"
+                >
+                  <WhatsAppIcon className="h-5 w-5" />
+                </a>
+                <a
+                  href={CONTACT_TELEGRAM_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="Telegram"
+                  className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-white/18 text-white transition-colors hover:border-axcend-action hover:bg-axcend-action hover:text-axcend-dark"
+                >
+                  <TelegramIcon className="h-5 w-5" />
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  );
+}
+
 function AxcendConceptPrototype({
   contactDialogOpen,
   onContactDialogOpenChange,
@@ -2389,10 +2879,11 @@ function AxcendConceptPrototype({
 function Index() {
   const headerRef = useRef<HTMLElement>(null);
   const [contactDialogOpen, setContactDialogOpen] = useState(false);
-  const [isConceptPrototype, setIsConceptPrototype] = useState(false);
+  const [conceptPrototype, setConceptPrototype] = useState<"" | "1" | "2">("");
 
   useEffect(() => {
-    setIsConceptPrototype(new URLSearchParams(window.location.search).has("concept-2026"));
+    const value = new URLSearchParams(window.location.search).get("concept-2026");
+    setConceptPrototype(value === "2" ? "2" : value !== null ? "1" : "");
   }, []);
 
   useEffect(() => {
@@ -2527,7 +3018,16 @@ function Index() {
     };
   }, []);
 
-  if (isConceptPrototype) {
+  if (conceptPrototype === "2") {
+    return (
+      <AxcendConceptPrototypeV2
+        contactDialogOpen={contactDialogOpen}
+        onContactDialogOpenChange={setContactDialogOpen}
+      />
+    );
+  }
+
+  if (conceptPrototype === "1") {
     return (
       <AxcendConceptPrototype
         contactDialogOpen={contactDialogOpen}
