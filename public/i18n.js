@@ -11,9 +11,9 @@
   const rtlLanguages = new Set(["ar"]);
   function getSavedLanguage() {
     try {
-      return localStorage.getItem(STORAGE_KEY) || "ru";
+      return localStorage.getItem(STORAGE_KEY) || "en";
     } catch {
-      return "ru";
+      return "en";
     }
   }
 
@@ -27,7 +27,7 @@
 
   let currentLanguage = payload.languages.some(([code]) => code === getSavedLanguage())
     ? getSavedLanguage()
-    : "ru";
+    : "en";
 
   function dictionary() {
     return payload.dictionaries[currentLanguage] || {};
