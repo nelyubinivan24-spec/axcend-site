@@ -1972,11 +1972,11 @@ function ContactChoiceDialog({
 }
 
 function getStoredLanguage() {
-  if (typeof window === "undefined") return "ru";
+  if (typeof window === "undefined") return "en";
   try {
-    return localStorage.getItem("axcend-language") || "ru";
+    return localStorage.getItem("axcend-language") || "en";
   } catch {
-    return "ru";
+    return "en";
   }
 }
 
@@ -2030,7 +2030,7 @@ function createLanguageScrollRestorer() {
 function LanguageSwitcher() {
   const ref = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState(false);
-  const [currentLanguage, setCurrentLanguage] = useState("ru");
+  const [currentLanguage, setCurrentLanguage] = useState("en");
   const [languages, setLanguages] = useState<LanguageOption[]>(FALLBACK_LANGUAGES);
 
   useEffect(() => {
